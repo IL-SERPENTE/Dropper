@@ -1,0 +1,8 @@
+# Project Folders
+.project
+.classpath
+.idea
+target
+
+# Extensions
+*.iml
