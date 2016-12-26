@@ -11,6 +11,11 @@ import java.util.List;
 
 public class AbstractLevel {
 
+    /*
+     * This class represents a Level.
+     * All levels are registred in LevelRegistery.
+     */
+
     private int levelNumber;
     private Location levelLocation;
     private List<Player> levelPlayers;
