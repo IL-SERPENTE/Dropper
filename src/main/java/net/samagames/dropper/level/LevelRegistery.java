@@ -8,6 +8,10 @@ import net.samagames.dropper.common.GameLocations;
 
 public class LevelRegistery {
 
+    /*
+     * This class register & instanciate all dropper's level.
+     */
+
     public final AbstractLevel LEVEL_1;
 
     public LevelRegistery(){

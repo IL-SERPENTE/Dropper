@@ -11,6 +11,10 @@ import java.util.logging.Level;
 
 public class LevelManager {
 
+    /*
+     * This class manages levels globaly.
+     */
+
     private LevelRegistery levelRegistery;
 
     private Dropper instance;
