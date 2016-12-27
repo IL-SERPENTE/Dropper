@@ -18,9 +18,9 @@ public class ProximityTaskManager {
         this.instance = instance;
 
         this.proximityLevel1 = ProximityUtils.onNearbyOf(this.instance,
-                this.instance.getLevelManager().getLevelRegistery().LEVEL_1.getSecretAs(),
+                this.instance.getLevelManager().LEVEL_1.getSecretAs(),
                 2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
-                        () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().getLevelRegistery().LEVEL_1)));
+                        () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_1)));
 
     }
 
