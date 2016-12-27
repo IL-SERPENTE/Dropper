@@ -6,6 +6,8 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import static org.bukkit.Bukkit.getWorlds;
 
 /**
@@ -24,7 +26,7 @@ public class AbstractLevel {
     private Location levelLocation;
     private Location secretAsLocation;
     private ArmorStand secretAs;
-    private List<Player> levelPlayers;
+    private List<UUID> levelPlayers;
 
     public AbstractLevel(int levelNumber, String levelName, Location levelLocation, Location secretAsLocation){
         this.levelNumber = levelNumber;
@@ -55,17 +57,17 @@ public class AbstractLevel {
         return this.secretAs;
     }
 
-    public List<Player> getLevelPlayers(){
+    public List<UUID> getLevelPlayers(){
         return this.levelPlayers;
     }
 
     public void usualJoin(Player player){
-        this.levelPlayers.add(player);
+        this.levelPlayers.add(player.getUniqueId());
     }
 
     public void usualLeave(Player player) {
-        if(this.levelPlayers.contains(player)){
-            this.levelPlayers.remove(player);
+        if(this.levelPlayers.contains(player.getUniqueId())){
+            this.levelPlayers.remove(player.getUniqueId());
         }
     }
 

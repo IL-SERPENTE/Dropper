@@ -28,7 +28,7 @@ public class LevelManager {
     }
 
     public void joinLevel(Player joiner, AbstractLevel level){
-        if(level.getLevelPlayers().contains(joiner)){
+        if(level.getLevelPlayers().contains(joiner.getUniqueId())){
             this.instance.getLogger().log(Level.SEVERE, "Specified player is already playing in the level.");
             return;
         } else {
