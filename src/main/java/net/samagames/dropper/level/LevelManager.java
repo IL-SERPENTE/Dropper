@@ -2,8 +2,12 @@ package net.samagames.dropper.level;
 
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.Dropper;
+import net.samagames.dropper.common.GameLocations;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import java.util.logging.Level;
+
+import static org.bukkit.Bukkit.getWorlds;
 
 /**
  * @author Vialonyx
@@ -15,16 +19,12 @@ public class LevelManager {
      * This class manages levels globaly.
      */
 
-    private LevelRegistery levelRegistery;
+    public final AbstractLevel LEVEL_1;
 
     private Dropper instance;
     public LevelManager(Dropper instance){
         this.instance = instance;
-        this.levelRegistery = new LevelRegistery();
-    }
-
-    public LevelRegistery getLevelRegistery(){
-        return this.levelRegistery;
+        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", GameLocations.LEVEL1_AREA.locationValue(),  new Location(this.instance.getWorld(), 535, 234, -37));
     }
 
     public void joinLevel(Player joiner, AbstractLevel level){
