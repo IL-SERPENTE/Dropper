@@ -1,6 +1,7 @@
 package net.samagames.dropper;
 
 import net.samagames.api.SamaGamesAPI;
+import net.samagames.dropper.common.ProximityTaskManager;
 import net.samagames.dropper.events.PlayerListener;
 import net.samagames.dropper.events.WorldListener;
 import net.samagames.dropper.level.LevelManager;
@@ -16,6 +17,7 @@ public class Dropper extends JavaPlugin {
     private World world;
     private DropperGame dropperGame;
     private LevelManager levelManager;
+    private ProximityTaskManager proximityTaskManager;
 
     @Override
     public void onEnable(){
@@ -24,6 +26,7 @@ public class Dropper extends JavaPlugin {
         this.world.setGameRuleValue("doDaylightCycle", "false");
 
         this.levelManager = new LevelManager(this);
+        this.proximityTaskManager = new ProximityTaskManager(this);
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         this.getServer().getPluginManager().registerEvents(new WorldListener(this), this);
