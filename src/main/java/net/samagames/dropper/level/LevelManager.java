@@ -7,8 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import java.util.logging.Level;
 
-import static org.bukkit.Bukkit.getWorlds;
-
 /**
  * @author Vialonyx
  */
