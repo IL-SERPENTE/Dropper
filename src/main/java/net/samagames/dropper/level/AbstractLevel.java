@@ -1,13 +1,12 @@
 package net.samagames.dropper.level;
 
-import net.samagames.api.SamaGamesAPI;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import static org.bukkit.Bukkit.getWorlds;
 
 /**
@@ -34,11 +33,9 @@ public class AbstractLevel {
         this.levelLocation = levelLocation;
         this.secretAsLocation = secretAsLocation;
         this.levelPlayers = new ArrayList<>();
-        this.secretAs = getWorlds().get(0).spawn(this.secretAsLocation, ArmorStand.class);
+        this.secretAs = (ArmorStand) getWorlds().get(0).spawnEntity(this.secretAsLocation, EntityType.ARMOR_STAND);
         this.secretAs.setVisible(false);
         this.secretAs.setGravity(false);
-        this.secretAs.setCustomName("§3§lNiveau §c§l" + this.levelNumber + " §f(§b§o" + this.levelName + "§f)");
-        this.secretAs.setCustomNameVisible(true);
     }
 
     public int getNumber(){
