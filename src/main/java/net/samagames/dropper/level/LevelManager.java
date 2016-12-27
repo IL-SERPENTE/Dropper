@@ -33,6 +33,7 @@ public class LevelManager {
             return;
         } else {
             level.usualJoin(joiner);
+            this.instance.getDropperGame().getRegisteredGamePlayers().get(joiner.getUniqueId()).setCurrentlyLevel(level);
             joiner.teleport(level.getRelatedLocation());
             joiner.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
             " §bVous avez rejoint le §cNiveau " + level.getNumber());

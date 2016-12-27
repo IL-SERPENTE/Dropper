@@ -1,5 +1,6 @@
 package net.samagames.dropper.level;
 
+import net.samagames.api.SamaGamesAPI;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -60,6 +61,12 @@ public class AbstractLevel {
 
     public void usualJoin(Player player){
         this.levelPlayers.add(player);
+    }
+
+    public void usualLeave(Player player) {
+        if(this.levelPlayers.contains(player)){
+            this.levelPlayers.remove(player);
+        }
     }
 
 }

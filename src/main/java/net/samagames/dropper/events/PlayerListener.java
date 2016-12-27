@@ -37,6 +37,12 @@ public class PlayerListener implements Listener {
                 ItemStack item = event.getItem();
 
                 if(item.isSimilar(GameItems.BACK_LEVEL_HUB.getStackValue())) {
+
+                    if(this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel() != null){
+                        this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
+                        this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
+                    }
+
                     player.teleport(GameLocations.SPAWN.locationValue());
                 }
 
