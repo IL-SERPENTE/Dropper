@@ -36,6 +36,10 @@ public class Dropper extends JavaPlugin {
         SamaGamesAPI.get().getGameManager().registerGame(this.dropperGame);
     }
 
+    public DropperGame getDropperGame(){
+        return this.dropperGame;
+    }
+
     public LevelManager getLevelManager(){
         return this.levelManager;
     }
