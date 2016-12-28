@@ -13,7 +13,7 @@ public enum GameLocations {
      * This is an enum of main locations.
      */
 
-    SPAWN (new Location(getWorlds().get(0), 530, 235, -41)),
+    SPAWN (new Location(getWorlds().get(0), 532, 234, -42)),
     LEVEL1_AREA (new Location(getWorlds().get(0), -313, 148, 620));
 
     private Location location;
