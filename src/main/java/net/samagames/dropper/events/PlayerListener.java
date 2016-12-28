@@ -53,7 +53,7 @@ public class PlayerListener implements Listener {
                         this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
                         
                         if(leavedLevel.getNumber() == 1 && this.instance.getLevelManager().timerIsStarted && leavedLevel.getLevelPlayers().size() == 0 ){
-                        	this.instance.getLevelManager().resetTimer();
+                        	this.instance.getLevelManager().resetTimer(true);
                         }
                         
                     }
