@@ -47,6 +47,7 @@ public class PlayerListener implements Listener {
                     	
                     	AbstractLevel leavedLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
                     	
+                    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + " §ba quitté le §cNiveau " + leavedLevel.getNumber(), true);
                         this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
                         this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
                         
