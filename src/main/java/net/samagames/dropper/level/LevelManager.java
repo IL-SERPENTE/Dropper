@@ -5,6 +5,7 @@ import net.samagames.dropper.Dropper;
 import net.samagames.dropper.common.GameLocations;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import java.util.UUID;
 import java.util.logging.Level;
 
 /**
@@ -18,6 +19,8 @@ public class LevelManager {
      */
 
     public final AbstractLevel LEVEL_1;
+    private int task, value;
+    public boolean timerIsStarted;
 
     private Dropper instance;
     public LevelManager(Dropper instance){
@@ -36,6 +39,36 @@ public class LevelManager {
             joiner.teleport(level.getRelatedLocation());
             joiner.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
             " §bVous avez rejoint le §cNiveau " + level.getNumber());
+            
+            if(level.getNumber() == 1 && this.timerIsStarted == false){
+            	
+            	 this.timerIsStarted = true;
+            	 this.value = 21;
+                 this.task = this.instance.getServer().getScheduler().scheduleSyncRepeatingTask(this.instance, new Runnable() {
+     				
+     				@Override
+     				public void run() {
+     					
+     					if(value == 0){
+     						instance.getServer().getScheduler().cancelTask(task);
+     						return;
+     					} else {
+     						value--;
+     						
+     						if(value == 20 || value == 10 || value <= 5 && value != 1 && value != 0){
+     							instance.getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
+     									" §3Démarrage du §cNiveau " + level.getNumber() + " §3dans §b" + value + " §3secondes");
+     						} else if (value == 1){
+     							instance.getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
+     									" §3Démarrage du §cNiveau " + level.getNumber() + " §3dans §b" + value + " §3seconde");
+     						}
+     					}
+     					
+     				}
+     			}, 0L, 20L);
+            	
+            }
+            
         }
     }
 
