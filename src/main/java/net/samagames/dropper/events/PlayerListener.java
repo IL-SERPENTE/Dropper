@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -62,6 +63,17 @@ public class PlayerListener implements Listener {
 
             }
         }
+    }
+    
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event){
+    	
+    	Player player = (Player) event.getEntity();
+    	AbstractLevel playerLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
+    	if(playerLevel != null){
+    		this.instance.getLevelManager().setPlayerDead(player, playerLevel);
+    	}
+    	
     }
 
 }

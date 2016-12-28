@@ -80,6 +80,13 @@ public class LevelManager {
         }
     }
     
+    public void setPlayerDead(Player player, AbstractLevel playerLevel){
+    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
+    			"§3[§cNiveau " + playerLevel.getNumber() + "§3] §f" + player.getName() + " §bc'est écrasé !", true);
+    	playerLevel.usualLeave(player);
+    	player.teleport(GameLocations.SPAWN.locationValue());
+    }
+    
     public void resetTimer(){
     	this.instance.getServer().getScheduler().cancelTask(task);
 		this.timerIsStarted = false;
