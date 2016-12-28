@@ -25,7 +25,7 @@ public class LevelManager {
     private Dropper instance;
     public LevelManager(Dropper instance){
         this.instance = instance;
-        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", GameLocations.LEVEL1_AREA.locationValue(), new Location(this.instance.getWorld(), 535, 234, -37));
+        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", GameLocations.LEVEL1_AREA.locationValue(), new Location(this.instance.getWorld(), 535, 234, -37), new Location(this.instance.getWorld(), -352, 2, 589));
     }
 
     public void joinLevel(Player joiner, AbstractLevel level){
@@ -85,6 +85,15 @@ public class LevelManager {
     			"§3[§cNiveau " + playerLevel.getNumber() + "§3] §f" + player.getName() + " §bc'est écrasé !", true);
     	playerLevel.usualLeave(player);
     	player.teleport(GameLocations.SPAWN.locationValue());
+    }
+    
+    public void setLevelWin(Player player){
+    	AbstractLevel playerLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
+    	
+    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + " §ba terminé le §cNiveau " + playerLevel.getNumber(), true);
+    	for(UUID uuid : playerLevel.getLevelPlayers()){
+    		this.instance.getServer().getPlayer(uuid).teleport(GameLocations.SPAWN.locationValue());
+    	}
     }
     
     public void resetTimer(boolean message){

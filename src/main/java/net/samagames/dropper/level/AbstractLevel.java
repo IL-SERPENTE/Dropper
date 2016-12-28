@@ -23,20 +23,26 @@ public class AbstractLevel {
     private int levelNumber;
     private String levelName, levelDescription;
     private Location levelLocation;
-    private Location secretAsLocation;
-    private ArmorStand secretAs;
+    private Location secretAsStartLocation;
+    private Location secretAsWinLocation;
+    private ArmorStand secretAsWin;
+    private ArmorStand secretAsStart;
     private List<UUID> levelPlayers;
 
-    public AbstractLevel(int levelNumber, String levelName, String levelDescription, Location levelLocation, Location secretAsLocation){
+    public AbstractLevel(int levelNumber, String levelName, String levelDescription, Location levelLocation, Location secretAsStart, Location secretAsWin){
         this.levelNumber = levelNumber;
         this.levelName = levelName;
         this.levelDescription = levelDescription;
         this.levelLocation = levelLocation;
-        this.secretAsLocation = secretAsLocation;
+        this.secretAsStartLocation = secretAsStart;
+        this.secretAsWinLocation = secretAsWin;
         this.levelPlayers = new ArrayList<>();
-        this.secretAs = (ArmorStand) getWorlds().get(0).spawnEntity(this.secretAsLocation, EntityType.ARMOR_STAND);
-        this.secretAs.setVisible(false);
-        this.secretAs.setGravity(false);
+        this.secretAsStart = (ArmorStand) getWorlds().get(0).spawnEntity(this.secretAsStartLocation, EntityType.ARMOR_STAND);
+        this.secretAsStart.setVisible(false);
+        this.secretAsStart.setGravity(false);
+        this.secretAsWin = (ArmorStand) getWorlds().get(0).spawnEntity(this.secretAsWinLocation, EntityType.ARMOR_STAND);
+        this.secretAsWin.setVisible(false);
+        this.secretAsWin.setGravity(false);
     }
 
     public int getNumber(){
@@ -55,8 +61,12 @@ public class AbstractLevel {
         return this.levelLocation;
     }
 
-    public ArmorStand getSecretAs(){
-        return this.secretAs;
+    public ArmorStand getStartSecretAs(){
+        return this.secretAsStart;
+    }
+    
+    public ArmorStand getWinSecretAs(){
+        return this.secretAsWin;
     }
 
     public List<UUID> getLevelPlayers(){
