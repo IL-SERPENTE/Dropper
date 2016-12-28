@@ -24,6 +24,7 @@ public class DropperPlayer extends GamePlayer {
     @Override
     public void handleLogin(boolean reconnect){
         getPlayerIfOnline().teleport(GameLocations.SPAWN.locationValue());
+        getPlayerIfOnline().getInventory().clear();
         getPlayerIfOnline().getInventory().addItem(GameItems.BACK_LEVEL_HUB.getStackValue());
         getPlayerIfOnline().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 99999, 2, false, false));
     }
