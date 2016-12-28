@@ -21,15 +21,16 @@ public class AbstractLevel {
      */
 
     private int levelNumber;
-    private String levelName;
+    private String levelName, levelDescription;
     private Location levelLocation;
     private Location secretAsLocation;
     private ArmorStand secretAs;
     private List<UUID> levelPlayers;
 
-    public AbstractLevel(int levelNumber, String levelName, Location levelLocation, Location secretAsLocation){
+    public AbstractLevel(int levelNumber, String levelName, String levelDescription, Location levelLocation, Location secretAsLocation){
         this.levelNumber = levelNumber;
         this.levelName = levelName;
+        this.levelDescription = levelDescription;
         this.levelLocation = levelLocation;
         this.secretAsLocation = secretAsLocation;
         this.levelPlayers = new ArrayList<>();
@@ -44,6 +45,10 @@ public class AbstractLevel {
 
     public String getLevelName(){
         return this.levelName;
+    }
+    
+    public String getLevelDescription(){
+    	return this.levelDescription;
     }
 
     public Location getRelatedLocation(){

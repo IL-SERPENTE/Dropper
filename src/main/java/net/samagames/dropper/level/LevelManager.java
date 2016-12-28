@@ -22,7 +22,7 @@ public class LevelManager {
     private Dropper instance;
     public LevelManager(Dropper instance){
         this.instance = instance;
-        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", GameLocations.LEVEL1_AREA.locationValue(),  new Location(this.instance.getWorld(), 535, 234, -37));
+        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", GameLocations.LEVEL1_AREA.locationValue(), new Location(this.instance.getWorld(), 535, 234, -37));
     }
 
     public void joinLevel(Player joiner, AbstractLevel level){
@@ -32,6 +32,7 @@ public class LevelManager {
         } else {
             level.usualJoin(joiner);
             this.instance.getDropperGame().getRegisteredGamePlayers().get(joiner.getUniqueId()).setCurrentlyLevel(level);
+            this.instance.sendTitle(joiner, level.getLevelName(), level.getLevelDescription(), 60);
             joiner.teleport(level.getRelatedLocation());
             joiner.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
             " §bVous avez rejoint le §cNiveau " + level.getNumber());
