@@ -51,6 +51,15 @@ public class LevelManager {
      					
      					if(value == 0){
      						instance.getServer().getScheduler().cancelTask(task);
+     						
+     						for(UUID uuid : level.getLevelPlayers()){
+     							Player tmpPlayer = instance.getServer().getPlayer(uuid);
+     							tmpPlayer.teleport(new Location(instance.getWorld(),
+     									tmpPlayer.getLocation().getX() - 37, 
+     									tmpPlayer.getLocation().getY() + 200,
+     									tmpPlayer.getLocation().getZ() - 38));
+     						}
+     						
      						return;
      					} else {
      						value--;
