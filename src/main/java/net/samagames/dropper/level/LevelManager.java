@@ -19,7 +19,7 @@ public class LevelManager {
      */
 
     public final AbstractLevel LEVEL_1;
-    private int task, value;
+    public int task, value;
     public boolean timerIsStarted;
 
     private Dropper instance;
@@ -51,6 +51,8 @@ public class LevelManager {
      					
      					if(value == 0){
      						instance.getServer().getScheduler().cancelTask(task);
+     						timerIsStarted = false;
+     						value = 21;
      						
      						for(UUID uuid : level.getLevelPlayers()){
      							Player tmpPlayer = instance.getServer().getPlayer(uuid);
