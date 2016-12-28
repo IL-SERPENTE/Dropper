@@ -37,8 +37,7 @@ public class LevelManager {
             this.instance.getDropperGame().getRegisteredGamePlayers().get(joiner.getUniqueId()).setCurrentlyLevel(level);
             this.instance.sendTitle(joiner, level.getLevelName(), level.getLevelDescription(), 60);
             joiner.teleport(level.getRelatedLocation());
-            joiner.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
-            " §bVous avez rejoint le §cNiveau " + level.getNumber());
+            SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(joiner.getName() + " §ba rejoint le §cNiveau " + level.getNumber(), true);
             
             if(level.getNumber() == 1 && this.timerIsStarted == false){
             	
