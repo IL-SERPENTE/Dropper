@@ -49,10 +49,8 @@ public class LevelManager {
      				public void run() {
      					
      					if(value == 0){
-     						instance.getServer().getScheduler().cancelTask(task);
-     						timerIsStarted = false;
-     						value = 21;
      						
+     						resetTimer();
      						for(UUID uuid : level.getLevelPlayers()){
      							Player tmpPlayer = instance.getServer().getPlayer(uuid);
      							tmpPlayer.teleport(new Location(instance.getWorld(),
@@ -80,6 +78,15 @@ public class LevelManager {
             }
             
         }
+    }
+    
+    public void resetTimer(){
+    	this.instance.getServer().getScheduler().cancelTask(task);
+		this.timerIsStarted = false;
+		this.value = 21;
+		this.instance.getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
+					" §bDémarrage du §cNiveau 1 §cannulé");
+    	this.instance.getLogger().log(Level.INFO, "Cooldown of level 1 has been stopped");
     }
 
 }
