@@ -12,7 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -74,6 +76,13 @@ public class PlayerListener implements Listener {
     		this.instance.getLevelManager().setPlayerDead(player, playerLevel);
     	}
     	
+    }
+    
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent event){
+    	if(event.getEntity() instanceof Player && event.getCause() == DamageCause.DROWNING){
+    		event.setCancelled(true);
+    	}
     }
 
 }
