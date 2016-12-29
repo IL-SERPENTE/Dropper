@@ -27,18 +27,29 @@ public class LevelManager {
         this.instance = instance;
         this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", GameLocations.LEVEL1_AREA.locationValue(), new Location(this.instance.getWorld(), 535, 234, -37), new Location(this.instance.getWorld(), -352, 2, 589));
     }
+    
+    /**
+     * This function respond to level joining context
+     * @param joiner the player who join the level
+     * @param level the level joined
+     */
 
     public void joinLevel(Player joiner, AbstractLevel level){
+    	
+    	// Checking if player is already playing in the level (it's verry hard to do that)
         if(level.getLevelPlayers().contains(joiner.getUniqueId())){
             this.instance.getLogger().log(Level.SEVERE, "Specified player is already playing in the level.");
             return;
         } else {
+        	
+        	// This is the joining process. Sending title, messages, teleporting player... 
             level.usualJoin(joiner);
             this.instance.getDropperGame().getRegisteredGamePlayers().get(joiner.getUniqueId()).setCurrentlyLevel(level);
             this.instance.sendTitle(joiner, level.getLevelName(), level.getLevelDescription(), 60);
             joiner.teleport(level.getRelatedLocation());
             SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(joiner.getName() + " §ba rejoint le §cNiveau " + level.getNumber(), true);
             
+            // The level 1 is a little bit special beacause he include a cooldown during which the player must place himself correctly (level teleportation location depends of its placement in the "waiting room")
             if(level.getNumber() == 1 && this.timerIsStarted == false){
             	
             	 this.timerIsStarted = true;
@@ -80,12 +91,23 @@ public class LevelManager {
         }
     }
     
+    /**
+     * In this game we assume that the player lost when he die.
+     * @param player the dead player
+     * @param playerLevel the level where the player played
+     */
+    
     public void setPlayerDead(Player player, AbstractLevel playerLevel){
     	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
     			"§3[§cNiveau " + playerLevel.getNumber() + "§3] §f" + player.getName() + " §bc'est écrasé !", true);
     	playerLevel.usualLeave(player);
     	player.teleport(GameLocations.SPAWN.locationValue());
     }
+    
+    /**
+     * This function was called by proximity task when player is completing successfully a level.
+     * @param player the player
+     */
     
     public void setLevelWin(Player player){
     	AbstractLevel playerLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
@@ -95,6 +117,11 @@ public class LevelManager {
     		this.instance.getServer().getPlayer(uuid).teleport(GameLocations.SPAWN.locationValue());
     	}
     }
+    
+    /**
+     * This function allow to reset the level 1 cooldown.
+     * @param message sent "Démarrage du jeu annulé" in-game and a log on console
+     */
     
     public void resetTimer(boolean message){
     	this.instance.getServer().getScheduler().cancelTask(task);

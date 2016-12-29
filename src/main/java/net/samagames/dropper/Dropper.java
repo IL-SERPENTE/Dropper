@@ -42,6 +42,14 @@ public class Dropper extends JavaPlugin {
         SamaGamesAPI.get().getGameManager().registerGame(this.dropperGame);
     }
     
+    /**
+     * Send a title to player (/title)
+     * @param player The player
+     * @param msgTitle The main message
+     * @param msgSubTitle The sub message
+     * @param ticks How many ticks it was displayed
+     */
+    
     public void sendTitle(Player player, String msgTitle, String msgSubTitle, int ticks){
 		IChatBaseComponent chatTitle = ChatSerializer.a("{\"text\": \"" + msgTitle + "\"}");
 		IChatBaseComponent chatSubTitle = ChatSerializer.a("{\"text\": \"" + msgSubTitle + "\"}");
@@ -53,14 +61,29 @@ public class Dropper extends JavaPlugin {
 		PacketPlayOutTitle pt = new PacketPlayOutTitle(EnumTitleAction.TIMES, null, 20, ticks, 20);
 		((CraftPlayer)player).getHandle().playerConnection.sendPacket(pt);
 	}
+    
+    /**
+     * Get the first world
+     * @return world the world
+     */
 
     public World getWorld(){
         return this.world;
     }
+    
+    /**
+     * Get an instance of DropperGame
+     * @return instance of DropperGame
+     */
 
     public DropperGame getDropperGame(){
         return this.dropperGame;
     }
+    
+    /**
+     * Get an instance of LevelManager
+     * @return instance of LevelManager
+     */
 
     public LevelManager getLevelManager(){
         return this.levelManager;

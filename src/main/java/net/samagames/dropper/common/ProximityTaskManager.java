@@ -9,6 +9,11 @@ import org.bukkit.entity.Player;
  */
 
 public class ProximityTaskManager {
+	
+	/*
+	 * This class manages all proximity tasks. 
+	 * This tasks checks if player is under the defined radius and call a callback method.
+	 */
 
     private Dropper instance;
     public ProximityTaskManager(Dropper instance){
