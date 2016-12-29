@@ -5,9 +5,6 @@ import net.samagames.dropper.Dropper;
 import net.samagames.dropper.common.GameItems;
 import net.samagames.dropper.common.GameLocations;
 import net.samagames.dropper.level.AbstractLevel;
-
-import java.util.logging.Level;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -55,11 +52,8 @@ public class PlayerListener implements Listener {
                     if(this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel() != null){
                     	
                     	AbstractLevel leavedLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
+                    	this.instance.getLevelManager().leaveLevel(player, true);
                     	
-                    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + " §ba quitté le §cNiveau " + leavedLevel.getNumber(), true);
-                        this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
-                        this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
-                        
                         // This statement allow to check if the cooldown (level 1) is started when player leave the level.
                         if(leavedLevel.getNumber() == 1 && this.instance.getLevelManager().timerIsStarted && leavedLevel.getLevelPlayers().size() == 0 ){
                         	this.instance.getLevelManager().resetTimer(true);
@@ -67,8 +61,7 @@ public class PlayerListener implements Listener {
                         
                     }
                     
-                    player.getActivePotionEffects().clear();
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 99999, 2, false, false));
+                    this.instance.resetPotionEffects(player);
                     player.teleport(GameLocations.SPAWN.locationValue());
                 }
 

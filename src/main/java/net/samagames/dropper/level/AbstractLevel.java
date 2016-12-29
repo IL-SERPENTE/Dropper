@@ -22,8 +22,6 @@ public class AbstractLevel {
     private int levelNumber;
     private String levelName, levelDescription;
     private Location levelLocation;
-    private Location secretAsStartLocation;
-    private Location secretAsWinLocation;
     private ArmorStand secretAsWin;
     private ArmorStand secretAsStart;
     private List<UUID> levelPlayers;
@@ -33,15 +31,22 @@ public class AbstractLevel {
         this.levelName = levelName;
         this.levelDescription = levelDescription;
         this.levelLocation = levelLocation;
-        this.secretAsStartLocation = secretAsStart;
-        this.secretAsWinLocation = secretAsWin;
         this.levelPlayers = new ArrayList<>();
-        this.secretAsStart = (ArmorStand) getWorlds().get(0).spawnEntity(this.secretAsStartLocation, EntityType.ARMOR_STAND);
-        this.secretAsStart.setVisible(false);
-        this.secretAsStart.setGravity(false);
-        this.secretAsWin = (ArmorStand) getWorlds().get(0).spawnEntity(this.secretAsWinLocation, EntityType.ARMOR_STAND);
-        this.secretAsWin.setVisible(false);
-        this.secretAsWin.setGravity(false);
+        this.secretAsStart = armorStandBuilder(secretAsStart);
+        this.secretAsWin = armorStandBuilder(secretAsWin);
+    }
+    
+    /**
+     * Generate an ArmorStand invisible and without gravity
+     * @param spawn Location where armor stand should to spawn
+     * @return an ArmorStand
+     */
+    
+    private ArmorStand armorStandBuilder(Location spawn){
+    	ArmorStand as = (ArmorStand) getWorlds().get(0).spawnEntity(spawn, EntityType.ARMOR_STAND);
+    	as.setVisible(false);
+    	as.setGravity(false);
+    	return as;
     }
     
     /**

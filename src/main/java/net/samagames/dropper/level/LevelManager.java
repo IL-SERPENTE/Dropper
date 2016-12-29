@@ -7,7 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -112,6 +111,21 @@ public class LevelManager {
     }
     
     /**
+     * This function remove the player of its current level
+     * @param player the player
+     * @param message sent the message "<player> a quitté le niveau <level_number>"
+     */
+    
+    public void leaveLevel(Player player, boolean message) {
+    	AbstractLevel leavedLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
+        this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
+        this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
+        if(message){
+        	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + " §ba quitté le §cNiveau " + leavedLevel.getNumber(), true);
+        }
+	}
+    
+    /**
      * In this game we assume that the player lost when he die.
      * @param player the dead player
      * @param playerLevel the level where the player played
@@ -154,5 +168,5 @@ public class LevelManager {
 		}
 		
     }
-
+    
 }
