@@ -35,6 +35,7 @@ public class Dropper extends JavaPlugin {
 
         this.dropperBoard = new DropperBoard(this);
         this.levelManager = new LevelManager(this);
+        this.startProximityTasks();
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         this.getServer().getPluginManager().registerEvents(new WorldListener(this), this);
