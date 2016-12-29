@@ -25,15 +25,13 @@ public class Dropper extends JavaPlugin {
     private World world;
     private DropperGame dropperGame;
     private LevelManager levelManager;
-    private DropperBoard dropperBoard;
 
     @Override
     public void onEnable(){
 
         this.world = this.getServer().getWorlds().get(0);
         this.world.setGameRuleValue("doDaylightCycle", "false");
-
-        this.dropperBoard = new DropperBoard(this);
+        
         this.levelManager = new LevelManager(this);
         this.startProximityTasks();
 
@@ -82,15 +80,6 @@ public class Dropper extends JavaPlugin {
 
     public World getWorld(){
         return this.world;
-    }
-    
-    /**
-     * Get an instance of DropperBoard
-     * @return instance of DropperBoard
-     */
-    
-    public DropperBoard getDropperBoard(){
-    	return this.dropperBoard;
     }
     
     /**
