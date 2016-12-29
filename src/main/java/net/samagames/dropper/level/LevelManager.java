@@ -25,6 +25,7 @@ public class LevelManager {
     public final AbstractLevel LEVEL_5;
     public final AbstractLevel LEVEL_6;
     public final AbstractLevel LEVEL_7;
+    public final AbstractLevel LEVEL_8;
     
     public int task, value;
     public boolean timerIsStarted;
@@ -39,6 +40,7 @@ public class LevelManager {
         this.LEVEL_5 = new AbstractLevel(5, "The Tree", "Test", GameLocations.LEVEL5_AREA.locationValue(), new Location(this.instance.getWorld(), 563, 234, -37), new Location(this.instance.getWorld(), -14, 10, -711));
         this.LEVEL_6 = new AbstractLevel(6, "Embryo", "Test", GameLocations.LEVEL6_AREA.locationValue(), new Location(this.instance.getWorld(), 570, 234, -36), new Location(this.instance.getWorld(), 1871, 10, -765));
         this.LEVEL_7 = new AbstractLevel(7, "Brain", "Test", GameLocations.LEVEL7_AREA.locationValue(), new Location(this.instance.getWorld(), 577, 234, -36), new Location(this.instance.getWorld(), 3473, 1, 603));
+        this.LEVEL_8 = new AbstractLevel(8, "Dimension Jumper", "Test", GameLocations.LEVEL8_AREA.locationValue(), new Location(this.instance.getWorld(), 584, 234, -36), new Location(this.instance.getWorld(), 523, 119, -784));
     }
     
     /**
