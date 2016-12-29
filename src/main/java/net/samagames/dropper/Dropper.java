@@ -36,7 +36,7 @@ public class Dropper extends JavaPlugin {
         this.startProximityTasks();
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
-        this.getServer().getPluginManager().registerEvents(new WorldListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new WorldListener(), this);
 
         // -- SamaGames --
         this.dropperGame = new DropperGame("gameCode", "Dropper", "gameDesc", DropperPlayer.class);
