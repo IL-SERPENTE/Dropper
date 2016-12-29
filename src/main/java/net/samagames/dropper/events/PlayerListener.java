@@ -44,9 +44,11 @@ public class PlayerListener implements Listener {
                 event.setCancelled(true);
                 Player player = event.getPlayer();
                 ItemStack item = event.getItem();
-
+                
+                // This condition is completed when player use the BACK_LEVEL_HUB (in GameItems enum).
                 if(item.isSimilar(GameItems.BACK_LEVEL_HUB.getStackValue())) {
 
+                	// Here we check if player is playing in a level.
                     if(this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel() != null){
                     	
                     	AbstractLevel leavedLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
@@ -55,6 +57,7 @@ public class PlayerListener implements Listener {
                         this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
                         this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
                         
+                        // This statement allow to check if the cooldown (level 1) is started when player leave the level.
                         if(leavedLevel.getNumber() == 1 && this.instance.getLevelManager().timerIsStarted && leavedLevel.getLevelPlayers().size() == 0 ){
                         	this.instance.getLevelManager().resetTimer(true);
                         }
@@ -71,6 +74,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
     	
+    	// Here we check if player is under any level when he died. If he is, he lost the game.
     	Player player = (Player) event.getEntity();
     	AbstractLevel playerLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
     	if(playerLevel != null){
@@ -81,6 +85,8 @@ public class PlayerListener implements Listener {
     
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event){
+    	
+    	// Just disabling damagames caused by drowning.
     	if(event.getEntity() instanceof Player && event.getCause() == DamageCause.DROWNING){
     		event.setCancelled(true);
     	}
@@ -88,6 +94,8 @@ public class PlayerListener implements Listener {
     
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent event){
+    	
+    	// Disabling food.
     	event.setCancelled(true);
     }
 

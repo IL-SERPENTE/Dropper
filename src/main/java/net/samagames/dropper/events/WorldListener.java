@@ -22,6 +22,8 @@ public class WorldListener implements Listener {
 
     @EventHandler
     public void onBlockBreakEvent(BlockBreakEvent event){
+    	
+    	// Disabling ability to break blocks.
         event.setCancelled(true);
     }
 
