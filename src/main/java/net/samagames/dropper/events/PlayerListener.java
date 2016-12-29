@@ -70,13 +70,6 @@ public class PlayerListener implements Listener {
     }
     
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event){
-    	
-    	// Define player scoreboard
-    	event.getPlayer().setScoreboard(this.instance.getDropperBoard().getScoreboard());
-    }
-    
-    @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event){
     	
 		// Reseting potion effects
