@@ -14,7 +14,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 /**
  * @author Vialonyx
@@ -72,6 +75,18 @@ public class PlayerListener implements Listener {
     	// Define player scoreboard
     	event.getPlayer().setScoreboard(this.instance.getDropperBoard().getScoreboard());
     }
+    
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event){
+    	
+		// Reseting potion effects
+    	this.instance.getServer().getScheduler().scheduleSyncDelayedTask(this.instance, new Runnable() {
+	    		public void run() {
+	    	    	instance.resetPotionEffects(event.getPlayer());    
+	    		}
+    		}, 20);
+    	
+    	}
     
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
