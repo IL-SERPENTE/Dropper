@@ -48,6 +48,16 @@ public class ProximityTaskManager {
                 this.instance.getLevelManager().LEVEL_3.getWinSecretAs(),
                 2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
                         () -> this.instance.getLevelManager().setLevelWin(player)));
+        
+        ProximityUtils.onNearbyOf(this.instance,
+                this.instance.getLevelManager().LEVEL_4.getStartSecretAs(),
+                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                        () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_4)));
+        
+        ProximityUtils.onNearbyOf(this.instance,
+                this.instance.getLevelManager().LEVEL_4.getWinSecretAs(),
+                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                        () -> this.instance.getLevelManager().setLevelWin(player)));
 
     }
 
