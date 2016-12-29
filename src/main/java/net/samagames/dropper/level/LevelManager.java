@@ -23,6 +23,7 @@ public class LevelManager {
     public final AbstractLevel LEVEL_3;
     public final AbstractLevel LEVEL_4;
     public final AbstractLevel LEVEL_5;
+    public final AbstractLevel LEVEL_6;
     
     public int task, value;
     public boolean timerIsStarted;
@@ -35,6 +36,7 @@ public class LevelManager {
         this.LEVEL_3 = new AbstractLevel(3, "Neo", "Test", GameLocations.LEVEL3_AREA.locationValue(), new Location(this.instance.getWorld(), 549, 234, -37), new Location(this.instance.getWorld(), -642, 1, 10));
         this.LEVEL_4 = new AbstractLevel(4, "Symbols", "Mémorisez les symboles !", GameLocations.LEVEL4_AREA.locationValue(), new Location(this.instance.getWorld(), 556, 234, -36), new Location(this.instance.getWorld(), -653, 1, -638));
         this.LEVEL_5 = new AbstractLevel(5, "The Tree", "Test", GameLocations.LEVEL5_AREA.locationValue(), new Location(this.instance.getWorld(), 563, 234, -37), new Location(this.instance.getWorld(), -14, 10, -711));
+        this.LEVEL_6 = new AbstractLevel(6, "Embryo", "Test", GameLocations.LEVEL6_AREA.locationValue(), new Location(this.instance.getWorld(), 570, 234, -36), new Location(this.instance.getWorld(), 1871, 10, -765));
     }
     
     /**
