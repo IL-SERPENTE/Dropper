@@ -5,6 +5,9 @@ import net.samagames.dropper.Dropper;
 import net.samagames.dropper.common.GameLocations;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -101,6 +104,8 @@ public class LevelManager {
      				}
      			}, 0L, 20L);
             	
+            } else if (level.getNumber() == 5){
+            	joiner.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 1, false, false));
             }
             
         }
