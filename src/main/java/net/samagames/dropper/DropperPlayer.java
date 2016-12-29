@@ -4,6 +4,8 @@ import net.samagames.api.games.GamePlayer;
 import net.samagames.dropper.common.GameItems;
 import net.samagames.dropper.common.GameLocations;
 import net.samagames.dropper.level.AbstractLevel;
+
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -27,6 +29,7 @@ public class DropperPlayer extends GamePlayer {
         getPlayerIfOnline().getInventory().clear();
         getPlayerIfOnline().getInventory().addItem(GameItems.BACK_LEVEL_HUB.getStackValue());
         getPlayerIfOnline().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 99999, 2, false, false));
+        getPlayerIfOnline().setGameMode(GameMode.ADVENTURE);
     }
 
     public void setCurrentlyLevel(AbstractLevel level){
