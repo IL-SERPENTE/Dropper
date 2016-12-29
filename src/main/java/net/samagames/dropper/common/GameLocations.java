@@ -18,7 +18,8 @@ public enum GameLocations {
     LEVEL2_AREA (new Location(getWorlds().get(0), 531, 220, 576)),
 	LEVEL3_AREA (new Location(getWorlds().get(0), -683, 322, 10)),
 	LEVEL4_AREA (new Location(getWorlds().get(0), -653, 119, -671)),
-	LEVEL5_AREA (new Location(getWorlds().get(0), -3, 305, -718));
+	LEVEL5_AREA (new Location(getWorlds().get(0), -3, 305, -718)),
+	LEVEL6_AREA (new Location(getWorlds().get(0), 1874, 310, -760));
 
     private Location location;
 
