@@ -1,6 +1,5 @@
 package net.samagames.dropper.events;
 
-import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.common.GameItems;
 import net.samagames.dropper.common.GameLocations;
@@ -16,8 +15,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 /**
  * @author Vialonyx
