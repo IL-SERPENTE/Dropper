@@ -19,6 +19,8 @@ public class LevelManager {
      */
 
     public final AbstractLevel LEVEL_1;
+    public final AbstractLevel LEVEL_2;
+    
     public int task, value;
     public boolean timerIsStarted;
 
@@ -26,6 +28,7 @@ public class LevelManager {
     public LevelManager(Dropper instance){
         this.instance = instance;
         this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", GameLocations.LEVEL1_AREA.locationValue(), new Location(this.instance.getWorld(), 535, 234, -37), new Location(this.instance.getWorld(), -352, 2, 589));
+        this.LEVEL_2 = new AbstractLevel(2, "Isengard", "Test", GameLocations.LEVEL2_AREA.locationValue(), new Location(this.instance.getWorld(), 542, 234, -36), new Location(this.instance.getWorld(), 531, 2, 575));
     }
     
     /**
