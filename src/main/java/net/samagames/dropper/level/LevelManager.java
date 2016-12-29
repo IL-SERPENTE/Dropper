@@ -134,7 +134,7 @@ public class LevelManager {
     public void setPlayerDead(Player player, AbstractLevel playerLevel){
     	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
     			"§3[§cNiveau " + playerLevel.getNumber() + "§3] §f" + player.getName() + " §bc'est écrasé !", true);
-    	playerLevel.usualLeave(player);
+    	this.leaveLevel(player, false);
     	player.teleport(GameLocations.SPAWN.locationValue());
     }
     
