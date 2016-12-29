@@ -105,6 +105,8 @@ public class LevelManager {
             	
             } else if (level.getNumber() == 5){
             	joiner.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 1, false, false));
+            } else if (level.getNumber() == 6){
+            	joiner.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 180, 1, false, false));
             }
             
         }
