@@ -21,7 +21,7 @@ public class ProximityTaskManager {
 
         ProximityUtils.onNearbyOf(this.instance,
                 this.instance.getLevelManager().LEVEL_1.getStartSecretAs(),
-                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                1.0D, 1.0D, 1.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
                         () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_1)));
         
         ProximityUtils.onNearbyOf(this.instance,
@@ -31,7 +31,7 @@ public class ProximityTaskManager {
         
         ProximityUtils.onNearbyOf(this.instance,
                 this.instance.getLevelManager().LEVEL_2.getStartSecretAs(),
-                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                1.0D, 1.0D, 1.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
                         () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_2)));
         
         ProximityUtils.onNearbyOf(this.instance,
@@ -41,7 +41,7 @@ public class ProximityTaskManager {
         
         ProximityUtils.onNearbyOf(this.instance,
                 this.instance.getLevelManager().LEVEL_3.getStartSecretAs(),
-                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                1.0D, 1.0D, 1.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
                         () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_3)));
         
         ProximityUtils.onNearbyOf(this.instance,
@@ -51,7 +51,7 @@ public class ProximityTaskManager {
         
         ProximityUtils.onNearbyOf(this.instance,
                 this.instance.getLevelManager().LEVEL_4.getStartSecretAs(),
-                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                1.0D, 1.0D, 1.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
                         () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_4)));
         
         ProximityUtils.onNearbyOf(this.instance,
@@ -61,7 +61,7 @@ public class ProximityTaskManager {
         
         ProximityUtils.onNearbyOf(this.instance,
                 this.instance.getLevelManager().LEVEL_5.getStartSecretAs(),
-                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                1.0D, 1.0D, 1.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
                         () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_5)));
         
         ProximityUtils.onNearbyOf(this.instance,
@@ -71,7 +71,7 @@ public class ProximityTaskManager {
         
         ProximityUtils.onNearbyOf(this.instance,
                 this.instance.getLevelManager().LEVEL_6.getStartSecretAs(),
-                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                1.0D, 1.0D, 1.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
                         () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_6)));
         
         ProximityUtils.onNearbyOf(this.instance,
@@ -81,7 +81,7 @@ public class ProximityTaskManager {
         
         ProximityUtils.onNearbyOf(this.instance,
                 this.instance.getLevelManager().LEVEL_7.getStartSecretAs(),
-                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                1.0D, 1.0D, 1.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
                         () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_7)));
         
         ProximityUtils.onNearbyOf(this.instance,
@@ -91,7 +91,7 @@ public class ProximityTaskManager {
         
         ProximityUtils.onNearbyOf(this.instance,
                 this.instance.getLevelManager().LEVEL_8.getStartSecretAs(),
-                2.0D, 2.0D, 2.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
+                1.0D, 1.0D, 1.0D, Player.class, player -> this.instance.getServer().getScheduler().runTask(instance,
                         () -> this.instance.getLevelManager().joinLevel(player, this.instance.getLevelManager().LEVEL_8)));
         
         ProximityUtils.onNearbyOf(this.instance,
