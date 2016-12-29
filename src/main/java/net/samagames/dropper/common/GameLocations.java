@@ -15,7 +15,8 @@ public enum GameLocations {
 
     SPAWN (new Location(getWorlds().get(0), 532, 234, -42)),
     LEVEL1_AREA (new Location(getWorlds().get(0), -313, 148, 620)),
-    LEVEL2_AREA (new Location(getWorlds().get(0), 531, 220, 576));
+    LEVEL2_AREA (new Location(getWorlds().get(0), 531, 220, 576)),
+	LEVEL3_AREA (new Location(getWorlds().get(0), -683, 322, 10));
 
     private Location location;
 
