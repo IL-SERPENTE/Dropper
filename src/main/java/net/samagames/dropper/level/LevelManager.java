@@ -3,6 +3,7 @@ package net.samagames.dropper.level;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.common.GameLocations;
+import net.samagames.tools.Titles;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -35,14 +36,14 @@ public class LevelManager {
     private Dropper instance;
     public LevelManager(Dropper instance){
         this.instance = instance;
-        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", GameLocations.LEVEL1_AREA.locationValue(), new Location(this.instance.getWorld(), 535, 234, -37), new Location(this.instance.getWorld(), -352, 2, 589));
-        this.LEVEL_2 = new AbstractLevel(2, "Isengard", "Test", GameLocations.LEVEL2_AREA.locationValue(), new Location(this.instance.getWorld(), 542, 234, -36), new Location(this.instance.getWorld(), 531, 2, 575));
-        this.LEVEL_3 = new AbstractLevel(3, "Neo", "Test", GameLocations.LEVEL3_AREA.locationValue(), new Location(this.instance.getWorld(), 549, 234, -37), new Location(this.instance.getWorld(), -642, 1, 10));
-        this.LEVEL_4 = new AbstractLevel(4, "Symbols", "Mémorisez les symboles !", GameLocations.LEVEL4_AREA.locationValue(), new Location(this.instance.getWorld(), 556, 234, -36), new Location(this.instance.getWorld(), -653, 1, -638));
-        this.LEVEL_5 = new AbstractLevel(5, "The Tree", "Test", GameLocations.LEVEL5_AREA.locationValue(), new Location(this.instance.getWorld(), 563, 234, -37), new Location(this.instance.getWorld(), -14, 10, -711));
-        this.LEVEL_6 = new AbstractLevel(6, "Embryo", "Test", GameLocations.LEVEL6_AREA.locationValue(), new Location(this.instance.getWorld(), 570, 234, -36), new Location(this.instance.getWorld(), 1871, 10, -765));
-        this.LEVEL_7 = new AbstractLevel(7, "Brain", "Test", GameLocations.LEVEL7_AREA.locationValue(), new Location(this.instance.getWorld(), 577, 234, -36), new Location(this.instance.getWorld(), 3473, 1, 603));
-        this.LEVEL_8 = new AbstractLevel(8, "Dimension Jumper", "Test", GameLocations.LEVEL8_AREA.locationValue(), new Location(this.instance.getWorld(), 584, 234, -36), new Location(this.instance.getWorld(), 523, 119, -784));
+        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", GameLocations.LEVEL1_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 535, 234, -37), new Location(this.instance.getDropperGame().getWorld(), -352, 2, 589));
+        this.LEVEL_2 = new AbstractLevel(2, "Isengard", "Test", GameLocations.LEVEL2_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 542, 234, -36), new Location(this.instance.getDropperGame().getWorld(), 531, 2, 575));
+        this.LEVEL_3 = new AbstractLevel(3, "Neo", "Test", GameLocations.LEVEL3_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 549, 234, -37), new Location(this.instance.getDropperGame().getWorld(), -642, 1, 10));
+        this.LEVEL_4 = new AbstractLevel(4, "Symbols", "Mémorisez les symboles !", GameLocations.LEVEL4_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 556, 234, -36), new Location(this.instance.getDropperGame().getWorld(), -653, 1, -638));
+        this.LEVEL_5 = new AbstractLevel(5, "The Tree", "Test", GameLocations.LEVEL5_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 563, 234, -37), new Location(this.instance.getDropperGame().getWorld(), -14, 10, -711));
+        this.LEVEL_6 = new AbstractLevel(6, "Embryo", "Test", GameLocations.LEVEL6_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 570, 234, -36), new Location(this.instance.getDropperGame().getWorld(), 1871, 10, -765));
+        this.LEVEL_7 = new AbstractLevel(7, "Brain", "Test", GameLocations.LEVEL7_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 577, 234, -36), new Location(this.instance.getDropperGame().getWorld(), 3473, 1, 603));
+        this.LEVEL_8 = new AbstractLevel(8, "Dimension Jumper", "Test", GameLocations.LEVEL8_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 584, 234, -36), new Location(this.instance.getDropperGame().getWorld(), 523, 119, -784));
     }
     
     /**
@@ -62,7 +63,9 @@ public class LevelManager {
         	// This is the joining process. Sending title, messages, teleporting player... 
             level.usualJoin(joiner);
             this.instance.getDropperGame().getRegisteredGamePlayers().get(joiner.getUniqueId()).setCurrentlyLevel(level);
-            this.instance.sendTitle(joiner, level.getLevelName(), level.getLevelDescription(), 60);
+            
+            Titles.sendTitle(joiner, 10, 30, 10, level.getLevelName(), level.getLevelDescription());
+            
             joiner.teleport(level.getRelatedLocation());
             SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(joiner.getName() + " §ba rejoint le §cNiveau " + level.getNumber(), true);
             
@@ -81,7 +84,7 @@ public class LevelManager {
      						resetTimer(false);
      						for(UUID uuid : level.getLevelPlayers()){
      							Player tmpPlayer = instance.getServer().getPlayer(uuid);
-     							tmpPlayer.teleport(new Location(instance.getWorld(),
+     							tmpPlayer.teleport(new Location(instance.getDropperGame().getWorld(),
      									tmpPlayer.getLocation().getX() - 37, 
      									tmpPlayer.getLocation().getY() + 200,
      									tmpPlayer.getLocation().getZ() - 38));
