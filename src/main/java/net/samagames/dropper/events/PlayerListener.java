@@ -49,16 +49,16 @@ public class PlayerListener implements Listener {
                     if(this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel() != null){
                     	
                     	AbstractLevel leavedLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
-                    	this.instance.getLevelManager().leaveLevel(player, true);
+                    	this.instance.getDropperGame().getLevelManager().leaveLevel(player, true);
                     	
                         // This statement allow to check if the cooldown (level 1) is started when player leave the level.
-                        if(leavedLevel.getNumber() == 1 && this.instance.getLevelManager().timerIsStarted && leavedLevel.getLevelPlayers().size() == 0 ){
-                        	this.instance.getLevelManager().resetTimer(true);
+                        if(leavedLevel.getNumber() == 1 && this.instance.getDropperGame().getLevelManager().timerIsStarted && leavedLevel.getLevelPlayers().size() == 0 ){
+                        	this.instance.getDropperGame().getLevelManager().resetTimer(true);
                         }
                         
                     }
                     
-                    this.instance.resetPotionEffects(player);
+                    this.instance.getDropperGame().resetPotionEffects(player);
                     player.teleport(GameLocations.SPAWN.locationValue());
                 }
 
@@ -72,7 +72,7 @@ public class PlayerListener implements Listener {
 		// Reseting potion effects
     	this.instance.getServer().getScheduler().scheduleSyncDelayedTask(this.instance, new Runnable() {
 	    		public void run() {
-	    	    	instance.resetPotionEffects(event.getPlayer());    
+	    			instance.getDropperGame().resetPotionEffects(event.getPlayer());    
 	    		}
     		}, 20);
     	
@@ -85,7 +85,7 @@ public class PlayerListener implements Listener {
     	Player player = (Player) event.getEntity();
     	AbstractLevel playerLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
     	if(playerLevel != null){
-    		this.instance.getLevelManager().setPlayerDead(player, playerLevel);
+    		this.instance.getDropperGame().getLevelManager().setPlayerDead(player, playerLevel);
     	}
     	
     }
