@@ -1,13 +1,14 @@
 package net.samagames.dropper.level;
 
 import net.samagames.api.SamaGamesAPI;
-import net.samagames.dropper.Dropper;
-import net.samagames.dropper.common.GameLocations;
+import net.samagames.dropper.DropperGame;
+import net.samagames.tools.LocationUtils;
 import net.samagames.tools.Titles;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import com.google.gson.JsonObject;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -32,18 +33,23 @@ public class LevelManager {
     
     public int task, value;
     public boolean timerIsStarted;
-
-    private Dropper instance;
-    public LevelManager(Dropper instance){
-        this.instance = instance;
-        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", GameLocations.LEVEL1_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 535, 234, -37), new Location(this.instance.getDropperGame().getWorld(), -352, 2, 589));
-        this.LEVEL_2 = new AbstractLevel(2, "Isengard", "Test", GameLocations.LEVEL2_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 542, 234, -36), new Location(this.instance.getDropperGame().getWorld(), 531, 2, 575));
-        this.LEVEL_3 = new AbstractLevel(3, "Neo", "Test", GameLocations.LEVEL3_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 549, 234, -37), new Location(this.instance.getDropperGame().getWorld(), -642, 1, 10));
-        this.LEVEL_4 = new AbstractLevel(4, "Symbols", "Mémorisez les symboles !", GameLocations.LEVEL4_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 556, 234, -36), new Location(this.instance.getDropperGame().getWorld(), -653, 1, -638));
-        this.LEVEL_5 = new AbstractLevel(5, "The Tree", "Test", GameLocations.LEVEL5_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 563, 234, -37), new Location(this.instance.getDropperGame().getWorld(), -14, 10, -711));
-        this.LEVEL_6 = new AbstractLevel(6, "Embryo", "Test", GameLocations.LEVEL6_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 570, 234, -36), new Location(this.instance.getDropperGame().getWorld(), 1871, 10, -765));
-        this.LEVEL_7 = new AbstractLevel(7, "Brain", "Test", GameLocations.LEVEL7_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 577, 234, -36), new Location(this.instance.getDropperGame().getWorld(), 3473, 1, 603));
-        this.LEVEL_8 = new AbstractLevel(8, "Dimension Jumper", "Test", GameLocations.LEVEL8_AREA.locationValue(), new Location(this.instance.getDropperGame().getWorld(), 584, 234, -36), new Location(this.instance.getDropperGame().getWorld(), 523, 119, -784));
+    
+    private DropperGame game;
+    public LevelManager(DropperGame game){
+    	
+    	this.game = game;
+    	
+        JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
+        String worldName = object.get("world-name").getAsString();
+  
+        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level1").getAsString()), LocationUtils.str2loc(worldName +  ", " + object.get("level1-asStart").getAsString()), LocationUtils.str2loc(worldName +  ", " + object.get("level1-asWin").getAsString()));
+        this.LEVEL_2 = new AbstractLevel(2, "Isengard", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level2").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level2-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level2-asWin").getAsString()));
+        this.LEVEL_3 = new AbstractLevel(3, "Neo", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level3").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level3-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level3-asWin").getAsString()));
+        this.LEVEL_4 = new AbstractLevel(4, "Symbols", "Mémorisez les symboles !", LocationUtils.str2loc(worldName + ", " + object.get("level4").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level4-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level4-asWin").getAsString()));
+        this.LEVEL_5 = new AbstractLevel(5, "The Tree", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level5").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level5-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level5-asWin").getAsString()));
+        this.LEVEL_6 = new AbstractLevel(6, "Embryo", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level6").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level6-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level6-asWin").getAsString()));
+        this.LEVEL_7 = new AbstractLevel(7, "Brain", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level7").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level7-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level7-asWin").getAsString()));
+        this.LEVEL_8 = new AbstractLevel(8, "Dimension Jumper", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level8").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level8-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level8-asWin").getAsString()));
     }
     
     /**
@@ -56,13 +62,12 @@ public class LevelManager {
     	
     	// Checking if player is already playing in the level (it's verry hard to do that)
         if(level.getLevelPlayers().contains(joiner.getUniqueId())){
-            this.instance.getLogger().log(Level.SEVERE, "Specified player is already playing in the level.");
             return;
         } else {
         	
         	// This is the joining process. Sending title, messages, teleporting player... 
             level.usualJoin(joiner);
-            this.instance.getDropperGame().getRegisteredGamePlayers().get(joiner.getUniqueId()).setCurrentlyLevel(level);
+            game.getRegisteredGamePlayers().get(joiner.getUniqueId()).setCurrentlyLevel(level);
             
             Titles.sendTitle(joiner, 10, 30, 10, level.getLevelName(), level.getLevelDescription());
             
@@ -74,7 +79,7 @@ public class LevelManager {
             	
             	 this.timerIsStarted = true;
             	 this.value = 21;
-                 this.task = this.instance.getServer().getScheduler().scheduleSyncRepeatingTask(this.instance, new Runnable() {
+                 this.task = this.game.getInstance().getServer().getScheduler().scheduleSyncRepeatingTask(this.game.getInstance(), new Runnable() {
      				
      				@Override
      				public void run() {
@@ -83,8 +88,8 @@ public class LevelManager {
      						
      						resetTimer(false);
      						for(UUID uuid : level.getLevelPlayers()){
-     							Player tmpPlayer = instance.getServer().getPlayer(uuid);
-     							tmpPlayer.teleport(new Location(instance.getDropperGame().getWorld(),
+     							Player tmpPlayer = game.getInstance().getServer().getPlayer(uuid);
+     							tmpPlayer.teleport(new Location(game.getWorld(),
      									tmpPlayer.getLocation().getX() - 37, 
      									tmpPlayer.getLocation().getY() + 200,
      									tmpPlayer.getLocation().getZ() - 38));
@@ -95,10 +100,10 @@ public class LevelManager {
      						value--;
      						
      						if(value == 20 || value == 10 || value <= 5 && value != 1 && value != 0){
-     							instance.getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
+     							game.getInstance().getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
      									" §3Démarrage du §cNiveau " + level.getNumber() + " §3dans §b" + value + " §3secondes");
      						} else if (value == 1){
-     							instance.getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
+     							game.getInstance().getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
      									" §3Démarrage du §cNiveau " + level.getNumber() + " §3dans §b" + value + " §3seconde");
      						}
      					}
@@ -122,9 +127,9 @@ public class LevelManager {
      */
     
     public void leaveLevel(Player player, boolean message) {
-    	AbstractLevel leavedLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
-        this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
-        this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
+    	AbstractLevel leavedLevel = this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
+        this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
+        this.game.getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
         if(message){
         	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + " §ba quitté le §cNiveau " + leavedLevel.getNumber(), true);
         }
@@ -140,7 +145,7 @@ public class LevelManager {
     	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
     			"§3[§cNiveau " + playerLevel.getNumber() + "§3] §f" + player.getName() + " §bc'est écrasé !", true);
     	this.leaveLevel(player, false);
-    	player.teleport(GameLocations.SPAWN.locationValue());
+    	player.teleport(this.game.getLevelHub());
     }
     
     /**
@@ -149,11 +154,11 @@ public class LevelManager {
      */
     
     public void setLevelWin(Player player){
-    	AbstractLevel playerLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
+    	AbstractLevel playerLevel = this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
     	
     	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + " §ba terminé le §cNiveau " + playerLevel.getNumber(), true);
     	for(UUID uuid : playerLevel.getLevelPlayers()){
-    		this.instance.getServer().getPlayer(uuid).teleport(GameLocations.SPAWN.locationValue());
+    		this.game.getInstance().getServer().getPlayer(uuid).teleport(this.game.getLevelHub());
     	}
     }
     
@@ -163,13 +168,13 @@ public class LevelManager {
      */
     
     public void resetTimer(boolean message){
-    	this.instance.getServer().getScheduler().cancelTask(task);
+    	this.game.getInstance().getServer().getScheduler().cancelTask(task);
 		this.timerIsStarted = false;
 		this.value = 21;
 		
 		if(message){
-			this.instance.getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + " §bDémarrage du §cNiveau 1 §cannulé");
-			this.instance.getLogger().log(Level.INFO, "Cooldown of level 1 has been stopped");
+			this.game.getInstance().getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + " §bDémarrage du §cNiveau 1 §cannulé");
+			this.game.getInstance().getLogger().log(Level.INFO, "Cooldown of level 1 has been stopped");
 		}
 		
     }

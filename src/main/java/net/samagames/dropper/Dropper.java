@@ -14,7 +14,7 @@ public class Dropper extends JavaPlugin {
     @Override
     public void onEnable(){
     	
-        // Registering game in SamaGames API
+        // Register game in SamaGames API
         this.dropperGame = new DropperGame("gameCode", "Dropper", "gameDesc", DropperPlayer.class, this);
         SamaGamesAPI.get().getGameManager().registerGame(this.dropperGame);
         

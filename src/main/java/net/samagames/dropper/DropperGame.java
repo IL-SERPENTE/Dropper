@@ -1,14 +1,18 @@
 package net.samagames.dropper;
 
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitScheduler;
+import com.google.gson.JsonObject;
+import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
 import net.samagames.dropper.events.PlayerListener;
 import net.samagames.dropper.events.WorldListener;
 import net.samagames.dropper.level.LevelManager;
+import net.samagames.tools.LocationUtils;
 import net.samagames.tools.ProximityUtils;
 
 /**
@@ -28,11 +32,12 @@ public class DropperGame extends Game<DropperPlayer> {
         this.world = this.instance.getServer().getWorlds().get(0);
         this.world.setGameRuleValue("doDaylightCycle", "false");
         
-        this.levelManager = new LevelManager(this.instance);
+        this.levelManager = new LevelManager(this);
         
         this.instance.getServer().getPluginManager().registerEvents(new PlayerListener(this.instance), this.instance);
         this.instance.getServer().getPluginManager().registerEvents(new WorldListener(), this.instance);
         
+        startProximityTasks();
     }
     
     @Override
@@ -47,6 +52,16 @@ public class DropperGame extends Game<DropperPlayer> {
     
     public World getWorld(){
     	return this.world;
+    }
+    
+    /**
+     * Get Location of level hub from arena file
+     * @return the location
+     */
+    
+    public Location getLevelHub(){
+    	JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
+        return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("level-hub").getAsString());
     }
     
     /**

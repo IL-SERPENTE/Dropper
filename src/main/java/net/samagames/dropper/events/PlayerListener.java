@@ -2,7 +2,6 @@ package net.samagames.dropper.events;
 
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.common.GameItems;
-import net.samagames.dropper.common.GameLocations;
 import net.samagames.dropper.level.AbstractLevel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,7 +58,7 @@ public class PlayerListener implements Listener {
                     }
                     
                     this.instance.getDropperGame().resetPotionEffects(player);
-                    player.teleport(GameLocations.SPAWN.locationValue());
+                    player.teleport(this.instance.getDropperGame().getLevelHub());
                 }
 
             }
