@@ -4,6 +4,7 @@ import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.DropperGame;
 import net.samagames.tools.LocationUtils;
 import net.samagames.tools.Titles;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -72,7 +73,7 @@ public class LevelManager {
             Titles.sendTitle(joiner, 10, 30, 10, level.getLevelName(), level.getLevelDescription());
             
             joiner.teleport(level.getRelatedLocation());
-            SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(joiner.getName() + " §ba rejoint le §cNiveau " + level.getNumber(), true);
+            SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(joiner.getName() + ChatColor.DARK_AQUA + " a rejoint le " + ChatColor.RED + "Niveau " + level.getNumber(), true);
             
             // The level 1 is a little bit special beacause he include a cooldown during which the player must place himself correctly (level teleportation location depends of its placement in the "waiting room")
             if(level.getNumber() == 1 && this.timerIsStarted == false){
@@ -101,10 +102,10 @@ public class LevelManager {
      						
      						if(value == 20 || value == 10 || value <= 5 && value != 1 && value != 0){
      							game.getInstance().getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
-     									" §3Démarrage du §cNiveau " + level.getNumber() + " §3dans §b" + value + " §3secondes");
+     									ChatColor.DARK_AQUA + " Démarrage du " + ChatColor.RED + "Niveau " + level.getNumber() + ChatColor.DARK_AQUA + " dans " + ChatColor.AQUA + value + " §3secondes");
      						} else if (value == 1){
      							game.getInstance().getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() +
-     									" §3Démarrage du §cNiveau " + level.getNumber() + " §3dans §b" + value + " §3seconde");
+     									ChatColor.DARK_AQUA + " Démarrage du " + ChatColor.RED + "Niveau " + level.getNumber() + ChatColor.DARK_AQUA + " dans " + ChatColor.AQUA + value + " §3seconde");
      						}
      					}
      					
@@ -131,7 +132,7 @@ public class LevelManager {
         this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
         this.game.getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
         if(message){
-        	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + " §ba quitté le §cNiveau " + leavedLevel.getNumber(), true);
+        	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + ChatColor.DARK_AQUA + " a quitté le " + ChatColor.RED + "Niveau " + leavedLevel.getNumber(), true);
         }
 	}
     
@@ -143,7 +144,7 @@ public class LevelManager {
     
     public void setPlayerDead(Player player, AbstractLevel playerLevel){
     	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
-    			"§3[§cNiveau " + playerLevel.getNumber() + "§3] §f" + player.getName() + " §bc'est écrasé !", true);
+    			ChatColor.DARK_AQUA + "[" + ChatColor.RED + "Niveau " + playerLevel.getNumber() + ChatColor.DARK_AQUA +"] " + ChatColor.RESET + player.getName() + ChatColor.AQUA + " c'est écrasé !", true);
     	this.leaveLevel(player, false);
     	player.teleport(this.game.getLevelHub());
     }
@@ -156,7 +157,7 @@ public class LevelManager {
     public void setLevelWin(Player player){
     	AbstractLevel playerLevel = this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
     	
-    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + " §ba terminé le §cNiveau " + playerLevel.getNumber(), true);
+    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + ChatColor.AQUA + "a terminé le " + ChatColor.RED + "Niveau " + playerLevel.getNumber(), true);
     	for(UUID uuid : playerLevel.getLevelPlayers()){
     		this.game.getInstance().getServer().getPlayer(uuid).teleport(this.game.getLevelHub());
     	}
@@ -173,7 +174,7 @@ public class LevelManager {
 		this.value = 21;
 		
 		if(message){
-			this.game.getInstance().getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + " §bDémarrage du §cNiveau 1 §cannulé");
+			this.game.getInstance().getServer().broadcastMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.AQUA + " Démarrage du " + ChatColor.RED + "Niveau 1 annulé");
 			this.game.getInstance().getLogger().log(Level.INFO, "Cooldown of level 1 has been stopped");
 		}
 		
