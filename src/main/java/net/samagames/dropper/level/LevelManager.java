@@ -39,18 +39,15 @@ public class LevelManager {
     public LevelManager(DropperGame game){
     	
     	this.game = game;
-    	
-        JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
-        String worldName = object.get("world-name").getAsString();
-  
-        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level1").getAsString()), LocationUtils.str2loc(worldName +  ", " + object.get("level1-asStart").getAsString()), LocationUtils.str2loc(worldName +  ", " + object.get("level1-asWin").getAsString()));
-        this.LEVEL_2 = new AbstractLevel(2, "Isengard", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level2").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level2-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level2-asWin").getAsString()));
-        this.LEVEL_3 = new AbstractLevel(3, "Neo", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level3").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level3-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level3-asWin").getAsString()));
-        this.LEVEL_4 = new AbstractLevel(4, "Symbols", "Mémorisez les symboles !", LocationUtils.str2loc(worldName + ", " + object.get("level4").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level4-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level4-asWin").getAsString()));
-        this.LEVEL_5 = new AbstractLevel(5, "The Tree", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level5").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level5-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level5-asWin").getAsString()));
-        this.LEVEL_6 = new AbstractLevel(6, "Embryo", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level6").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level6-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level6-asWin").getAsString()));
-        this.LEVEL_7 = new AbstractLevel(7, "Brain", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level7").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level7-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level7-asWin").getAsString()));
-        this.LEVEL_8 = new AbstractLevel(8, "Dimension Jumper", "Test", LocationUtils.str2loc(worldName + ", " + object.get("level8").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level8-asStart").getAsString()), LocationUtils.str2loc(worldName + ", " + object.get("level8-asWin").getAsString()));
+        this.LEVEL_1 = new AbstractLevel(1, "Rainbow", "n/a", this.game.getWorld());
+        this.LEVEL_2 = new AbstractLevel(2, "Isengard", "n/a", this.game.getWorld());
+        this.LEVEL_3 = new AbstractLevel(3, "Neo", "n/a", this.game.getWorld());
+        this.LEVEL_4 = new AbstractLevel(4, "Symbols", "Mémorisez les symboles !", this.game.getWorld());
+        this.LEVEL_5 = new AbstractLevel(5, "The Tree", "n/a", this.game.getWorld());
+        this.LEVEL_6 = new AbstractLevel(6, "Embryo", "n/a", this.game.getWorld());
+        this.LEVEL_7 = new AbstractLevel(7, "Brain", "n/a", this.game.getWorld());
+        this.LEVEL_8 = new AbstractLevel(8, "Dimension Jumper", "n/a", this.game.getWorld());
+    
     }
     
     /**

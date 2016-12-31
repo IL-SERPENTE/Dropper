@@ -1,9 +1,15 @@
 package net.samagames.dropper.level;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+
+import com.google.gson.JsonObject;
+
+import net.samagames.api.SamaGamesAPI;
+import net.samagames.tools.LocationUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,14 +32,18 @@ public class AbstractLevel {
     private ArmorStand secretAsStart;
     private List<UUID> levelPlayers;
 
-    public AbstractLevel(int levelNumber, String levelName, String levelDescription, Location levelLocation, Location secretAsStart, Location secretAsWin){
+    public AbstractLevel(int levelNumber, String levelName, String levelDescription, World world){
         this.levelNumber = levelNumber;
         this.levelName = levelName;
         this.levelDescription = levelDescription;
-        this.levelLocation = levelLocation;
         this.levelPlayers = new ArrayList<>();
-        this.secretAsStart = armorStandBuilder(secretAsStart);
-        this.secretAsWin = armorStandBuilder(secretAsWin);
+        
+        // Creating automaticaly locations & ArmorStands from the json file
+        JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
+        this.levelLocation = LocationUtils.str2loc(world.getName() + ", " + object.get("level" + levelNumber).getAsString());
+        this.secretAsStart = armorStandBuilder(LocationUtils.str2loc(world.getName() +  ", " + object.get("level" + levelNumber + "-asStart").getAsString()));
+        this.secretAsWin = armorStandBuilder(LocationUtils.str2loc(world.getName() +  ", " + object.get("level" + levelNumber + "-asWin").getAsString()));
+        
     }
     
     /**
