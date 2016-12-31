@@ -2,13 +2,11 @@ package net.samagames.dropper;
 
 import net.samagames.api.games.GamePlayer;
 import net.samagames.dropper.common.GameItems;
-import net.samagames.dropper.common.GameLocations;
 import net.samagames.dropper.level.AbstractLevel;
-
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionEffectType;;
 
 /**
  * @author Vialonyx
@@ -17,6 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 public class DropperPlayer extends GamePlayer {
 
     private AbstractLevel currentlyOn;
+    private DropperGame game;
 
     public DropperPlayer(Player player) {
         super(player);
@@ -25,7 +24,6 @@ public class DropperPlayer extends GamePlayer {
 
     @Override
     public void handleLogin(boolean reconnect){
-        getPlayerIfOnline().teleport(GameLocations.SPAWN.locationValue());
         getPlayerIfOnline().getInventory().clear();
         getPlayerIfOnline().getInventory().addItem(GameItems.BACK_LEVEL_HUB.getStackValue());
         getPlayerIfOnline().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 99999, 2, false, false));
