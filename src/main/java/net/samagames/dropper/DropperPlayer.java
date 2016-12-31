@@ -14,11 +14,12 @@ import org.bukkit.potion.PotionEffectType;;
 
 public class DropperPlayer extends GamePlayer {
 
+    private Player player;
     private AbstractLevel currentlyOn;
-    private DropperGame game;
 
     public DropperPlayer(Player player) {
         super(player);
+        this.player = player;
         this.currentlyOn = null;
     }
 
