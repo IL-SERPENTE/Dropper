@@ -1,7 +1,6 @@
 package net.samagames.dropper;
 
 import net.samagames.api.games.GamePlayer;
-import net.samagames.dropper.common.GameItems;
 import net.samagames.dropper.level.AbstractLevel;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

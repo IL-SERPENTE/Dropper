@@ -1,4 +1,4 @@
-package net.samagames.dropper.common; 
+package net.samagames.dropper; 
  
 import org.bukkit.Material; 
 import org.bukkit.inventory.ItemStack; 
