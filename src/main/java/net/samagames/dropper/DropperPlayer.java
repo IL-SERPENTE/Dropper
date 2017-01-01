@@ -29,10 +29,20 @@ public class DropperPlayer extends GamePlayer {
         getPlayerIfOnline().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 99999, 2, false, false));
         getPlayerIfOnline().setGameMode(GameMode.ADVENTURE);
     }
+    
+    /**
+     * Set current played level for player
+     * @param level the level
+     */
 
     public void setCurrentlyLevel(AbstractLevel level){
         this.currentlyOn = level;
     }
+    
+    /**
+     * Get the current played level by player
+     * @return the level
+     */
 
     public AbstractLevel getCurrentlyLevel(){
         return this.currentlyOn;

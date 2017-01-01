@@ -5,9 +5,7 @@ import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-
 import com.google.gson.JsonObject;
-
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.tools.LocationUtils;
 import java.util.ArrayList;
