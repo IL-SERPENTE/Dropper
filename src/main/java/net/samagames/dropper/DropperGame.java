@@ -39,6 +39,15 @@ public class DropperGame extends Game<DropperPlayer> {
         this.instance.getServer().getPluginManager().registerEvents(new WorldListener(), this.instance);
         
         startProximityTasks();
+        this.instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
+			
+			@Override
+			public void run() {
+				getInGamePlayers().values().forEach(DropperPlayer::updateScoreboard);
+			}
+			
+		}, 0L, 20L);
+        
     }
     
     @Override

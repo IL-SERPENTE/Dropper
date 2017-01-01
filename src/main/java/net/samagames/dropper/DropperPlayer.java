@@ -1,7 +1,13 @@
 package net.samagames.dropper;
 
+import net.samagames.api.SamaGamesAPI;
+import net.samagames.api.games.Game;
 import net.samagames.api.games.GamePlayer;
 import net.samagames.dropper.level.AbstractLevel;
+import net.samagames.tools.scoreboards.ObjectiveSign;
+import java.util.ArrayList;
+import java.util.List;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -14,12 +20,17 @@ import org.bukkit.potion.PotionEffectType;;
 public class DropperPlayer extends GamePlayer {
 
     private Player player;
+    private Game game;
     private AbstractLevel currentlyOn;
+    private ObjectiveSign objective;
 
     public DropperPlayer(Player player) {
         super(player);
         this.player = player;
+        this.game = SamaGamesAPI.get().getGameManager().getGame();
         this.currentlyOn = null;
+        this.objective = new ObjectiveSign("dropper", ChatColor.RED + "Dropper");
+        this.objective.addReceiver(this.getOfflinePlayer());
     }
 
     @Override
@@ -28,6 +39,14 @@ public class DropperPlayer extends GamePlayer {
         player.getInventory().addItem(GameItems.BACK_LEVEL_HUB.getStackValue());
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 99999, 2, false, false));
         player.setGameMode(GameMode.ADVENTURE);
+    }
+    
+    void updateScoreboard(){
+    	List<DropperPlayer> players = new ArrayList<>();
+    	players.addAll(this.game.getInGamePlayers().values());
+    	this.objective.setLine(1, " ");
+    	this.objective.setLine(2, "Test");
+    	this.objective.updateLines();
     }
     
     /**
