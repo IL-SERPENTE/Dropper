@@ -45,7 +45,7 @@ public class DropperPlayer extends GamePlayer {
     	List<DropperPlayer> players = new ArrayList<>();
     	players.addAll(this.game.getInGamePlayers().values());
     	this.objective.setLine(1, " ");
-    	this.objective.setLine(2, "Test");
+    	 this.objective.setLine(2, ChatColor.GOLD + (players.size() > 1 ? " Joueurs : " : " Joueur : ") + ChatColor.WHITE + ChatColor.BOLD + players.size());
     	this.objective.updateLines();
     }
     
