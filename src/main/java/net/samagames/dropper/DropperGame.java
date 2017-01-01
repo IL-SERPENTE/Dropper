@@ -1,8 +1,14 @@
 package net.samagames.dropper;
 
+import java.util.List;
+
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -25,6 +31,9 @@ public class DropperGame extends Game<DropperPlayer> {
 	private Dropper instance;
 	private World world;
 	private LevelManager levelManager;
+	
+	// Items 
+	public final ItemStack BACK_LEVEL_HUB;
 
     public DropperGame(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, Dropper instance) {
         super(gameCodeName, gameName, gameDescription, gamePlayerClass);
@@ -32,8 +41,9 @@ public class DropperGame extends Game<DropperPlayer> {
         this.instance = instance;
         this.world = this.instance.getServer().getWorlds().get(0);
         this.world.setGameRuleValue("doDaylightCycle", "false");
-        
         this.levelManager = new LevelManager(this);
+        
+        this.BACK_LEVEL_HUB = this.stackBuilder(ChatColor.DARK_AQUA + "Retour au" + ChatColor.AQUA + " Choix du niveau", null, Material.ENDER_CHEST, (byte) 0);
         
         this.instance.getServer().getPluginManager().registerEvents(new PlayerListener(this.instance), this.instance);
         this.instance.getServer().getPluginManager().registerEvents(new WorldListener(), this.instance);
@@ -61,6 +71,25 @@ public class DropperGame extends Game<DropperPlayer> {
     public void startGame(){
         super.startGame();
     }
+    
+    /**
+     * Create custom ItemStack with simple
+     * @param name Item name
+     * @param lore Item lore
+     * @param material Item type
+     * @param data Item data
+     * @return the item
+     */
+    
+    private ItemStack stackBuilder(String name, List<String> lore, Material material, byte data){ 
+        org.bukkit.inventory.ItemStack tmpStack = new ItemStack(material, 1, data); 
+        ItemMeta tmpStackMeta = tmpStack.getItemMeta(); 
+        tmpStackMeta.setDisplayName(name); 
+        tmpStackMeta.setLore(lore); 
+        tmpStack.setItemMeta(tmpStackMeta); 
+ 
+        return tmpStack; 
+    } 
     
     /**
      * Get the first world of list
