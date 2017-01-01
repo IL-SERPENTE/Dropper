@@ -1,7 +1,6 @@
 package net.samagames.dropper.events;
 
 import net.samagames.dropper.Dropper;
-import net.samagames.dropper.GameItems;
 import net.samagames.dropper.level.AbstractLevel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,7 +41,7 @@ public class PlayerListener implements Listener {
                 ItemStack item = event.getItem();
                 
                 // This condition is completed when player use the BACK_LEVEL_HUB (in GameItems enum).
-                if(item.isSimilar(GameItems.BACK_LEVEL_HUB.getStackValue())) {
+                if(item.isSimilar(this.instance.getDropperGame().BACK_LEVEL_HUB)) {
 
                 	// Here we check if player is playing in a level.
                     if(this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel() != null){

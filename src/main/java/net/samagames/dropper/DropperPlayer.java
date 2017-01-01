@@ -20,14 +20,14 @@ import org.bukkit.potion.PotionEffectType;;
 public class DropperPlayer extends GamePlayer {
 
     private Player player;
-    private Game game;
+    private DropperGame game;
     private AbstractLevel currentlyOn;
     private ObjectiveSign objective;
 
     public DropperPlayer(Player player) {
         super(player);
         this.player = player;
-        this.game = SamaGamesAPI.get().getGameManager().getGame();
+        this.game = (DropperGame) SamaGamesAPI.get().getGameManager().getGame();
         this.currentlyOn = null;
         this.objective = new ObjectiveSign("dropper", ChatColor.RED + "Dropper");
         this.objective.addReceiver(this.getOfflinePlayer());
@@ -36,7 +36,7 @@ public class DropperPlayer extends GamePlayer {
     @Override
     public void handleLogin(boolean reconnect){
         player.getInventory().clear();
-        player.getInventory().addItem(GameItems.BACK_LEVEL_HUB.getStackValue());
+        player.getInventory().addItem(this.game.BACK_LEVEL_HUB);
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 99999, 2, false, false));
         player.setGameMode(GameMode.ADVENTURE);
     }
