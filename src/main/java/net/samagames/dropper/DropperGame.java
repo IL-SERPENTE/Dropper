@@ -11,6 +11,7 @@ import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
 import net.samagames.dropper.events.PlayerListener;
 import net.samagames.dropper.events.WorldListener;
+import net.samagames.dropper.level.AbstractLevel;
 import net.samagames.dropper.level.LevelManager;
 import net.samagames.tools.LocationUtils;
 import net.samagames.tools.ProximityUtils;
@@ -38,6 +39,13 @@ public class DropperGame extends Game<DropperPlayer> {
         this.instance.getServer().getPluginManager().registerEvents(new WorldListener(), this.instance);
         
         startProximityTasks();
+    }
+    
+    @Override
+    public void handleLogout(Player player){
+    	if(this.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel() != null){
+    		this.levelManager.leaveLevel(player, true);
+    	}
     }
     
     @Override
