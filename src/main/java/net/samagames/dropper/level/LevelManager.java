@@ -2,14 +2,12 @@ package net.samagames.dropper.level;
 
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.DropperGame;
-import net.samagames.tools.LocationUtils;
 import net.samagames.tools.Titles;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import com.google.gson.JsonObject;
 import java.util.UUID;
 import java.util.logging.Level;
 
