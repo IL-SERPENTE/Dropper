@@ -1,7 +1,6 @@
 package net.samagames.dropper;
 
 import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -17,8 +16,8 @@ import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
 import net.samagames.dropper.events.PlayerListener;
 import net.samagames.dropper.events.WorldListener;
-import net.samagames.dropper.level.AbstractLevel;
 import net.samagames.dropper.level.LevelManager;
+import net.samagames.dropper.playmode.PlayModeManager;
 import net.samagames.tools.LocationUtils;
 import net.samagames.tools.ProximityUtils;
 
@@ -31,9 +30,13 @@ public class DropperGame extends Game<DropperPlayer> {
 	private Dropper instance;
 	private World world;
 	private LevelManager levelManager;
+	private PlayModeManager playModeManager;
 	
 	// Items 
 	public final ItemStack BACK_LEVEL_HUB;
+	public final ItemStack PLAYMODE_CHALLENGE;
+	public final ItemStack PLAYMODE_ENTERTAINMENT;
+	public final ItemStack PLAYMODE_DEFI_LEAVE;
 
     public DropperGame(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, Dropper instance) {
         super(gameCodeName, gameName, gameDescription, gamePlayerClass);
@@ -42,8 +45,12 @@ public class DropperGame extends Game<DropperPlayer> {
         this.world = this.instance.getServer().getWorlds().get(0);
         this.world.setGameRuleValue("doDaylightCycle", "false");
         this.levelManager = new LevelManager(this);
+        this.playModeManager = new PlayModeManager(this);
         
         this.BACK_LEVEL_HUB = this.stackBuilder(ChatColor.DARK_AQUA + "Retour au" + ChatColor.AQUA + " Choix du niveau", null, Material.ENDER_CHEST, (byte) 0);
+        this.PLAYMODE_CHALLENGE = this.stackBuilder(ChatColor.DARK_AQUA + "Mode " + ChatColor.GOLD + ChatColor.BOLD + "Défi " + ChatColor.DARK_AQUA + "(" + ChatColor.WHITE + "Clique-Droit" + ChatColor.AQUA + " pour rejoindre" + ChatColor.DARK_AQUA + ")", null, Material.EYE_OF_ENDER, (byte) 0);
+        this.PLAYMODE_ENTERTAINMENT = this.stackBuilder(ChatColor.DARK_AQUA + "Mode " + ChatColor.GREEN + ChatColor.BOLD + "Entrainement " + ChatColor.DARK_AQUA + "(" + ChatColor.WHITE + "Clique-Droit" + ChatColor.AQUA + " pour rejoindre" + ChatColor.DARK_AQUA + ")", null, Material.ENDER_PEARL, (byte) 0);
+        this.PLAYMODE_DEFI_LEAVE = this.stackBuilder(ChatColor.RED + "Quitter le mode Défi", null, Material.BARRIER, (byte) 0);
         
         this.instance.getServer().getPluginManager().registerEvents(new PlayerListener(this.instance), this.instance);
         this.instance.getServer().getPluginManager().registerEvents(new WorldListener(), this.instance);
@@ -111,6 +118,16 @@ public class DropperGame extends Game<DropperPlayer> {
     }
     
     /**
+     * Get the location of map hub from arena file
+     * @return
+     */
+    
+    public Location getMapHub(){
+    	JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
+        return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("map-hub").getAsString());
+    }
+    
+    /**
      * Get an instance of Dropper
      * @return an instance of Dropper
      */
@@ -126,6 +143,15 @@ public class DropperGame extends Game<DropperPlayer> {
     
     public LevelManager getLevelManager(){
     	return this.levelManager;
+    }
+
+    /**
+     * Get an instance of PlayModeManager
+     * @return an instance of PlayModeManager
+     */
+    
+    public PlayModeManager getPlayModeManager(){
+    	return this.playModeManager;
     }
     
     /**

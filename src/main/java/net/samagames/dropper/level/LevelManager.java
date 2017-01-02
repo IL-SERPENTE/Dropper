@@ -2,12 +2,16 @@ package net.samagames.dropper.level;
 
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.DropperGame;
+import net.samagames.dropper.playmode.PlayMode;
 import net.samagames.tools.Titles;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -32,6 +36,7 @@ public class LevelManager {
     
     public int task, value;
     public boolean timerIsStarted;
+    private Map<AbstractLevel, AbstractLevel> levelLogic;
     
     private DropperGame game;
     public LevelManager(DropperGame game){
@@ -45,6 +50,15 @@ public class LevelManager {
         this.LEVEL_6 = new AbstractLevel(6, "Embryo", "n/a", this.game.getWorld());
         this.LEVEL_7 = new AbstractLevel(7, "Brain", "n/a", this.game.getWorld());
         this.LEVEL_8 = new AbstractLevel(8, "Dimension Jumper", "n/a", this.game.getWorld());
+        
+    	this.levelLogic = new HashMap<>();
+    	this.levelLogic.put(LEVEL_1, LEVEL_2);
+    	this.levelLogic.put(LEVEL_2, LEVEL_3);
+    	this.levelLogic.put(LEVEL_3, LEVEL_4);
+    	this.levelLogic.put(LEVEL_4, LEVEL_5);
+    	this.levelLogic.put(LEVEL_5, LEVEL_6);
+    	this.levelLogic.put(LEVEL_6, LEVEL_7);
+    	this.levelLogic.put(LEVEL_7, LEVEL_8);
     
     }
     
@@ -123,6 +137,7 @@ public class LevelManager {
      */
     
     public void leaveLevel(Player player, boolean message) {
+    	
     	AbstractLevel leavedLevel = this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
         this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
         this.game.getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
@@ -138,10 +153,16 @@ public class LevelManager {
      */
     
     public void setPlayerDead(Player player, AbstractLevel playerLevel){
+    	
     	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
     			ChatColor.DARK_AQUA + "[" + ChatColor.RED + "Niveau " + playerLevel.getNumber() + ChatColor.DARK_AQUA +"] " + ChatColor.RESET + player.getName() + ChatColor.AQUA + " c'est écrasé !", true);
-    	this.leaveLevel(player, false);
-    	player.teleport(this.game.getLevelHub());
+    	
+    	if(this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getPlayMode() == PlayMode.CHALLENGE){
+    		playerLevel.usualLeave(player);
+    		this.game.getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
+    		this.game.getPlayModeManager().setChallengeLost(player);
+    	}
+    	
     }
     
     /**
@@ -153,9 +174,20 @@ public class LevelManager {
     	AbstractLevel playerLevel = this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
     	
     	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + ChatColor.AQUA + "a terminé le " + ChatColor.RED + "Niveau " + playerLevel.getNumber(), true);
-    	for(UUID uuid : playerLevel.getLevelPlayers()){
-    		this.game.getInstance().getServer().getPlayer(uuid).teleport(this.game.getLevelHub());
+    	
+    	if(this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getPlayMode() != PlayMode.ENTERTAINMENT){
+        	this.game.getPlayModeManager().processLevelSuccess(player, playerLevel);
     	}
+    	
+    }
+    
+    /**
+     * Get the levelLogic
+     * @return level logic map
+     */
+    
+    public Map<AbstractLevel, AbstractLevel> getLevelLogic(){
+    	return this.levelLogic;
     }
     
     /**
