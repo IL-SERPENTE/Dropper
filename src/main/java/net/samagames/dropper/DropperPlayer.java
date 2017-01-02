@@ -10,8 +10,6 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;;
 
 /**
  * @author Vialonyx
