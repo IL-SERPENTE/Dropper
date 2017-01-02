@@ -65,6 +65,8 @@ public class PlayerListener implements Listener {
                     // Responding to PlayMode selection
                 } else if(item.isSimilar(this.instance.getDropperGame().PLAYMODE_CHALLENGE)) {
                 	this.instance.getDropperGame().getPlayModeManager().newGameChallenge(player);
+                } else if(item.isSimilar(this.instance.getDropperGame().PLAYMODE_ENTERTAINMENT)) {
+                	this.instance.getDropperGame().getPlayModeManager().newGameEntertainment(player);
                 }
 
             }
