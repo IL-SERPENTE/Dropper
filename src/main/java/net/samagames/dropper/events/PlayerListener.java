@@ -43,11 +43,11 @@ public class PlayerListener implements Listener {
                 
                 // This condition is completed when player use the BACK_LEVEL_HUB.
                 if(item.isSimilar(this.instance.getDropperGame().BACK_LEVEL_HUB)) {
+                	
+                	AbstractLevel leavedLevel = this.instance.getDropperGame().getDPFromPlayer(player).getCurrentlyLevel();
 
                 	// Here we check if player is playing in a level.
-                    if(this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel() != null){
-                    	
-                    	AbstractLevel leavedLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
+                    if(leavedLevel != null){
                     	this.instance.getDropperGame().getLevelManager().leaveLevel(player, true);
                     	
                         // This statement allow to check if the cooldown (level 1) is started when player leave the level.
@@ -78,7 +78,7 @@ public class PlayerListener implements Listener {
     	this.instance.getServer().getScheduler().scheduleSyncDelayedTask(this.instance, new Runnable() {
 	    		public void run() {
 	    			instance.getDropperGame().resetPotionEffects(event.getPlayer());    
-	    			if(instance.getDropperGame().getRegisteredGamePlayers().get(event.getPlayer().getUniqueId()).getPlayMode() != PlayMode.ENTERTAINMENT){
+	    			if(instance.getDropperGame().getDPFromPlayer(event.getPlayer()).getPlayMode() != PlayMode.ENTERTAINMENT){
 	    	    		event.getPlayer().teleport(instance.getDropperGame().getMapHub());
 	    	    	}
 	    		}
@@ -91,7 +91,7 @@ public class PlayerListener implements Listener {
     	
     	// Here we check if player is under any level when he died. If he is, he lost the game.
     	Player player = (Player) event.getEntity();
-    	AbstractLevel playerLevel = this.instance.getDropperGame().getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
+    	AbstractLevel playerLevel = this.instance.getDropperGame().getDPFromPlayer(player).getCurrentlyLevel();
     	if(playerLevel != null){
     		this.instance.getDropperGame().getLevelManager().setPlayerDead(player, playerLevel);
     	}

@@ -69,7 +69,7 @@ public class DropperGame extends Game<DropperPlayer> {
     
     @Override
     public void handleLogout(Player player){
-    	if(this.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel() != null){
+    	if(this.getDPFromPlayer(player).getCurrentlyLevel() != null){
     		this.levelManager.leaveLevel(player, true);
     	}
     }
@@ -97,6 +97,10 @@ public class DropperGame extends Game<DropperPlayer> {
  
         return tmpStack; 
     } 
+    
+    public DropperPlayer getDPFromPlayer(Player player){
+    	return this.getRegisteredGamePlayers().get(player.getUniqueId());
+    }
     
     /**
      * Get the first world of list

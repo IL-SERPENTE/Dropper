@@ -77,7 +77,7 @@ public class LevelManager {
         	
         	// This is the joining process. Sending title, messages, teleporting player... 
             level.usualJoin(joiner);
-            game.getRegisteredGamePlayers().get(joiner.getUniqueId()).setCurrentlyLevel(level);
+            game.getDPFromPlayer(joiner).setCurrentlyLevel(level);
             
             Titles.sendTitle(joiner, 10, 30, 10, level.getLevelName(), level.getLevelDescription());
             
@@ -138,9 +138,9 @@ public class LevelManager {
     
     public void leaveLevel(Player player, boolean message) {
     	
-    	AbstractLevel leavedLevel = this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
-        this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel().usualLeave(player);
-        this.game.getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
+    	AbstractLevel leavedLevel = this.game.getDPFromPlayer(player).getCurrentlyLevel();
+        this.game.getDPFromPlayer(player).getCurrentlyLevel().usualLeave(player);
+        this.game.getDPFromPlayer(player).setCurrentlyLevel(null);
         if(message){
         	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + ChatColor.DARK_AQUA + " a quitté le " + ChatColor.RED + "Niveau " + leavedLevel.getNumber(), true);
         }
@@ -157,9 +157,9 @@ public class LevelManager {
     	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
     			ChatColor.DARK_AQUA + "[" + ChatColor.RED + "Niveau " + playerLevel.getNumber() + ChatColor.DARK_AQUA +"] " + ChatColor.RESET + player.getName() + ChatColor.AQUA + " c'est écrasé !", true);
     	
-    	if(this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getPlayMode() == PlayMode.CHALLENGE){
+    	if(this.game.getDPFromPlayer(player).getPlayMode() == PlayMode.CHALLENGE){
     		playerLevel.usualLeave(player);
-    		this.game.getRegisteredGamePlayers().get(player.getUniqueId()).setCurrentlyLevel(null);
+    		this.game.getDPFromPlayer(player).setCurrentlyLevel(null);
     		this.game.getPlayModeManager().setChallengeLost(player);
     	}
     	
@@ -171,11 +171,11 @@ public class LevelManager {
      */
     
     public void setLevelWin(Player player){
-    	AbstractLevel playerLevel = this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getCurrentlyLevel();
+    	AbstractLevel playerLevel = this.game.getDPFromPlayer(player).getCurrentlyLevel();
     	
     	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + ChatColor.AQUA + "a terminé le " + ChatColor.RED + "Niveau " + playerLevel.getNumber(), true);
     	
-    	if(this.game.getRegisteredGamePlayers().get(player.getUniqueId()).getPlayMode() != PlayMode.ENTERTAINMENT){
+    	if(this.game.getDPFromPlayer(player).getPlayMode() != PlayMode.ENTERTAINMENT){
         	this.game.getPlayModeManager().processLevelSuccess(player, playerLevel);
     	}
     	
