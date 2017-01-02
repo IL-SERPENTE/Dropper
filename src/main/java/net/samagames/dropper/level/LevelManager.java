@@ -168,6 +168,9 @@ public class LevelManager {
     		playerLevel.usualLeave(player);
     		this.game.getDPFromPlayer(player).setCurrentlyLevel(null);
     		this.game.getPlayModeManager().setChallengeLost(player);
+    	} else if (this.game.getDPFromPlayer(player).getPlayMode() == PlayMode.ENTERTAINMENT){
+    		playerLevel.usualLeave(player);
+    		this.game.getDPFromPlayer(player).setCurrentlyLevel(null);
     	}
     	
     }
