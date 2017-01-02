@@ -1,5 +1,6 @@
 package net.samagames.dropper.playmode;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import net.samagames.dropper.DropperGame;
 import net.samagames.dropper.level.AbstractLevel;
@@ -9,6 +10,20 @@ public class PlayModeManager {
 	private DropperGame game;
 	public PlayModeManager(DropperGame game){
 		this.game = game;
+	}
+	
+	public String syntaxPlayMode(PlayMode mode){
+		
+		if(mode == PlayMode.CHALLENGE){
+			return ChatColor.YELLOW + "Défi";
+		} else if (mode == PlayMode.ENTERTAINMENT){
+			return ChatColor.GREEN + "Entrainement";
+		} else if (mode == PlayMode.UNSET){
+			return ChatColor.GRAY + "Non défini";
+		}
+		
+		return "";
+		
 	}
 	
 	public void newGame(Player player, PlayMode mode){
