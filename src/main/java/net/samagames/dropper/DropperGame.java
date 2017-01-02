@@ -49,7 +49,7 @@ public class DropperGame extends Game<DropperPlayer> {
         
         this.BACK_LEVEL_HUB = this.stackBuilder(ChatColor.DARK_AQUA + "Retour au" + ChatColor.AQUA + " Choix du niveau", null, Material.ENDER_CHEST, (byte) 0);
         this.PLAYMODE_CHALLENGE = this.stackBuilder(ChatColor.DARK_AQUA + "Mode " + ChatColor.GOLD + ChatColor.BOLD + "Défi " + ChatColor.DARK_AQUA + "(" + ChatColor.WHITE + "Clique-Droit" + ChatColor.AQUA + " pour rejoindre" + ChatColor.DARK_AQUA + ")", null, Material.EYE_OF_ENDER, (byte) 0);
-        this.PLAYMODE_ENTERTAINMENT = this.stackBuilder(ChatColor.DARK_AQUA + "Mode " + ChatColor.GREEN + ChatColor.BOLD + "Entrainement " + ChatColor.DARK_AQUA + "(" + ChatColor.WHITE + "Clique-Droit" + ChatColor.AQUA + " pour rejoindre" + ChatColor.DARK_AQUA + ")", null, Material.ENDER_PEARL, (byte) 0);
+        this.PLAYMODE_ENTERTAINMENT = this.stackBuilder(ChatColor.DARK_AQUA + "Mode " + ChatColor.GREEN + ChatColor.BOLD + "Entrainement " + ChatColor.DARK_AQUA + "(" + ChatColor.WHITE + "Clique-Droit" + ChatColor.AQUA + " pour rejoindre" + ChatColor.DARK_AQUA + ")", null, Material.NAME_TAG, (byte) 0);
         this.PLAYMODE_DEFI_LEAVE = this.stackBuilder(ChatColor.RED + "Quitter le mode Défi", null, Material.BARRIER, (byte) 0);
         
         this.instance.getServer().getPluginManager().registerEvents(new PlayerListener(this.instance), this.instance);
