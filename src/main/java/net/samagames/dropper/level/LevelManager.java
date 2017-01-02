@@ -9,7 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -82,7 +81,10 @@ public class LevelManager {
             Titles.sendTitle(joiner, 10, 30, 10, level.getLevelName(), level.getLevelDescription());
             
             joiner.teleport(level.getRelatedLocation());
-            SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(joiner.getName() + ChatColor.DARK_AQUA + " a rejoint le " + ChatColor.RED + "Niveau " + level.getNumber(), true);
+            SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(joiner.getName() 
+            		+ ChatColor.DARK_AQUA + " a rejoint " + ChatColor.RED + "(" + ChatColor.RESET + "Niveau " + level.getNumber()
+            		+ " - " + this.game.getPlayModeManager().syntaxPlayMode(this.game.getDPFromPlayer(joiner).getPlayMode())
+            		+ ChatColor.RED + ")", true);
             
             // The level 1 is a little bit special beacause he include a cooldown during which the player must place himself correctly (level teleportation location depends of its placement in the "waiting room")
             if(level.getNumber() == 1 && this.timerIsStarted == false){
@@ -142,7 +144,10 @@ public class LevelManager {
         this.game.getDPFromPlayer(player).getCurrentlyLevel().usualLeave(player);
         this.game.getDPFromPlayer(player).setCurrentlyLevel(null);
         if(message){
-        	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + ChatColor.DARK_AQUA + " a quitté le " + ChatColor.RED + "Niveau " + leavedLevel.getNumber(), true);
+        	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() 
+            		+ ChatColor.DARK_AQUA + " a quitté " + ChatColor.RED + "(" + ChatColor.RESET + "Niveau " + leavedLevel.getNumber()
+            		+ " - " + this.game.getPlayModeManager().syntaxPlayMode(this.game.getDPFromPlayer(player).getPlayMode())
+            		+ ChatColor.RED + ")", true);
         }
 	}
     
@@ -154,8 +159,10 @@ public class LevelManager {
     
     public void setPlayerDead(Player player, AbstractLevel playerLevel){
     	
-    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
-    			ChatColor.DARK_AQUA + "[" + ChatColor.RED + "Niveau " + playerLevel.getNumber() + ChatColor.DARK_AQUA +"] " + ChatColor.RESET + player.getName() + ChatColor.AQUA + " c'est écrasé !", true);
+    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() 
+        		+ ChatColor.DARK_AQUA + " c'est écrasé ! " + ChatColor.RED + "(" + ChatColor.RESET + "Niveau " + playerLevel.getNumber()
+        		+ " - " + this.game.getPlayModeManager().syntaxPlayMode(this.game.getDPFromPlayer(player).getPlayMode())
+        		+ ChatColor.RED + ")", true);
     	
     	if(this.game.getDPFromPlayer(player).getPlayMode() == PlayMode.CHALLENGE){
     		playerLevel.usualLeave(player);
@@ -173,7 +180,10 @@ public class LevelManager {
     public void setLevelWin(Player player){
     	AbstractLevel playerLevel = this.game.getDPFromPlayer(player).getCurrentlyLevel();
     	
-    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() + ChatColor.AQUA + "a terminé le " + ChatColor.RED + "Niveau " + playerLevel.getNumber(), true);
+    	SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(player.getName() 
+        		+ ChatColor.DARK_AQUA + " a terminé " + ChatColor.RED + "(" + ChatColor.RESET + "Niveau " + playerLevel.getNumber()
+        		+ " - " + this.game.getPlayModeManager().syntaxPlayMode(this.game.getDPFromPlayer(player).getPlayMode())
+        		+ ChatColor.RED + ")", true);
     	
     	if(this.game.getDPFromPlayer(player).getPlayMode() != PlayMode.ENTERTAINMENT){
         	this.game.getPlayModeManager().processLevelSuccess(player, playerLevel);
