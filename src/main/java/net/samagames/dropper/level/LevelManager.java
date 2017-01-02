@@ -183,9 +183,7 @@ public class LevelManager {
         		+ " - " + this.game.getPlayModeManager().syntaxPlayMode(this.game.getDPFromPlayer(player).getPlayMode())
         		+ ChatColor.RED + ")", true);
     	
-    	if(this.game.getDPFromPlayer(player).getPlayMode() != PlayMode.ENTERTAINMENT){
-        	this.game.getPlayModeManager().newWin(player, this.game.getDPFromPlayer(player).getPlayMode());
-    	}
+    	this.game.getPlayModeManager().newWin(player, this.game.getDPFromPlayer(player).getPlayMode());
     	
     }
     
