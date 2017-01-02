@@ -1,7 +1,10 @@
 package net.samagames.dropper.events;
 
+import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.level.AbstractLevel;
+import net.samagames.dropper.playmode.PlayMode;
+import java.util.logging.Level;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,7 +43,7 @@ public class PlayerListener implements Listener {
                 Player player = event.getPlayer();
                 ItemStack item = event.getItem();
                 
-                // This condition is completed when player use the BACK_LEVEL_HUB (in GameItems enum).
+                // This condition is completed when player use the BACK_LEVEL_HUB.
                 if(item.isSimilar(this.instance.getDropperGame().BACK_LEVEL_HUB)) {
 
                 	// Here we check if player is playing in a level.
@@ -58,6 +61,10 @@ public class PlayerListener implements Listener {
                     
                     this.instance.getDropperGame().resetPotionEffects(player);
                     player.teleport(this.instance.getDropperGame().getLevelHub());
+                    
+                    // Responding to PlayMode selection
+                } else if(item.isSimilar(this.instance.getDropperGame().PLAYMODE_CHALLENGE)) {
+                	this.instance.getDropperGame().getPlayModeManager().newGameChallenge(player);
                 }
 
             }
@@ -67,10 +74,13 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event){
     	
-		// Reseting potion effects
+		// Reseting potion effects & teleporting player depends to playing mode
     	this.instance.getServer().getScheduler().scheduleSyncDelayedTask(this.instance, new Runnable() {
 	    		public void run() {
 	    			instance.getDropperGame().resetPotionEffects(event.getPlayer());    
+	    			if(instance.getDropperGame().getRegisteredGamePlayers().get(event.getPlayer().getUniqueId()).getPlayMode() != PlayMode.ENTERTAINMENT){
+	    	    		event.getPlayer().teleport(instance.getDropperGame().getMapHub());
+	    	    	}
 	    		}
     		}, 20);
     	

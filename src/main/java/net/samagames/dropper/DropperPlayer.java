@@ -1,9 +1,9 @@
 package net.samagames.dropper;
 
 import net.samagames.api.SamaGamesAPI;
-import net.samagames.api.games.Game;
 import net.samagames.api.games.GamePlayer;
 import net.samagames.dropper.level.AbstractLevel;
+import net.samagames.dropper.playmode.PlayMode;
 import net.samagames.tools.scoreboards.ObjectiveSign;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,7 @@ public class DropperPlayer extends GamePlayer {
     private Player player;
     private DropperGame game;
     private AbstractLevel currentlyOn;
+    private PlayMode playMode;
     private ObjectiveSign objective;
 
     public DropperPlayer(Player player) {
@@ -29,16 +30,19 @@ public class DropperPlayer extends GamePlayer {
         this.player = player;
         this.game = (DropperGame) SamaGamesAPI.get().getGameManager().getGame();
         this.currentlyOn = null;
+        this.playMode = PlayMode.UNSET;
         this.objective = new ObjectiveSign("dropper", ChatColor.RED + "Dropper");
         this.objective.addReceiver(this.getOfflinePlayer());
     }
 
     @Override
     public void handleLogin(boolean reconnect){
-        player.getInventory().clear();
-        player.getInventory().addItem(this.game.BACK_LEVEL_HUB);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 99999, 2, false, false));
-        player.setGameMode(GameMode.ADVENTURE);
+        this.player.getInventory().clear();
+        this.player.getInventory().setItem(2, this.game.PLAYMODE_CHALLENGE);
+        this.player.getInventory().setItem(4, this.game.PLAYMODE_ENTERTAINMENT);
+        this.player.teleport(this.game.getMapHub());
+        this.player.setGameMode(GameMode.ADVENTURE);
+        this.game.resetPotionEffects(this.player);
     }
     
     void updateScoreboard(){
@@ -65,6 +69,19 @@ public class DropperPlayer extends GamePlayer {
 
     public AbstractLevel getCurrentlyLevel(){
         return this.currentlyOn;
+    }
+    
+    /**
+     * Get the player playMode
+     * @return the playMode
+     */
+    
+    public PlayMode getPlayMode(){
+    	return this.playMode;
+    }
+    
+    public void updatePlayMode(PlayMode newPlayMode){
+    	this.playMode = newPlayMode;
     }
 
 }
