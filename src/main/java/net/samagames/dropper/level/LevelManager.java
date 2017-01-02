@@ -164,14 +164,9 @@ public class LevelManager {
         		+ " - " + this.game.getPlayModeManager().syntaxPlayMode(this.game.getDPFromPlayer(player).getPlayMode())
         		+ ChatColor.RED + ")", true);
     	
-    	if(this.game.getDPFromPlayer(player).getPlayMode() == PlayMode.CHALLENGE){
-    		playerLevel.usualLeave(player);
-    		this.game.getDPFromPlayer(player).setCurrentlyLevel(null);
-    		this.game.getPlayModeManager().setChallengeLost(player);
-    	} else if (this.game.getDPFromPlayer(player).getPlayMode() == PlayMode.ENTERTAINMENT){
-    		playerLevel.usualLeave(player);
-    		this.game.getDPFromPlayer(player).setCurrentlyLevel(null);
-    	}
+		playerLevel.usualLeave(player);
+		this.game.getDPFromPlayer(player).setCurrentlyLevel(null);
+		this.game.getPlayModeManager().newLost(player, this.game.getDPFromPlayer(player).getPlayMode());
     	
     }
     
@@ -189,7 +184,7 @@ public class LevelManager {
         		+ ChatColor.RED + ")", true);
     	
     	if(this.game.getDPFromPlayer(player).getPlayMode() != PlayMode.ENTERTAINMENT){
-        	this.game.getPlayModeManager().processLevelSuccess(player, playerLevel);
+        	this.game.getPlayModeManager().newWin(player, this.game.getDPFromPlayer(player).getPlayMode());
     	}
     	
     }

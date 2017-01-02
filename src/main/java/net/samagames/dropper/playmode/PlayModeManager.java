@@ -41,17 +41,28 @@ public class PlayModeManager {
 		}
 	}
 	
-	public void setChallengeLost(Player player){
-		this.game.getDPFromPlayer(player).updatePlayMode(PlayMode.UNSET);
-    	player.getInventory().clear();
-    	player.getInventory().setItem(2, this.game.PLAYMODE_CHALLENGE);
-        player.getInventory().setItem(4, this.game.PLAYMODE_ENTERTAINMENT);
-        player.teleport(this.game.getMapHub());
+	public void newLost(Player player, PlayMode mode){
+		if(mode == PlayMode.CHALLENGE){
+			this.game.getDPFromPlayer(player).updatePlayMode(PlayMode.UNSET);
+	    	player.getInventory().clear();
+	    	player.getInventory().setItem(2, this.game.PLAYMODE_CHALLENGE);
+	        player.getInventory().setItem(4, this.game.PLAYMODE_ENTERTAINMENT);
+	        player.teleport(this.game.getMapHub());
+	        
+		} else if (mode == PlayMode.ENTERTAINMENT){
+			player.teleport(this.game.getLevelHub());
+		}
 	}
 	
-	public void processLevelSuccess(Player player, AbstractLevel level){
-		this.game.getLevelManager().leaveLevel(player, false);
-		this.game.getLevelManager().joinLevel(player, this.game.getLevelManager().getLevelLogic().get(level));
+	public void newWin(Player player, PlayMode mode){
+		
+		if(mode == PlayMode.CHALLENGE){
+			this.game.getLevelManager().leaveLevel(player, false);
+			this.game.getLevelManager().joinLevel(player, this.game.getLevelManager().getLevelLogic().get(this.game.getDPFromPlayer(player).getCurrentlyLevel()));
+			
+		} else if (mode == PlayMode.ENTERTAINMENT){
+			player.teleport(this.game.getLevelHub());
+		}
 	}
 
 }
