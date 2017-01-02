@@ -1,10 +1,8 @@
 package net.samagames.dropper.events;
 
-import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.level.AbstractLevel;
 import net.samagames.dropper.playmode.PlayMode;
-import java.util.logging.Level;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -64,9 +62,9 @@ public class PlayerListener implements Listener {
                     
                     // Responding to PlayMode selection
                 } else if(item.isSimilar(this.instance.getDropperGame().PLAYMODE_CHALLENGE)) {
-                	this.instance.getDropperGame().getPlayModeManager().newGameChallenge(player);
+                	this.instance.getDropperGame().getPlayModeManager().newGame(player, PlayMode.CHALLENGE);
                 } else if(item.isSimilar(this.instance.getDropperGame().PLAYMODE_ENTERTAINMENT)) {
-                	this.instance.getDropperGame().getPlayModeManager().newGameEntertainment(player);
+                	this.instance.getDropperGame().getPlayModeManager().newGame(player, PlayMode.ENTERTAINMENT);
                 }
 
             }
