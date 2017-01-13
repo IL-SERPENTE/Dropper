@@ -1,16 +1,17 @@
 package net.samagames.dropper;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import net.samagames.api.games.Game;
 
-/**
- * @author Vialonyx
- */
-
-public class Dropper extends JavaPlugin {
-
-    @Override
-    public void onEnable(){
-
-    }
-
+public class Dropper extends Game<DropperPlayer> {
+	
+	private DropperMain instance;
+	
+	 public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
+		 super(gameCodeName, gameName, gameDescription, gamePlayerClass);
+	 }
+	 
+	 public DropperMain getMainInstance(){
+		 return this.instance;
+	 }
+	
 }
