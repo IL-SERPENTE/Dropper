@@ -1,6 +1,7 @@
 package net.samagames.dropper;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
@@ -12,6 +13,11 @@ public class Dropper extends Game<DropperPlayer> {
 	
 	 public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
 		 super(gameCodeName, gameName, gameDescription, gamePlayerClass);
+	 }
+	 
+	 @Override 
+	 public void handleLogin(Player player){
+		 player.teleport(this.getMapHub());
 	 }
 	 
 	 public DropperMain getMainInstance(){
