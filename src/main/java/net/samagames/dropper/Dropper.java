@@ -24,9 +24,9 @@ public class Dropper extends Game<DropperPlayer> {
 		 return this.instance;
 	 }
 	 
-	 public void usualGameTypeUpdate(DropperPlayer player, GameType newGameType){
+	 public void usualGameTypeUpdate(Player player, GameType newGameType){
 		 // TODO Respond in function of old gameType
-		 player.updatePlayerGameType(newGameType);
+		 this.getRegisteredGamePlayers().get(player.getUniqueId()).updatePlayerGameType(newGameType);
 	 }
 	 
 	 public Location getMapHub(){
