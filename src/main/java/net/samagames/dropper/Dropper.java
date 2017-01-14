@@ -24,6 +24,11 @@ public class Dropper extends Game<DropperPlayer> {
 		 return this.instance;
 	 }
 	 
+	 public void usualGameTypeUpdate(DropperPlayer player, GameType newGameType){
+		 // TODO Respond in function of old gameType
+		 player.updatePlayerGameType(newGameType);
+	 }
+	 
 	 public Location getMapHub(){
 	    JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
 	    return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("map-hub").getAsString());
