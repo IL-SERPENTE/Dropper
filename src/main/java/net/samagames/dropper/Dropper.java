@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
+import net.samagames.dropper.events.PlayerEventsListener;
 import net.samagames.tools.LocationUtils;
 
 public class Dropper extends Game<DropperPlayer> {
@@ -26,6 +27,9 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.ITEM_GAMETYPE_SELECT_FREE = this.stackBuilder("Entrainement", null, Material.DIRT, (byte) 0);
 		 this.ITEM_GAMETYPE_SELECT_COMPETITION = this.stackBuilder("Compétition", null, Material.GRASS, (byte) 0);
 		 this.ITEM_ACTUAL_LEAVE = this.stackBuilder("Quitter le niveau actuel", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
+		 
+		 this.getMainInstance().getServer().getPluginManager().registerEvents(new PlayerEventsListener(), this.getMainInstance());
+		 
 	 }
 	 
 	 @Override 
