@@ -31,6 +31,9 @@ public class Dropper extends Game<DropperPlayer> {
 	 @Override 
 	 public void handleLogin(Player player){
 		 player.teleport(this.getMapHub());
+		 player.getInventory().clear();
+		 player.getInventory().setItem(0, this.ITEM_GAMETYPE_SELECT_FREE);
+		 player.getInventory().setItem(1, this.ITEM_GAMETYPE_SELECT_COMPETITION);
 	 }
 	 
 	 public DropperMain getMainInstance(){
