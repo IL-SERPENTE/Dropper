@@ -29,6 +29,24 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.getRegisteredGamePlayers().get(player.getUniqueId()).updatePlayerGameType(newGameType);
 	 }
 	 
+	 public void usualGameJoin(Player player){
+		 DropperPlayer dpPlayer = this.getRegisteredGamePlayers().get(player.getUniqueId());
+		 
+		 if(dpPlayer.getGameType().equals(GameType.FREE)){
+			 player.teleport(this.getMapLevelHub());
+			 /*
+			  * TODO Broadcast message (function to syntax LevelName & GameType)
+			  * TODO Update player inventory
+			  */
+		 } else if(dpPlayer.getGameType().equals(GameType.COMPETITION)){
+			 /*
+			  * TODO Function to get logically the next level
+			  * TODO Broadcast message (function to syntax LevelName & GameType)
+			  * TODO Update player inventory
+			  */
+		 }
+	 }
+	 
 	 public Location getMapHub(){
 	    JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
 	    return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("map-hub").getAsString());
