@@ -3,11 +3,13 @@ package net.samagames.dropper;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import net.samagames.api.games.GamePlayer;
+import net.samagames.dropper.level.DropperLevel;
 
 public class DropperPlayer extends GamePlayer {
 	
 	private Player bukkitPlayer;
 	private GameType gameType;
+	private DropperLevel current;
 	
 	public DropperPlayer(Player player){
 		super(player);
@@ -22,6 +24,14 @@ public class DropperPlayer extends GamePlayer {
 	
 	GameType getGameType(){
 		return this.gameType;
+	}
+	
+	DropperLevel getCurrentLevel(){
+		return this.current;
+	}
+	
+	void updateCurrentLevel(DropperLevel newLevel){
+		this.current = newLevel;
 	}
 	
 	void updatePlayerGameType(GameType newGameType){
