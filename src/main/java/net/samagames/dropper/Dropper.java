@@ -28,7 +28,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.ITEM_GAMETYPE_SELECT_COMPETITION = this.stackBuilder("Compétition", null, Material.GRASS, (byte) 0);
 		 this.ITEM_ACTUAL_LEAVE = this.stackBuilder("Quitter le niveau actuel", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
 		 
-		 this.getMainInstance().getServer().getPluginManager().registerEvents(new PlayerEventsListener(), this.getMainInstance());
+		 this.getMainInstance().getServer().getPluginManager().registerEvents(new PlayerEventsListener(this), this.getMainInstance());
 		 
 	 }
 	 
