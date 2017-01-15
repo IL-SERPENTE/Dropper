@@ -67,6 +67,25 @@ public class Dropper extends Game<DropperPlayer> {
 		 }
 	 }
 	 
+	 public void usualGameLeave(Player player, boolean byPlayer){
+		 DropperPlayer dpPlayer = this.getRegisteredGamePlayers().get(player.getUniqueId());
+		 
+		 player.teleport(this.getMapLevelHub());
+		 if(byPlayer && dpPlayer.getGameType().equals(GameType.COMPETITION)){
+			 /*
+			  * TODO Broadcast message [...]
+			  * TODO Manages the player competition gt leaving
+			  */
+		 } else if (byPlayer && dpPlayer.getGameType().equals(GameType.FREE)){
+			 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
+			 dpPlayer.updateCurrentLevel(null);
+			 /*
+			  * TODO Broadcast message [...]
+			  */
+		 }
+		 
+	 }
+	 
 	 private ItemStack stackBuilder(String name, List<String> lore, Material material, byte data){ 
 	        org.bukkit.inventory.ItemStack tmpStack = new ItemStack(material, 1, data); 
 	        ItemMeta tmpStackMeta = tmpStack.getItemMeta(); 
