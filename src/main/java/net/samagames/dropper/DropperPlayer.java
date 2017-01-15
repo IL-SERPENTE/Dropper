@@ -22,11 +22,11 @@ public class DropperPlayer extends GamePlayer {
 		this.gameType = GameType.UNSELECTED;
 	}
 	
-	GameType getGameType(){
+	public GameType getGameType(){
 		return this.gameType;
 	}
 	
-	DropperLevel getCurrentLevel(){
+	public DropperLevel getCurrentLevel(){
 		return this.current;
 	}
 	
