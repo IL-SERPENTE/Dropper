@@ -1,7 +1,6 @@
 package net.samagames.dropper;
 
 import java.util.List;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,16 +9,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
-import net.samagames.dropper.events.PlayerEventsListener;
 import net.samagames.tools.LocationUtils;
 
 public class Dropper extends Game<DropperPlayer> {
 	
 	private DropperMain instance;
 	
-	public final ItemStack ITEM_GAMETYPE_SELECT_FREE;
-	public final ItemStack ITEM_GAMETYPE_SELECT_COMPETITION;
-	public final ItemStack ITEM_ACTUAL_LEAVE;
+	public ItemStack ITEM_GAMETYPE_SELECT_FREE;
+	public ItemStack ITEM_GAMETYPE_SELECT_COMPETITION;
+	public ItemStack ITEM_ACTUAL_LEAVE;
 	
 	 public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
 		 super(gameCodeName, gameName, gameDescription, gamePlayerClass);
@@ -27,8 +25,6 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.ITEM_GAMETYPE_SELECT_FREE = this.stackBuilder("Entrainement", null, Material.DIRT, (byte) 0);
 		 this.ITEM_GAMETYPE_SELECT_COMPETITION = this.stackBuilder("Compétition", null, Material.GRASS, (byte) 0);
 		 this.ITEM_ACTUAL_LEAVE = this.stackBuilder("Quitter le niveau actuel", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
-		 
-		 this.getMainInstance().getServer().getPluginManager().registerEvents(new PlayerEventsListener(this), this.getMainInstance());
 		 
 	 }
 	 
@@ -71,17 +67,11 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperPlayer dpPlayer = this.getRegisteredGamePlayers().get(player.getUniqueId());
 		 
 		 player.teleport(this.getMapLevelHub());
+		 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
+		 dpPlayer.updateCurrentLevel(null);
+		 
 		 if(byPlayer && dpPlayer.getGameType().equals(GameType.COMPETITION)){
-			 /*
-			  * TODO Broadcast message [...]
-			  * TODO Manages the player competition gt leaving
-			  */
-		 } else if (byPlayer && dpPlayer.getGameType().equals(GameType.FREE)){
-			 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
-			 dpPlayer.updateCurrentLevel(null);
-			 /*
-			  * TODO Broadcast message [...]
-			  */
+			 
 		 }
 		 
 	 }
