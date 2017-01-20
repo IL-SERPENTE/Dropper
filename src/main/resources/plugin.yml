@@ -1,7 +1,4 @@
-main: net.samagames.dropper.Dropper
-
+main: net.samagames.dropper.DropperMain
 name: Dropper
-Main
 version: 0.1
-
 author: Vialonyx
