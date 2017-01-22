@@ -42,11 +42,11 @@ public class Dropper extends Game<DropperPlayer> {
 	 
 	 public void usualGameTypeUpdate(Player player, GameType newGameType){
 		 // TODO Respond in function of old gameType
-		 this.getRegisteredGamePlayers().get(player.getUniqueId()).updatePlayerGameType(newGameType);
+		 this.getPlayer(player.getUniqueId()).updatePlayerGameType(newGameType);
 	 }
 	 
 	 public void usualGameJoin(Player player){
-		 DropperPlayer dpPlayer = this.getRegisteredGamePlayers().get(player.getUniqueId());
+		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 
 		 if(dpPlayer.getGameType().equals(GameType.FREE)){
 			 player.teleport(this.getMapLevelHub());
@@ -64,7 +64,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 }
 	 
 	 public void usualGameLeave(Player player, boolean byPlayer){
-		 DropperPlayer dpPlayer = this.getRegisteredGamePlayers().get(player.getUniqueId());
+		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 
 		 player.teleport(this.getMapLevelHub());
 		 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
