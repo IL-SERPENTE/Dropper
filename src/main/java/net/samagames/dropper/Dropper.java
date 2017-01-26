@@ -17,6 +17,7 @@ public class Dropper extends Game<DropperPlayer> {
 	
 	public ItemStack ITEM_GAMETYPE_SELECT_FREE;
 	public ItemStack ITEM_GAMETYPE_SELECT_COMPETITION;
+	public ItemStack ITEM_GAMETYPE_LEAVE;
 	public ItemStack ITEM_ACTUAL_LEAVE;
 	
 	 public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
@@ -25,6 +26,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.instance = instance;
 		 this.ITEM_GAMETYPE_SELECT_FREE = this.stackBuilder("Entrainement", null, Material.DIRT, (byte) 0);
 		 this.ITEM_GAMETYPE_SELECT_COMPETITION = this.stackBuilder("Compétition", null, Material.GRASS, (byte) 0);
+		 this.ITEM_GAMETYPE_LEAVE = this.stackBuilder("Quitter le mode de jeu actuel", null, Material.BONE, (byte) 0);
 		 this.ITEM_ACTUAL_LEAVE = this.stackBuilder("Quitter le niveau actuel", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
 		 
 	 }
@@ -53,6 +55,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 if(dpPlayer.getGameType().equals(GameType.FREE)){
 			 player.teleport(this.getMapLevelHub());
 			 player.getInventory().clear();
+			 player.getInventory().setItem(0, this.ITEM_GAMETYPE_LEAVE);
 
 			 /*
 			  * TODO Broadcast message (function to syntax LevelName & GameType
@@ -69,12 +72,15 @@ public class Dropper extends Game<DropperPlayer> {
 	 public void usualGameLeave(Player player, boolean byPlayer){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 
-		 player.teleport(this.getMapLevelHub());
+		 player.teleport(this.getMapHub());
 		 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
 		 dpPlayer.updateCurrentLevel(null);
+		 player.getInventory().clear();
+		 player.getInventory().setItem(0, this.ITEM_GAMETYPE_SELECT_FREE);
+		 player.getInventory().setItem(1, this.ITEM_GAMETYPE_SELECT_COMPETITION);
 		 
 		 if(byPlayer && dpPlayer.getGameType().equals(GameType.COMPETITION)){
-			 
+
 		 }
 		 
 	 }

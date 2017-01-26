@@ -1,5 +1,6 @@
 package net.samagames.dropper.events;
 
+import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.GameType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +10,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
+
+import java.util.logging.Level;
 
 public class PlayerEventsListener implements Listener {
 	
@@ -22,19 +25,23 @@ public class PlayerEventsListener implements Listener {
 		
 		if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.RIGHT_CLICK_AIR)){
 			
-            if(event.getItem() != null){
-                event.setCancelled(true);
-                Player player = event.getPlayer();
-                ItemStack item = event.getItem();
-                DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
-                
-                if(item.isSimilar(this.game.ITEM_ACTUAL_LEAVE)){
-                	
-                	if(gamePlayer.getCurrentLevel() != null){
-                		this.game.usualGameLeave(player, true);
-                	}
-                	
-                } else if(item.isSimilar(this.game.ITEM_GAMETYPE_SELECT_FREE)){
+            if(event.getItem() != null) {
+				event.setCancelled(true);
+				Player player = event.getPlayer();
+				ItemStack item = event.getItem();
+				DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
+
+				if (item.isSimilar(this.game.ITEM_ACTUAL_LEAVE)) {
+
+					if (gamePlayer.getCurrentLevel() != null) {
+						this.game.usualGameLeave(player, true);
+					}
+
+				} else if(item.isSimilar(this.game.ITEM_GAMETYPE_LEAVE)){
+
+					this.game.usualGameLeave(player, true);
+
+				} else if(item.isSimilar(this.game.ITEM_GAMETYPE_SELECT_FREE)){
 
                 	this.game.usualGameTypeUpdate(player, GameType.FREE);
                 	this.game.usualGameJoin(player);
