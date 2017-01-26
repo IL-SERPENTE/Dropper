@@ -1,6 +1,5 @@
 package net.samagames.dropper.events;
 
-import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.GameType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,8 +9,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
-
-import java.util.logging.Level;
 
 public class PlayerEventsListener implements Listener {
 	
