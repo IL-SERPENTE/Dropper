@@ -1,5 +1,6 @@
 package net.samagames.dropper.events;
 
+import net.samagames.dropper.GameType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,7 +34,12 @@ public class PlayerEventsListener implements Listener {
                 		this.game.usualGameLeave(player, true);
                 	}
                 	
-                }
+                } else if(item.isSimilar(this.game.ITEM_GAMETYPE_SELECT_FREE)){
+
+                	this.game.usualGameTypeUpdate(player, GameType.FREE);
+                	this.game.usualGameJoin(player);
+
+				}
                 
             }
             

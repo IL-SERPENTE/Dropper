@@ -52,9 +52,10 @@ public class Dropper extends Game<DropperPlayer> {
 		 
 		 if(dpPlayer.getGameType().equals(GameType.FREE)){
 			 player.teleport(this.getMapLevelHub());
+			 player.getInventory().clear();
+
 			 /*
-			  * TODO Broadcast message (function to syntax LevelName & GameType)
-			  * TODO Update player inventory
+			  * TODO Broadcast message (function to syntax LevelName & GameType
 			  */
 		 } else if(dpPlayer.getGameType().equals(GameType.COMPETITION)){
 			 /*
