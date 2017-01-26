@@ -22,6 +22,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
 		 super(gameCodeName, gameName, gameDescription, gamePlayerClass);
 		 
+		 this.instance = instance;
 		 this.ITEM_GAMETYPE_SELECT_FREE = this.stackBuilder("Entrainement", null, Material.DIRT, (byte) 0);
 		 this.ITEM_GAMETYPE_SELECT_COMPETITION = this.stackBuilder("Compétition", null, Material.GRASS, (byte) 0);
 		 this.ITEM_ACTUAL_LEAVE = this.stackBuilder("Quitter le niveau actuel", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
@@ -30,6 +31,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 
 	 @Override 
 	 public void handleLogin(Player player){
+		 super.handleLogin(player);
 		 player.teleport(this.getMapHub());
 		 player.getInventory().clear();
 		 player.getInventory().setItem(0, this.ITEM_GAMETYPE_SELECT_FREE);
