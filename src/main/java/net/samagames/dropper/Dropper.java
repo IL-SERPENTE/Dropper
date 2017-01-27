@@ -1,6 +1,9 @@
 package net.samagames.dropper;
 
 import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -57,9 +60,6 @@ public class Dropper extends Game<DropperPlayer> {
 			 player.getInventory().clear();
 			 player.getInventory().setItem(0, this.ITEM_GAMETYPE_LEAVE);
 
-			 /*
-			  * TODO Broadcast message (function to syntax LevelName & GameType
-			  */
 		 } else if(dpPlayer.getGameType().equals(GameType.COMPETITION)){
 			 /*
 			  * TODO Function to get logically the next level
@@ -67,10 +67,30 @@ public class Dropper extends Game<DropperPlayer> {
 			  * TODO Update player inventory
 			  */
 		 }
+
+		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
+				 player.getName() + ChatColor.AQUA + " a commencé une nouvelle partie en mode "
+						 + this.getGameTypeFormatColor(dpPlayer.getGameType())  + ChatColor.AQUA + " !",true);
+
+	 }
+
+	 public String getGameTypeFormatColor(GameType type){
+	 	if(type.equals(GameType.UNSELECTED)){
+	 		return ChatColor.GRAY + "Non sélectionné";
+		} else if(type.equals(GameType.FREE)){
+	 		return ChatColor.GREEN + "Entrainement";
+		} else if(type.equals(GameType.COMPETITION)){
+			return ChatColor.RED + "Compétition";
+		}
+		return "";
 	 }
 	 
 	 public void usualGameLeave(Player player, boolean byPlayer){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
+
+		 if(byPlayer){
+			 player.sendMessage(ChatColor.AQUA + "Vous avez quitté votre partie en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()));
+		 }
 		 
 		 player.teleport(this.getMapHub());
 		 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
@@ -78,10 +98,6 @@ public class Dropper extends Game<DropperPlayer> {
 		 player.getInventory().clear();
 		 player.getInventory().setItem(0, this.ITEM_GAMETYPE_SELECT_FREE);
 		 player.getInventory().setItem(1, this.ITEM_GAMETYPE_SELECT_COMPETITION);
-		 
-		 if(byPlayer && dpPlayer.getGameType().equals(GameType.COMPETITION)){
-
-		 }
 		 
 	 }
 	 
