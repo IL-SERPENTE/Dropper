@@ -2,7 +2,7 @@ package net.samagames.dropper;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
+import net.samagames.dropper.level.DropperLevel;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,6 +22,15 @@ public class Dropper extends Game<DropperPlayer> {
 	public ItemStack ITEM_GAMETYPE_SELECT_COMPETITION;
 	public ItemStack ITEM_GAMETYPE_LEAVE;
 	public ItemStack ITEM_ACTUAL_LEAVE;
+
+	private DropperLevel LVL_1;
+	private DropperLevel LVL_2;
+	private DropperLevel LVL_3;
+	private DropperLevel LVL_4;
+	private DropperLevel LVL_5;
+	private DropperLevel LVL_6;
+	private DropperLevel LVL_7;
+	private DropperLevel LVL_8;
 	
 	 public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
 		 super(gameCodeName, gameName, gameDescription, gamePlayerClass);
@@ -31,7 +40,17 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.ITEM_GAMETYPE_SELECT_COMPETITION = this.stackBuilder("Compétition", null, Material.GRASS, (byte) 0);
 		 this.ITEM_GAMETYPE_LEAVE = this.stackBuilder("Quitter le mode de jeu actuel", null, Material.BONE, (byte) 0);
 		 this.ITEM_ACTUAL_LEAVE = this.stackBuilder("Quitter le niveau actuel", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
-		 
+
+		 // Creating levels
+		 this.LVL_1 = new DropperLevel(1, "Rainbow", "n/a");
+		 this.LVL_2 = new DropperLevel(2, "Isengard", "n/a");
+		 this.LVL_3 = new DropperLevel(3, "Neo", "n/a");
+		 this.LVL_4 = new DropperLevel(4, "Symbols", "n/a");
+		 this.LVL_5 = new DropperLevel(5, "The Three", "n/a");
+		 this.LVL_6 = new DropperLevel(6, "Embryo", "n/a");
+		 this.LVL_7 = new DropperLevel(7, "Brain", "n/a");
+		 this.LVL_8 = new DropperLevel(8, "Dimension Jumper", "n/a");
+
 	 }
 	 
 	 @Override 
