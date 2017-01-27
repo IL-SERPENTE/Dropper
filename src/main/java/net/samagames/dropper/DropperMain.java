@@ -17,6 +17,7 @@ public class DropperMain extends JavaPlugin {
     	
     	this.game = new Dropper("gameCode", "Dropper", "The Dropper", DropperPlayer.class, this);
     	this.getServer().getPluginManager().registerEvents(new PlayerEventsListener(this.game), this);
+		SamaGamesAPI.get().getGameManager().setFreeMode(true);
     	SamaGamesAPI.get().getGameManager().registerGame(this.game);
     	
     }
