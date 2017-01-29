@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import net.samagames.dropper.level.DropperLevel;
+import net.samagames.tools.ProximityUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -17,6 +18,7 @@ import net.samagames.api.games.Game;
 import net.samagames.tools.LocationUtils;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class Dropper extends Game<DropperPlayer> {
 	
@@ -46,6 +48,88 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.registeredLevels.add(new DropperLevel(6, "Embryo", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(7, "Brain", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(8, "Dimension Jumper", "n/a"));
+
+		 // Start proximity tasks
+		 BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(0).getSecretStart(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameJoin(player)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(0).getSecretEnd(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameLeave(player, false)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(1).getSecretStart(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameJoin(player)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(1).getSecretEnd(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameLeave(player, false)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(2).getSecretStart(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameJoin(player)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(2).getSecretEnd(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameLeave(player, false)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(3).getSecretStart(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameJoin(player)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(3).getSecretEnd(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameLeave(player, false)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(4).getSecretStart(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameJoin(player)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(4).getSecretEnd(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameLeave(player, false)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(5).getSecretStart(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameJoin(player)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(5).getSecretEnd(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameLeave(player, false)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(6).getSecretStart(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameJoin(player)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(6).getSecretEnd(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameLeave(player, false)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(7).getSecretStart(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameJoin(player)));
+
+		 ProximityUtils.onNearbyOf(this.instance,
+				 this.getDropperLevel(7).getSecretEnd(),
+				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+						 () -> this.usualGameLeave(player, false)));
 
 	 }
 	 
@@ -124,6 +208,10 @@ public class Dropper extends Game<DropperPlayer> {
 
 		 if(byPlayer){
 			 player.sendMessage(ChatColor.AQUA + "Vous avez quitté votre partie en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()));
+		 } else {
+			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
+					 player.getName() + ChatColor.AQUA + " a terminé une partie en mode "
+							 + this.getGameTypeFormatColor(dpPlayer.getGameType())  + ChatColor.AQUA + " !",true);
 		 }
 		 
 		 player.teleport(this.getMapHub());
