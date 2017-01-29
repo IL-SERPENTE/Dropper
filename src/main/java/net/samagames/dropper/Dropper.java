@@ -54,7 +54,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(0).getSecretStart(),
 				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualGameJoin(player)));
+						 () -> this.usualLevelJoin(player, 0)));
 
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(0).getSecretEnd(),
@@ -64,7 +64,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(1).getSecretStart(),
 				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualGameJoin(player)));
+						 () -> this.usualLevelJoin(player, 1)));
 
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(1).getSecretEnd(),
@@ -74,7 +74,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(2).getSecretStart(),
 				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualGameJoin(player)));
+						 () -> this.usualLevelJoin(player, 2)));
 
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(2).getSecretEnd(),
@@ -84,7 +84,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(3).getSecretStart(),
 				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualGameJoin(player)));
+						 () -> this.usualLevelJoin(player, 3)));
 
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(3).getSecretEnd(),
@@ -94,7 +94,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(4).getSecretStart(),
 				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualGameJoin(player)));
+						 () -> this.usualLevelJoin(player, 4)));
 
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(4).getSecretEnd(),
@@ -104,7 +104,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(5).getSecretStart(),
 				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualGameJoin(player)));
+						 () -> this.usualLevelJoin(player, 5)));
 
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(5).getSecretEnd(),
@@ -114,7 +114,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(6).getSecretStart(),
 				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualGameJoin(player)));
+						 () -> this.usualLevelJoin(player, 6)));
 
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(6).getSecretEnd(),
@@ -124,7 +124,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(7).getSecretStart(),
 				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualGameJoin(player)));
+						 () -> this.usualLevelJoin(player, 7)));
 
 		 ProximityUtils.onNearbyOf(this.instance,
 				 this.getDropperLevel(7).getSecretEnd(),
@@ -190,6 +190,22 @@ public class Dropper extends Game<DropperPlayer> {
 				 player.getName() + ChatColor.AQUA + " a commencé une nouvelle partie en mode "
 						 + this.getGameTypeFormatColor(dpPlayer.getGameType())  + ChatColor.AQUA + " !",true);
 
+	 }
+
+	 public void usualLevelJoin(Player player, int levelRef){
+		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
+		 DropperLevel level = this.getDropperLevel(levelRef);
+
+		 if(dpPlayer.getGameType().equals(GameType.FREE)){
+		 	player.teleport(level.getPlayLocation());
+		 	player.getInventory().setItem(1, this.getGameItem(3));
+		 	dpPlayer.updateCurrentLevel(level);
+
+			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
+					 player.getName() + ChatColor.AQUA + " a rejoint le niveau " + ChatColor.RED + level.getID() +
+							 ChatColor.AQUA + " (" + ChatColor.RED + level.getName() + ChatColor.AQUA + " - " + this.getGameTypeFormatColor(dpPlayer.getGameType()) + ChatColor.AQUA + ")",true);
+
+		 }
 	 }
 
 	 public String getGameTypeFormatColor(GameType type){
