@@ -29,17 +29,17 @@ public class PlayerEventsListener implements Listener {
 				ItemStack item = event.getItem();
 				DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
 
-				if (item.isSimilar(this.game.ITEM_ACTUAL_LEAVE)) {
+				if (item.isSimilar(this.game.getGameItem(3))) {
 
 					if (gamePlayer.getCurrentLevel() != null) {
 						this.game.usualGameLeave(player, true);
 					}
 
-				} else if(item.isSimilar(this.game.ITEM_GAMETYPE_LEAVE)){
+				} else if(item.isSimilar(this.game.getGameItem(2))){
 
 					this.game.usualGameLeave(player, true);
 
-				} else if(item.isSimilar(this.game.ITEM_GAMETYPE_SELECT_FREE)){
+				} else if(item.isSimilar(this.game.getGameItem(0))){
 
                 	this.game.usualGameTypeUpdate(player, GameType.FREE);
                 	this.game.usualGameJoin(player);
