@@ -15,6 +15,8 @@ import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
 import net.samagames.tools.LocationUtils;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class Dropper extends Game<DropperPlayer> {
 	
@@ -54,6 +56,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 player.getInventory().clear();
 		 player.getInventory().setItem(0, this.getGameItem(0));
 		 player.getInventory().setItem(1, this.getGameItem(1));
+		 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 2));
 	 }
 	 
 	 public DropperMain getMainInstance(){
