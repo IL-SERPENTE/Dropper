@@ -2,3 +2,4 @@ main: net.samagames.dropper.DropperMain
 name: Dropper
 version: 0.1
 author: Vialonyx
+load: POSTWORLD
