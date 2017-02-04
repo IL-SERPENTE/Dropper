@@ -179,16 +179,16 @@ public class Dropper extends Game<DropperPlayer> {
 			 player.getInventory().setItem(0, this.getGameItem(2));
 
 		 } else if(dpPlayer.getGameType().equals(GameType.COMPETITION)){
+
+			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
+					 player.getName() + ChatColor.AQUA + " a commencé une nouvelle partie en mode "
+							 + this.getGameTypeFormatColor(dpPlayer.getGameType())  + ChatColor.AQUA + " !",true);
+
 			 /*
 			  * TODO Function to get logically the next level
-			  * TODO Broadcast message (function to syntax LevelName & GameType)
 			  * TODO Update player inventory
 			  */
 		 }
-
-		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
-				 player.getName() + ChatColor.AQUA + " a commencé une nouvelle partie en mode "
-						 + this.getGameTypeFormatColor(dpPlayer.getGameType())  + ChatColor.AQUA + " !",true);
 
 	 }
 
