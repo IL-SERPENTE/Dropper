@@ -1,6 +1,5 @@
-main: net.samagames.dropper.Dropper
+main: net.samagames.dropper.DropperMain
 name: Dropper
 version: 0.1
 author: Vialonyx
-
-depend: [SamaGamesAPI]
+load: POSTWORLD
