@@ -222,6 +222,10 @@ public class Dropper extends Game<DropperPlayer> {
 							 ChatColor.AQUA + " (" + ChatColor.RED + level.getName() + ChatColor.AQUA + " - " + this.getGameTypeFormatColor(dpPlayer.getGameType()) + ChatColor.AQUA + ")",true);
 
 
+		 } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
+		 	DropperLevel next = getNextFromCurrent(level);
+		 	dpPlayer.updateCurrentLevel(next);
+		 	player.teleport(next.getPlayLocation());
 		 }
 
 	 }
@@ -255,6 +259,14 @@ public class Dropper extends Game<DropperPlayer> {
 		 player.getInventory().setItem(0, this.getGameItem(0));
 		 player.getInventory().setItem(1, this.getGameItem(1));
 		 
+	 }
+
+	 public DropperLevel getNextFromCurrent(DropperLevel current){
+	 	int id = current.getID();
+	 	if(id < this.registeredLevels.size() + 1){
+			id++;
+		}
+		 return this.registeredLevels.get(id);
 	 }
 	 
 	 private ItemStack stackBuilder(String name, List<String> lore, Material material, byte data){ 
