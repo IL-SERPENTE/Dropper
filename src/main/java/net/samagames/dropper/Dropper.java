@@ -184,10 +184,9 @@ public class Dropper extends Game<DropperPlayer> {
 					 player.getName() + ChatColor.AQUA + " a commencé une nouvelle partie en mode "
 							 + this.getGameTypeFormatColor(dpPlayer.getGameType())  + ChatColor.AQUA + " !",true);
 
-			 /*
-			  * TODO Function to get logically the next level
-			  * TODO Update player inventory
-			  */
+			 player.getInventory().clear();
+			 player.getInventory().setItem(0, this.getGameItem(2));
+
 		 }
 
 	 }
