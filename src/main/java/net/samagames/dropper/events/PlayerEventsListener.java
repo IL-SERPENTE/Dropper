@@ -32,7 +32,7 @@ public class PlayerEventsListener implements Listener {
 				if (item.isSimilar(this.game.getGameItem(3))) {
 
 					if (gamePlayer.getCurrentLevel() != null) {
-						this.game.usualGameLeave(player, true);
+						this.game.usualLevelLeave(player);
 					}
 
 				} else if(item.isSimilar(this.game.getGameItem(2))){
