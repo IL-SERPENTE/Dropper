@@ -1,15 +1,16 @@
 package net.samagames.dropper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.tools.ProximityUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import com.google.gson.JsonObject;
@@ -25,6 +26,7 @@ public class Dropper extends Game<DropperPlayer> {
 	private DropperMain instance;
 	private Map<Integer, ItemStack> gameItems;
 	private List<DropperLevel> registeredLevels;
+	private Inventory levelGUI;
 	
 	 public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
 		 super(gameCodeName, gameName, gameDescription, gamePlayerClass);
@@ -37,6 +39,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.gameItems.put(1, this.stackBuilder("Compétition", null, Material.GRASS, (byte) 0));
 		 this.gameItems.put(2, this.stackBuilder("Quitter le mode de jeu actuel", null, Material.BONE, (byte) 0));
 		 this.gameItems.put(3, this.stackBuilder("Quitter le niveau actuel", null, Material.BIRCH_DOOR_ITEM, (byte) 0));
+		 this.gameItems.put(4, this.stackBuilder("Sélectionner un niveau", null, Material.ITEM_FRAME, (byte) 0));
 
 		 // Registering levels
 		 this.registeredLevels = new ArrayList<>();
@@ -48,6 +51,13 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.registeredLevels.add(new DropperLevel(6, "Embryo", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(7, "Brain", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(8, "Dimension Jumper", "n/a"));
+
+		 // Creating level GUI
+		 this.levelGUI = Bukkit.createInventory(null, InventoryType.ENDER_CHEST, "Sélectionner un niveau");
+
+		 for(DropperLevel lvl : this.registeredLevels){
+		 	this.levelGUI.addItem(this.stackBuilder(lvl.getName(), Arrays.asList(lvl.getDescription()), Material.ENDER_PEARL, (byte) 0));
+		 }
 
 		 // Start proximity tasks
 		 BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();
@@ -91,14 +101,13 @@ public class Dropper extends Game<DropperPlayer> {
 	 	return this.gameItems.get(ref);
 	 }
 
+	 public Inventory getLevelGUI(){
+	 	return this.levelGUI;
+	 }
+
 	public Location getMapHub(){
 		JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
 		return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("map-hub").getAsString());
-	}
-
-	public Location getMapLevelHub(){
-		JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
-		return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("level-hub").getAsString());
 	}
 
 	 public DropperLevel getDropperLevel(int ref){
@@ -107,28 +116,21 @@ public class Dropper extends Game<DropperPlayer> {
 	 
 	 public void usualGameTypeUpdate(Player player, GameType newGameType){
 		 this.getPlayer(player.getUniqueId()).updatePlayerGameType(newGameType);
-	 }
-	 
-	 public void usualGameJoin(Player player){
-		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
-		 
-		 if(dpPlayer.getGameType().equals(GameType.FREE)){
-			 player.teleport(this.getMapLevelHub());
+
+		 player.getInventory().clear();
+		 if(newGameType.equals(GameType.FREE)){
+			 player.getInventory().addItem(this.getGameItem(2));
+			 player.getInventory().addItem(this.getGameItem(4));
+		 } else if(newGameType.equals(GameType.COMPETITION)){
 			 player.getInventory().clear();
-			 player.getInventory().setItem(0, this.getGameItem(2));
-
-		 } else if(dpPlayer.getGameType().equals(GameType.COMPETITION)){
-
-			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
-					 player.getName() + ChatColor.AQUA + " a commencé une nouvelle partie en mode "
-							 + this.getGameTypeFormatColor(dpPlayer.getGameType())  + ChatColor.AQUA + " !",true);
-
-			 player.getInventory().clear();
-			 player.getInventory().setItem(0, this.getGameItem(2));
-
+			 player.getInventory().addItem(this.getGameItem(2));
 		 }
-
 	 }
+
+	 /**public void usualGameJoin(Player player){
+		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
+		 // Temporary void
+	 }**/
 
 	 public void usualLevelJoin(Player player, int levelRef){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
@@ -151,7 +153,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperLevel level = dpPlayer.getCurrentLevel();
 
 		 if(dpPlayer.getGameType().equals(GameType.FREE)){
-		 	player.teleport(this.getMapLevelHub());
+		 	player.teleport(this.getMapHub());
 		 	player.getInventory().clear();
 		 	player.getInventory().setItem(0, this.getGameItem(2));
 		 	dpPlayer.updateCurrentLevel(null);
