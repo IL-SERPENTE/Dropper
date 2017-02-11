@@ -86,10 +86,6 @@ public class Dropper extends Game<DropperPlayer> {
 		 player.getInventory().setItem(1, this.getGameItem(1));
 		 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 2));
 	 }
-	 
-	 public DropperMain getMainInstance(){
-		 return this.instance;
-	 }
 
 	 public ItemStack getGameItem(int ref){
 	 	return this.gameItems.get(ref);
