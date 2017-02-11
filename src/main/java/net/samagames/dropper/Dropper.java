@@ -106,7 +106,6 @@ public class Dropper extends Game<DropperPlayer> {
 	 }
 	 
 	 public void usualGameTypeUpdate(Player player, GameType newGameType){
-		 // TODO Respond in function of old gameType
 		 this.getPlayer(player.getUniqueId()).updatePlayerGameType(newGameType);
 	 }
 	 
