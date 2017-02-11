@@ -15,7 +15,7 @@ public class DropperLevel {
 	private String levelName, levelDescription;
 	private World world;
 	private Location levelPlayLocation;
-	private ArmorStand LevelAs_Start, LevelAs_End;
+	private ArmorStand LevelAs_End;
 	
 	public DropperLevel(int levelID, String levelName, String levelDescription){
 		this.levelID = levelID;
@@ -26,7 +26,6 @@ public class DropperLevel {
         JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
         this.world = Bukkit.getWorld(object.get("world-name").getAsString());
         this.levelPlayLocation = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
-        this.LevelAs_Start = this.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asStart").getAsString()));
 		this.LevelAs_End = this.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()));
 
 	}
@@ -52,10 +51,6 @@ public class DropperLevel {
 	
 	public Location getPlayLocation(){
 		return this.levelPlayLocation;
-	}
-
-	public ArmorStand getSecretStart(){
-		return this.LevelAs_Start;
 	}
 
 	public ArmorStand getSecretEnd(){

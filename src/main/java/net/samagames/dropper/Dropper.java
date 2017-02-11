@@ -51,85 +51,29 @@ public class Dropper extends Game<DropperPlayer> {
 
 		 // Start proximity tasks
 		 BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(0).getSecretStart(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelJoin(player, 0)));
+		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(0).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		() -> this.usualLevelLeave(player)));
 
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(0).getSecretEnd(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelLeave(player)));
+		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(1).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		() -> this.usualLevelLeave(player)));
 
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(1).getSecretStart(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelJoin(player, 1)));
+		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(2).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		() -> this.usualLevelLeave(player)));
 
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(1).getSecretEnd(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelLeave(player)));
+		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(3).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		() -> this.usualLevelLeave(player)));
 
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(2).getSecretStart(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelJoin(player, 2)));
+		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(4).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		() -> this.usualLevelLeave(player)));
 
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(2).getSecretEnd(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelLeave(player)));
+		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(5).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		() -> this.usualLevelLeave(player)));
 
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(3).getSecretStart(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelJoin(player, 3)));
+		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(6).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		() -> this.usualLevelLeave(player)));
 
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(3).getSecretEnd(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(4).getSecretStart(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelJoin(player, 4)));
-
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(4).getSecretEnd(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(5).getSecretStart(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelJoin(player, 5)));
-
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(5).getSecretEnd(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(6).getSecretStart(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelJoin(player, 6)));
-
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(6).getSecretEnd(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(7).getSecretStart(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelJoin(player, 7)));
-
-		 ProximityUtils.onNearbyOf(this.instance,
-				 this.getDropperLevel(7).getSecretEnd(),
-				 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-						 () -> this.usualLevelLeave(player)));
+		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(7).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		() -> this.usualLevelLeave(player)));
 
 	 }
 	 
