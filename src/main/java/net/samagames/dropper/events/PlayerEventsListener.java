@@ -1,6 +1,8 @@
 package net.samagames.dropper.events;
 
+import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.GameType;
+import net.samagames.dropper.LevelGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -42,7 +44,7 @@ public class PlayerEventsListener implements Listener {
                 	this.game.usualGameTypeUpdate(player, GameType.FREE);
 
 				} else if(item.isSimilar(this.game.getGameItem(4))){
-					player.openInventory(this.game.getLevelGUI());
+					SamaGamesAPI.get().getGuiManager().openGui(player, new LevelGUI(this.game.getInstance()));
 				}
                 
             }

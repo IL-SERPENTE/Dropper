@@ -22,4 +22,8 @@ public class DropperMain extends JavaPlugin {
     	
     }
 
+    public Dropper get(){
+    	return this.game;
+	}
+
 }

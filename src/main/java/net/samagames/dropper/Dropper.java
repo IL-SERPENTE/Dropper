@@ -1,16 +1,12 @@
 package net.samagames.dropper;
 
 import java.util.*;
-
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.tools.ProximityUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import com.google.gson.JsonObject;
@@ -26,7 +22,6 @@ public class Dropper extends Game<DropperPlayer> {
 	private DropperMain instance;
 	private Map<Integer, ItemStack> gameItems;
 	private List<DropperLevel> registeredLevels;
-	private Inventory levelGUI;
 	
 	 public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
 		 super(gameCodeName, gameName, gameDescription, gamePlayerClass);
@@ -51,13 +46,6 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.registeredLevels.add(new DropperLevel(6, "Embryo", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(7, "Brain", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(8, "Dimension Jumper", "n/a"));
-
-		 // Creating level GUI
-		 this.levelGUI = Bukkit.createInventory(null, InventoryType.ENDER_CHEST, "Sélectionner un niveau");
-
-		 for(DropperLevel lvl : this.registeredLevels){
-		 	this.levelGUI.addItem(this.stackBuilder(lvl.getName(), Arrays.asList(lvl.getDescription()), Material.ENDER_PEARL, (byte) 0));
-		 }
 
 		 // Start proximity tasks
 		 BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();
@@ -101,8 +89,12 @@ public class Dropper extends Game<DropperPlayer> {
 	 	return this.gameItems.get(ref);
 	 }
 
-	 public Inventory getLevelGUI(){
-	 	return this.levelGUI;
+	 public DropperMain getInstance(){
+	 	return this.instance;
+	 }
+
+	 public List<DropperLevel> getRegisteredLevels(){
+	 	return this.registeredLevels;
 	 }
 
 	public Location getMapHub(){
@@ -126,11 +118,6 @@ public class Dropper extends Game<DropperPlayer> {
 			 player.getInventory().addItem(this.getGameItem(2));
 		 }
 	 }
-
-	 /**public void usualGameJoin(Player player){
-		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
-		 // Temporary void
-	 }**/
 
 	 public void usualLevelJoin(Player player, int levelRef){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
