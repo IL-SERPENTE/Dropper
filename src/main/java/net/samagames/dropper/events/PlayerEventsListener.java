@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
@@ -52,6 +53,23 @@ public class PlayerEventsListener implements Listener {
             }
             
 		}
+	}
+
+	@EventHandler
+	public void onDeath(PlayerDeathEvent event){
+
+		if(event.getEntity() instanceof Player){
+			Player player = (Player) event.getEntity();
+			DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
+
+			if(gamePlayer.getGameType().equals(GameType.FREE)){
+				this.game.usualLevelLeave(player);
+			} else if(gamePlayer.getGameType().equals(GameType.COMPETITION)){
+				this.game.usualGameLeave(player, false);
+			}
+
+		}
+
 	}
 
 	@EventHandler
