@@ -115,24 +115,31 @@ public class Dropper extends Game<DropperPlayer> {
 			 player.getInventory().addItem(this.getGameItem(4));
 		 } else if(newGameType.equals(GameType.COMPETITION)){
 			 player.getInventory().clear();
-			 player.getInventory().addItem(this.getGameItem(2));
+			 player.getInventory().setItem(0,this.getGameItem(2));
+			 usualLevelJoin(player, 0);
 		 }
 	 }
 
-	 public void usualLevelJoin(Player player, int levelRef){
+	 public void usualLevelJoin(Player player, int levelRef) {
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = this.getDropperLevel(levelRef);
 
-		 if(dpPlayer.getGameType().equals(GameType.FREE)){
+		 if(dpPlayer.getGameType().equals(GameType.FREE)) {
 		 	player.teleport(level.getPlayLocation());
 		 	player.getInventory().setItem(1, this.getGameItem(3));
 		 	dpPlayer.updateCurrentLevel(level);
 
-			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
-					 player.getName() + ChatColor.AQUA + " a rejoint le niveau " + ChatColor.RED + level.getID() +
-							 ChatColor.AQUA + " (" + ChatColor.RED + level.getName() + ChatColor.AQUA + " - " + this.getGameTypeFormatColor(dpPlayer.getGameType()) + ChatColor.AQUA + ")",true);
+		 } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)) {
+             player.teleport(level.getPlayLocation());
+             dpPlayer.updateCurrentLevel(level);
 
-		 }
+         }
+
+         SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
+                 player.getName() + ChatColor.AQUA + " a rejoint le niveau " + ChatColor.RED + level.getID() +
+                         ChatColor.AQUA + " (" + ChatColor.RED + level.getName() + ChatColor.AQUA + " - " + this.getGameTypeFormatColor(dpPlayer.getGameType()) + ChatColor.AQUA + ")",true);
+
+
 	 }
 
 	 public void usualLevelLeave(Player player){
@@ -145,16 +152,15 @@ public class Dropper extends Game<DropperPlayer> {
 		 	player.getInventory().setItem(0, this.getGameItem(2));
 		 	dpPlayer.updateCurrentLevel(null);
 
-			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
-					 player.getName() + ChatColor.AQUA + " a terminé le niveau " + ChatColor.RED + level.getID() +
-							 ChatColor.AQUA + " (" + ChatColor.RED + level.getName() + ChatColor.AQUA + " - " + this.getGameTypeFormatColor(dpPlayer.getGameType()) + ChatColor.AQUA + ")",true);
-
-
 		 } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
 		 	DropperLevel next = getNextFromCurrent(level);
 		 	dpPlayer.updateCurrentLevel(next);
 		 	player.teleport(next.getPlayLocation());
 		 }
+
+         SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
+                 player.getName() + ChatColor.AQUA + " a terminé le niveau " + ChatColor.RED + level.getID() +
+                         ChatColor.AQUA + " (" + ChatColor.RED + level.getName() + ChatColor.AQUA + " - " + this.getGameTypeFormatColor(dpPlayer.getGameType()) + ChatColor.AQUA + ")",true);
 
 	 }
 
