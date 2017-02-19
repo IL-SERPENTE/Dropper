@@ -112,14 +112,23 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.getPlayer(player.getUniqueId()).updatePlayerGameType(newGameType);
 
 		 player.getInventory().clear();
+
+		 if(! newGameType.equals(GameType.UNSELECTED)){
+			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
+					 .writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " joues désormais en mode " + this.getGameTypeFormatColor(newGameType),true);
+		 }
+
 		 if(newGameType.equals(GameType.FREE)){
 			 player.getInventory().addItem(this.getGameItem(2));
 			 player.getInventory().addItem(this.getGameItem(4));
+
 		 } else if(newGameType.equals(GameType.COMPETITION)){
 			 player.getInventory().clear();
 			 player.getInventory().setItem(0,this.getGameItem(2));
 			 usualLevelJoin(player, 0);
+
 		 }
+
 	 }
 
 	 public void usualLevelJoin(Player player, int levelRef) {
@@ -129,10 +138,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 LevelJoinEvent levelJoinEvent = new LevelJoinEvent(player, level);
 		 this.getInstance().getServer().getPluginManager().callEvent(levelJoinEvent);
 
-         SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
-                 player.getName() + ChatColor.AQUA + " a rejoint le niveau " + ChatColor.RED + level.getID() +
-                         ChatColor.AQUA + " (" + ChatColor.RED + level.getName() + ChatColor.AQUA + " - " + this.getGameTypeFormatColor(dpPlayer.getGameType()) + ChatColor.AQUA + ")",true);
-
+		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
+		.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a rejoint le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 
 	 }
 
@@ -143,9 +150,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 LevelJoinEvent levelQuitEvent = new LevelJoinEvent(player, level);
 		 this.getInstance().getServer().getPluginManager().callEvent(levelQuitEvent);
 
-         SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
-                 player.getName() + ChatColor.AQUA + " a terminé le niveau " + ChatColor.RED + level.getID() +
-                         ChatColor.AQUA + " (" + ChatColor.RED + level.getName() + ChatColor.AQUA + " - " + this.getGameTypeFormatColor(dpPlayer.getGameType()) + ChatColor.AQUA + ")",true);
+		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
+		.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a terminé le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 
 	 }
 
@@ -160,16 +166,11 @@ public class Dropper extends Game<DropperPlayer> {
 		return "";
 	 }
 	 
-	 public void usualGameLeave(Player player, boolean byPlayer){
+	 public void usualGameLeave(Player player){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 
-		 if(byPlayer){
-			 player.sendMessage(ChatColor.AQUA + "Vous avez quitté votre partie en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()));
-		 } else {
-			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
-					 player.getName() + ChatColor.AQUA + " a terminé une partie en mode "
-							 + this.getGameTypeFormatColor(dpPlayer.getGameType())  + ChatColor.AQUA + " !",true);
-		 }
+		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
+		.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté la partie en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 		 
 		 player.teleport(this.getMapHub());
 		 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);

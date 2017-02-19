@@ -38,7 +38,7 @@ public class PlayerEventsListener implements Listener {
 					}
 
 				} else if(item.isSimilar(this.game.getGameItem(2))){
-					this.game.usualGameLeave(player, true);
+					this.game.usualGameLeave(player);
 
 				} else if(item.isSimilar(this.game.getGameItem(0))) {
                     this.game.usualGameTypeUpdate(player, GameType.FREE);
@@ -65,7 +65,7 @@ public class PlayerEventsListener implements Listener {
 			if(gamePlayer.getGameType().equals(GameType.FREE)){
 				this.game.usualLevelLeave(player);
 			} else if(gamePlayer.getGameType().equals(GameType.COMPETITION)){
-				this.game.usualGameLeave(player, false);
+				this.game.usualGameLeave(player);
 			}
 
 		}
