@@ -30,11 +30,11 @@ public class DropperPlayer extends GamePlayer {
 		return this.current;
 	}
 	
-	void updateCurrentLevel(DropperLevel newLevel){
+	public void updateCurrentLevel(DropperLevel newLevel){
 		this.current = newLevel;
 	}
 	
-	void updatePlayerGameType(GameType newGameType){
+	public void updatePlayerGameType(GameType newGameType){
 		this.gameType = newGameType;
 	}
 

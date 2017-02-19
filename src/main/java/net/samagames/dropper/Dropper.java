@@ -1,6 +1,8 @@
 package net.samagames.dropper;
 
 import java.util.*;
+
+import net.samagames.dropper.events.LevelJoinEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.tools.ProximityUtils;
 import org.bukkit.ChatColor;
@@ -124,16 +126,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = this.getDropperLevel(levelRef);
 
-		 if(dpPlayer.getGameType().equals(GameType.FREE)) {
-		 	player.teleport(level.getPlayLocation());
-		 	player.getInventory().setItem(1, this.getGameItem(3));
-		 	dpPlayer.updateCurrentLevel(level);
-
-		 } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)) {
-             player.teleport(level.getPlayLocation());
-             dpPlayer.updateCurrentLevel(level);
-
-         }
+		 LevelJoinEvent levelJoinEvent = new LevelJoinEvent(player, level);
+		 this.getInstance().getServer().getPluginManager().callEvent(levelJoinEvent);
 
          SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
                  player.getName() + ChatColor.AQUA + " a rejoint le niveau " + ChatColor.RED + level.getID() +
@@ -146,17 +140,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = dpPlayer.getCurrentLevel();
 
-		 if(dpPlayer.getGameType().equals(GameType.FREE)){
-		 	player.teleport(this.getMapHub());
-		 	player.getInventory().clear();
-		 	player.getInventory().setItem(0, this.getGameItem(2));
-		 	dpPlayer.updateCurrentLevel(null);
-
-		 } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
-		 	DropperLevel next = getNextFromCurrent(level);
-		 	dpPlayer.updateCurrentLevel(next);
-		 	player.teleport(next.getPlayLocation());
-		 }
+		 LevelJoinEvent levelQuitEvent = new LevelJoinEvent(player, level);
+		 this.getInstance().getServer().getPluginManager().callEvent(levelQuitEvent);
 
          SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager().writeCustomMessage(
                  player.getName() + ChatColor.AQUA + " a terminé le niveau " + ChatColor.RED + level.getID() +

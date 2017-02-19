@@ -1,4 +1,4 @@
-package net.samagames.dropper.events;
+package net.samagames.dropper.events.listeners;
 
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.GameType;
