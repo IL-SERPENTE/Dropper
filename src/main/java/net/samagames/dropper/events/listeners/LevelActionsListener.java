@@ -1,11 +1,14 @@
 package net.samagames.dropper.events.listeners;
 
+import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
 import net.samagames.dropper.GameType;
+import net.samagames.dropper.events.CooldownDoneEvent;
 import net.samagames.dropper.events.LevelJoinEvent;
 import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,6 +42,9 @@ public class LevelActionsListener implements Listener {
 
         }
 
+        SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
+        .writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a rejoint le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.game.getGameTypeFormatColor(dpPlayer.getGameType()),true);
+
     }
 
     @EventHandler
@@ -60,6 +66,13 @@ public class LevelActionsListener implements Listener {
             player.teleport(next.getPlayLocation());
         }
 
+    }
+
+    @EventHandler
+    public void onCooldownDone(CooldownDoneEvent event){
+        // More things here in the future
+        LevelJoinEvent levelJoinEvent = new LevelJoinEvent(event.getPlayer(), event.getLevel());
+        this.game.getInstance().getServer().getPluginManager().callEvent(levelJoinEvent);
     }
 
 }

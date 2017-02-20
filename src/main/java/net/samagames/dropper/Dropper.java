@@ -4,6 +4,7 @@ import java.util.*;
 
 import net.samagames.dropper.events.LevelJoinEvent;
 import net.samagames.dropper.level.DropperLevel;
+import net.samagames.dropper.level.LevelCooldown;
 import net.samagames.tools.ProximityUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -135,12 +136,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = this.getDropperLevel(levelRef);
 
-		 LevelJoinEvent levelJoinEvent = new LevelJoinEvent(player, level);
-		 this.getInstance().getServer().getPluginManager().callEvent(levelJoinEvent);
-
-		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
-		.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a rejoint le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
-
+         new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
 	 }
 
 	 public void usualLevelLeave(Player player){
