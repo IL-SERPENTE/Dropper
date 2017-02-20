@@ -1,8 +1,6 @@
 package net.samagames.dropper;
 
 import java.util.*;
-
-import net.samagames.dropper.events.LevelJoinEvent;
 import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.dropper.level.LevelCooldown;
@@ -137,6 +135,12 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = this.getDropperLevel(levelRef);
 
+		 if(level.getPlatform().isHiden()){
+		     level.getPlatform().create();
+         }
+
+         player.teleport(level.getPlatform().get());
+         player.getInventory().remove(this.getGameItem(4));
          new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
 	 }
 

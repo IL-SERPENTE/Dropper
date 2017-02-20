@@ -15,6 +15,7 @@ public class DropperLevel {
 	private String levelName, levelDescription;
 	private World world;
 	private Location levelPlayLocation;
+	private LevelPlatform levelPlatform;
 	private ArmorStand LevelAs_End;
 	
 	public DropperLevel(int levelID, String levelName, String levelDescription){
@@ -27,6 +28,8 @@ public class DropperLevel {
         this.world = Bukkit.getWorld(object.get("world-name").getAsString());
         this.levelPlayLocation = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
 		this.LevelAs_End = this.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()));
+
+        this.levelPlatform = new LevelPlatform(this.getPlayLocation().subtract(0, 1, 0));
 
 	}
 
@@ -52,6 +55,10 @@ public class DropperLevel {
 	public Location getPlayLocation(){
 		return this.levelPlayLocation;
 	}
+
+	public LevelPlatform getPlatform(){
+	    return this.levelPlatform;
+    }
 
 	public ArmorStand getSecretEnd(){
 		return this.LevelAs_End;
