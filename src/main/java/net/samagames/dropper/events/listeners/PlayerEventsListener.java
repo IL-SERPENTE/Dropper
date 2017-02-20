@@ -57,23 +57,6 @@ public class PlayerEventsListener implements Listener {
 		}
 	}
 
-	/**@EventHandler
-	public void onDeath(PlayerDeathEvent event){
-
-		if(event.getEntity() instanceof Player){
-			Player player = (Player) event.getEntity();
-			DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
-
-			if(gamePlayer.getGameType().equals(GameType.FREE)){
-				this.game.usualLevelLeave(player);
-			} else if(gamePlayer.getGameType().equals(GameType.COMPETITION)){
-				this.game.usualGameLeave(player);
-			}
-
-		}
-
-	}**/
-
 	@EventHandler
 	public void onFoodLevelChange(FoodLevelChangeEvent event){
 		// Disabling food.
