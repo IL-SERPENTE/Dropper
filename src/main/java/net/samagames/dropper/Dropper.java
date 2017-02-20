@@ -3,6 +3,7 @@ package net.samagames.dropper;
 import java.util.*;
 
 import net.samagames.dropper.events.LevelJoinEvent;
+import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.dropper.level.LevelCooldown;
 import net.samagames.tools.ProximityUtils;
@@ -143,7 +144,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = dpPlayer.getCurrentLevel();
 
-		 LevelJoinEvent levelQuitEvent = new LevelJoinEvent(player, level);
+		 LevelQuitEvent levelQuitEvent = new LevelQuitEvent(player, level);
 		 this.getInstance().getServer().getPluginManager().callEvent(levelQuitEvent);
 
 		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
