@@ -57,7 +57,7 @@ public class PlayerEventsListener implements Listener {
 		}
 	}
 
-	@EventHandler
+	/**@EventHandler
 	public void onDeath(PlayerDeathEvent event){
 
 		if(event.getEntity() instanceof Player){
@@ -72,7 +72,7 @@ public class PlayerEventsListener implements Listener {
 
 		}
 
-	}
+	}**/
 
 	@EventHandler
 	public void onFoodLevelChange(FoodLevelChangeEvent event){
