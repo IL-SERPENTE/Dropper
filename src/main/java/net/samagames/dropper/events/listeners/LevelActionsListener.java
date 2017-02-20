@@ -42,7 +42,7 @@ public class LevelActionsListener implements Listener {
 
         }
 
-        level.getPlatform().hide();
+        level.hidePlatform();
 
         SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
         .writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a rejoint le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.game.getGameTypeFormatColor(dpPlayer.getGameType()),true);

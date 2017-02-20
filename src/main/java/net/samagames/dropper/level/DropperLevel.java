@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.tools.LocationUtils;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -15,7 +16,6 @@ public class DropperLevel {
 	private String levelName, levelDescription;
 	private World world;
 	private Location levelPlayLocation;
-	private LevelPlatform levelPlatform;
 	private ArmorStand LevelAs_End;
 	
 	public DropperLevel(int levelID, String levelName, String levelDescription){
@@ -29,7 +29,7 @@ public class DropperLevel {
         this.levelPlayLocation = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
 		this.LevelAs_End = this.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()));
 
-        this.levelPlatform = new LevelPlatform(this.getPlayLocation().subtract(0, 1, 0));
+		this.buildPlatform();
 
 	}
 
@@ -38,6 +38,14 @@ public class DropperLevel {
 		as.setVisible(false);
 		as.setGravity(false);
 		return as;
+	}
+
+	public void buildPlatform(){
+		this.levelPlayLocation.subtract(0, 1, 0).getBlock().setType(Material.CLAY);
+	}
+
+	public void hidePlatform(){
+		this.levelPlayLocation.subtract(0, 1, 0).getBlock().setType(Material.AIR);
 	}
 	
 	public int getID(){
@@ -55,10 +63,6 @@ public class DropperLevel {
 	public Location getPlayLocation(){
 		return this.levelPlayLocation;
 	}
-
-	public LevelPlatform getPlatform(){
-	    return this.levelPlatform;
-    }
 
 	public ArmorStand getSecretEnd(){
 		return this.LevelAs_End;
