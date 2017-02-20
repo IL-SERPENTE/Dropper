@@ -27,8 +27,9 @@ public class DropperLevel {
         JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
         this.world = Bukkit.getWorld(object.get("world-name").getAsString());
         this.levelPlayLocation = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
-		this.LevelAs_End = this.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()));
+        this.LevelAs_End = this.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()));
 
+        this.world.getChunkAt(levelPlayLocation.getBlock()).load();
 		this.buildPlatform();
 
 	}
