@@ -60,6 +60,7 @@ public class LevelActionsListener implements Listener {
             player.teleport(this.game.getMapHub());
             player.getInventory().clear();
             player.getInventory().setItem(0, this.game.getGameItem(2));
+            player.getInventory().setItem(1, this.game.getGameItem(4));
             dpPlayer.updateCurrentLevel(null);
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
