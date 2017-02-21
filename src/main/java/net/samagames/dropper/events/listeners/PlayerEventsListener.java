@@ -10,11 +10,14 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
+
+import static org.bukkit.Bukkit.broadcastMessage;
 
 public class PlayerEventsListener implements Listener {
 	
@@ -54,6 +57,11 @@ public class PlayerEventsListener implements Listener {
             }
             
 		}
+	}
+
+	@EventHandler
+	public void onInventoryClick(InventoryClickEvent event){
+		event.setCancelled(true);
 	}
 
 	@EventHandler
