@@ -8,13 +8,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
-
-import static org.bukkit.Bukkit.broadcastMessage;
 
 public class PlayerEventsListener implements Listener {
 	

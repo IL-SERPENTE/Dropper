@@ -135,7 +135,6 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = this.getDropperLevel(levelRef);
 
-		 level.buildPlatform();
          player.getInventory().remove(this.getGameItem(4));
          player.teleport(level.getPlayLocation());
          new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
