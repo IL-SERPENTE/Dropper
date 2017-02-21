@@ -140,6 +140,7 @@ public class Dropper extends Game<DropperPlayer> {
 
 		 if(dpPlayer.hasActiveCooldown()){
 		 	dpPlayer.getActiveCooldown().cancel();
+		 	dpPlayer.resetCooldownData();
 		 }
 
 		 LevelQuitEvent levelQuitEvent = new LevelQuitEvent(player, level);
@@ -166,6 +167,7 @@ public class Dropper extends Game<DropperPlayer> {
 
 		 if(dpPlayer.hasActiveCooldown()){
 			 dpPlayer.getActiveCooldown().cancel();
+			 dpPlayer.resetCooldownData();
 		 }
 
 		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
