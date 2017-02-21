@@ -48,6 +48,14 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.registeredLevels.add(new DropperLevel(6, "Embryo", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(7, "Brain", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(8, "Dimension Jumper", "n/a"));
+		 this.registeredLevels.add(new DropperLevel(9, "BeetleJuice", "n/a"));
+		 this.registeredLevels.add(new DropperLevel(10, "Web", "n/a"));
+		 this.registeredLevels.add(new DropperLevel(11, "Armor", "n/a"));
+		 this.registeredLevels.add(new DropperLevel(12, "Dracula's Bedroom", "n/a"));
+		 this.registeredLevels.add(new DropperLevel(13, "DNA", "n/a"));
+		 this.registeredLevels.add(new DropperLevel(14, "Minecraft is huge", "n/a"));
+		 this.registeredLevels.add(new DropperLevel(15, "Hardware", "n/a"));
+		 this.registeredLevels.add(new DropperLevel(16, "Moria", "n/a"));
 		 
 
 		 // Start proximity tasks
