@@ -35,6 +35,7 @@ public class LevelGUI extends AbstractGui {
 
     @Override
     public void onClick(Player player, ItemStack stack, String action, ClickType clickType) {
+        player.closeInventory();
         switch (action) {
             case "1":
                 this.instance.get().usualLevelJoin(player, 0);
