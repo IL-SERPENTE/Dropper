@@ -32,11 +32,11 @@ public class Dropper extends Game<DropperPlayer> {
 
 		 // Registering items
 		 this.gameItems = new HashMap<>();
-		 this.gameItems.put(0, this.stackBuilder("Entrainement", null, Material.DIRT, (byte) 0));
-		 this.gameItems.put(1, this.stackBuilder("Compétition", null, Material.GRASS, (byte) 0));
-		 this.gameItems.put(2, this.stackBuilder("Quitter le mode de jeu actuel", null, Material.BONE, (byte) 0));
-		 this.gameItems.put(3, this.stackBuilder("Quitter le niveau actuel", null, Material.BIRCH_DOOR_ITEM, (byte) 0));
-		 this.gameItems.put(4, this.stackBuilder("Sélectionner un niveau", null, Material.ITEM_FRAME, (byte) 0));
+		 this.gameItems.put(0, this.stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.GREEN + "Entrainement", null, Material.BANNER, (byte) 2));
+		 this.gameItems.put(1, this.stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.RED + "Compétition", null, Material.BANNER, (byte) 1));
+		 this.gameItems.put(2, this.stackBuilder(ChatColor.WHITE + "Quitter le mode de jeu", null, Material.BIRCH_DOOR_ITEM, (byte) 0));
+		 this.gameItems.put(3, this.stackBuilder(ChatColor.RED + "Quitter ce niveau", null, Material.BARRIER, (byte) 0));
+		 this.gameItems.put(4, this.stackBuilder(ChatColor.WHITE + "Sélectionner un niveau", null, Material.BOOK, (byte) 0));
 
 		 // Registering levels
 		 this.registeredLevels = new ArrayList<>();
@@ -72,8 +72,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 super.handleLogin(player);
 		 player.teleport(this.getMapHub());
 		 player.getInventory().clear();
-		 player.getInventory().setItem(0, this.getGameItem(0));
-		 player.getInventory().setItem(1, this.getGameItem(1));
+		 player.getInventory().setItem(3, this.getGameItem(0));
+		 player.getInventory().setItem(5, this.getGameItem(1));
 		 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 2));
 	 }
 
@@ -109,8 +109,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 }
 
 		 if(newGameType.equals(GameType.FREE)){
-			 player.getInventory().addItem(this.getGameItem(2));
-			 player.getInventory().addItem(this.getGameItem(4));
+			 player.getInventory().setItem(3, this.getGameItem(4));
+			 player.getInventory().setItem(5, this.getGameItem(2));
 
 		 } else if(newGameType.equals(GameType.COMPETITION)){
 			 player.getInventory().clear();
@@ -125,7 +125,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = this.getDropperLevel(levelRef);
 
-         player.getInventory().remove(this.getGameItem(4));
+         player.getInventory().clear();
+         player.getInventory().setItem(4, this.getGameItem(2));
 
          if(! dpPlayer.hasActiveCooldown()){
 			 new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
@@ -174,8 +175,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
 		 dpPlayer.updateCurrentLevel(null);
 		 player.getInventory().clear();
-		 player.getInventory().setItem(0, this.getGameItem(0));
-		 player.getInventory().setItem(1, this.getGameItem(1));
+		 player.getInventory().setItem(3, this.getGameItem(0));
+		 player.getInventory().setItem(5, this.getGameItem(1));
 		 
 	 }
 
