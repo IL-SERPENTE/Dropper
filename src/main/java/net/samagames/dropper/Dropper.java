@@ -48,32 +48,14 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.registeredLevels.add(new DropperLevel(6, "Embryo", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(7, "Brain", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(8, "Dimension Jumper", "n/a"));
+		 
 
 		 // Start proximity tasks
-		 BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();
-		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(0).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-		() -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(1).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-		() -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(2).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-		() -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(3).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-		() -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(4).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-		() -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(5).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-		() -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(6).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-		() -> this.usualLevelLeave(player)));
-
-		 ProximityUtils.onNearbyOf(this.instance, this.getDropperLevel(7).getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-		() -> this.usualLevelLeave(player)));
+		 BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();		 
+		 for(DropperLevel level : this.getRegisteredLevels()){
+			 ProximityUtils.onNearbyOf(this.instance, level.getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+			() -> this.usualLevelLeave(player)));
+		 }
 
 	 }
 	 
