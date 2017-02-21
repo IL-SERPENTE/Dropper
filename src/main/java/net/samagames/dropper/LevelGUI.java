@@ -61,6 +61,30 @@ public class LevelGUI extends AbstractGui {
             case "8":
                 this.instance.get().usualLevelJoin(player, 7);
                 break;
+            case "9":
+            	this.instance.get().usualLevelJoin(player, 8);
+            	break;
+            case "10":
+            	this.instance.get().usualLevelJoin(player, 9);
+            	break;
+            case "11":
+            	this.instance.get().usualLevelJoin(player, 10);
+            	break;
+            case "12":
+            	this.instance.get().usualLevelJoin(player, 11);
+            	break;
+            case "13":
+            	this.instance.get().usualLevelJoin(player, 12);
+            	break;
+            case "14":
+            	this.instance.get().usualLevelJoin(player, 13);
+            	break;
+            case "15":
+            	this.instance.get().usualLevelJoin(player, 14);
+            	break;
+            case "16":
+            	this.instance.get().usualLevelJoin(player, 15);
+            	break;
         }
     }
 
