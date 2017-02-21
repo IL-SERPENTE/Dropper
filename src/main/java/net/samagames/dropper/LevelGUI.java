@@ -1,13 +1,18 @@
 package net.samagames.dropper;
 
+import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.gui.AbstractGui;
 import net.samagames.dropper.level.DropperLevel;
+
+import java.util.logging.Level;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.permissions.BroadcastPermissions;
 
 /**
  * @author Vialonyx
@@ -36,56 +41,13 @@ public class LevelGUI extends AbstractGui {
     @Override
     public void onClick(Player player, ItemStack stack, String action, ClickType clickType) {
         player.closeInventory();
-        switch (action) {
-            case "1":
-                this.instance.get().usualLevelJoin(player, 0);
-                break;
-            case "2":
-                this.instance.get().usualLevelJoin(player, 1);
-                break;
-            case "3":
-                this.instance.get().usualLevelJoin(player, 2);
-                break;
-            case "4":
-                this.instance.get().usualLevelJoin(player, 3);
-                break;
-            case "5":
-                this.instance.get().usualLevelJoin(player, 4);
-                break;
-            case "6":
-                this.instance.get().usualLevelJoin(player, 5);
-                break;
-            case "7":
-                this.instance.get().usualLevelJoin(player, 6);
-                break;
-            case "8":
-                this.instance.get().usualLevelJoin(player, 7);
-                break;
-            case "9":
-            	this.instance.get().usualLevelJoin(player, 8);
-            	break;
-            case "10":
-            	this.instance.get().usualLevelJoin(player, 9);
-            	break;
-            case "11":
-            	this.instance.get().usualLevelJoin(player, 10);
-            	break;
-            case "12":
-            	this.instance.get().usualLevelJoin(player, 11);
-            	break;
-            case "13":
-            	this.instance.get().usualLevelJoin(player, 12);
-            	break;
-            case "14":
-            	this.instance.get().usualLevelJoin(player, 13);
-            	break;
-            case "15":
-            	this.instance.get().usualLevelJoin(player, 14);
-            	break;
-            case "16":
-            	this.instance.get().usualLevelJoin(player, 15);
-            	break;
+        
+        for(int i=0; i < instance.get().getRegisteredLevels().size(); i++){
+        	if(action.equals("" + i)){
+        		this.instance.get().usualLevelJoin(player, i-1);
+        	}
         }
+        
     }
 
     @Override
