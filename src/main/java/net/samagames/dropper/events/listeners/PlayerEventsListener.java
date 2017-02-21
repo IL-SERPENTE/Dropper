@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -52,6 +53,14 @@ public class PlayerEventsListener implements Listener {
                 
             }
             
+		}
+	}
+
+	@EventHandler
+	public void onDamage(EntityDamageByEntityEvent event){
+		// Disabling PVP.
+		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
+			event.setCancelled(true);
 		}
 	}
 
