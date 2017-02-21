@@ -1,18 +1,13 @@
 package net.samagames.dropper;
 
-import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.gui.AbstractGui;
 import net.samagames.dropper.level.DropperLevel;
-
-import java.util.logging.Level;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.permissions.BroadcastPermissions;
 
 /**
  * @author Vialonyx
