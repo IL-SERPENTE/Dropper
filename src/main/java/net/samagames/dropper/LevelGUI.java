@@ -37,11 +37,11 @@ public class LevelGUI extends AbstractGui {
     public void onClick(Player player, ItemStack stack, String action, ClickType clickType) {
         player.closeInventory();
         
-        for(int i=0; i < instance.get().getRegisteredLevels().size(); i++){
-        	if(action.equals("" + i)){
-        		this.instance.get().usualLevelJoin(player, i-1);
-        	}
+        int level = Integer.parseInt(action);
+        if (level < 0 || level > instance.get().getRegisteredLevels().size()){
+        	return;
         }
+        this.instance.get().usualLevelJoin(player, level - 1);
         
     }
 
