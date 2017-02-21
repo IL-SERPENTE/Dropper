@@ -92,8 +92,8 @@ public class Dropper extends Game<DropperPlayer> {
 	 }
 	 
 	 public void usualGameTypeUpdate(Player player, GameType newGameType){
-		 this.getPlayer(player.getUniqueId()).updatePlayerGameType(newGameType);
 
+		 this.getPlayer(player.getUniqueId()).updatePlayerGameType(newGameType);
 		 player.getInventory().clear();
 
 		 if(! newGameType.equals(GameType.UNSELECTED)){
@@ -164,8 +164,11 @@ public class Dropper extends Game<DropperPlayer> {
 
 		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
 		.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté la partie en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
-		 
-		 player.teleport(this.getMapHub());
+
+		 if(dpPlayer.getCurrentLevel() != null){
+			 player.teleport(this.getMapHub());
+		 }
+
 		 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
 		 dpPlayer.updateCurrentLevel(null);
 		 player.getInventory().clear();
