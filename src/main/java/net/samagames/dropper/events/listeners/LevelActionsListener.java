@@ -34,11 +34,9 @@ public class LevelActionsListener implements Listener {
         if(dpPlayer.getGameType().equals(GameType.FREE)) {
             player.teleport(level.getPlayLocation());
             player.getInventory().setItem(4, this.game.ITEM_QUIT_LEVEL);
-            dpPlayer.updateCurrentLevel(level);
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)) {
             player.teleport(level.getPlayLocation());
-            dpPlayer.updateCurrentLevel(level);
 
         }
 

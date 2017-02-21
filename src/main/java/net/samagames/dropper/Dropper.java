@@ -5,6 +5,8 @@ import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.dropper.level.LevelCooldown;
 import net.samagames.tools.ProximityUtils;
+import net.samagames.tools.Titles;
+import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -119,6 +121,7 @@ public class Dropper extends Game<DropperPlayer> {
 
          player.getInventory().clear();
          player.getInventory().setItem(4, this.ITEM_QUIT_LEVEL);
+         dpPlayer.updateCurrentLevel(level);
 
          if(! dpPlayer.hasActiveCooldown()){
 			 new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
@@ -133,6 +136,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 if(dpPlayer.hasActiveCooldown()){
 		 	dpPlayer.getActiveCooldown().cancel();
 		 	dpPlayer.resetCooldownData();
+		 	ActionBarAPI.sendMessage(player.getUniqueId(), ChatColor.DARK_RED + "Démarrage du niveau annulé !");
 		 }
 
 		 LevelQuitEvent levelQuitEvent = new LevelQuitEvent(player, level);
@@ -160,6 +164,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 if(dpPlayer.hasActiveCooldown()){
 			 dpPlayer.getActiveCooldown().cancel();
 			 dpPlayer.resetCooldownData();
+			 ActionBarAPI.sendMessage(player.getUniqueId(), ChatColor.RED + "Démarrage du niveau annulé !");
 		 }
 
 		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
