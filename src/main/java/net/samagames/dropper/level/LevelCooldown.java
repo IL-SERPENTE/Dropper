@@ -2,6 +2,7 @@ package net.samagames.dropper.level;
 
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.Dropper;
+import net.samagames.dropper.DropperPlayer;
 import net.samagames.dropper.events.CooldownDoneEvent;
 import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
@@ -27,6 +28,10 @@ public class LevelCooldown extends BukkitRunnable {
         this.level = level;
         this.act = 11;
         this.done = false;
+
+        DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
+        dpPlayer.enableCooldown(this);
+
     }
 
     @Override

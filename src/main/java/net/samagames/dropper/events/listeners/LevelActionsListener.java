@@ -71,8 +71,11 @@ public class LevelActionsListener implements Listener {
 
     @EventHandler
     public void onCooldownDone(CooldownDoneEvent event){
-        // More things here in the future
+
+        DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
         LevelJoinEvent levelJoinEvent = new LevelJoinEvent(event.getPlayer(), event.getLevel());
+
+        dpPlayer.resetCooldownData();
         this.game.getInstance().getServer().getPluginManager().callEvent(levelJoinEvent);
     }
 

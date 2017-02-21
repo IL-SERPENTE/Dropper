@@ -137,12 +137,20 @@ public class Dropper extends Game<DropperPlayer> {
 
          player.getInventory().remove(this.getGameItem(4));
          player.teleport(level.getPlayLocation());
-         new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
+
+         if(! dpPlayer.hasActiveCooldown()){
+			 new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
+		 }
+
 	 }
 
 	 public void usualLevelLeave(Player player){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = dpPlayer.getCurrentLevel();
+
+		 if(dpPlayer.hasActiveCooldown()){
+		 	dpPlayer.getActiveCooldown().cancel();
+		 }
 
 		 LevelQuitEvent levelQuitEvent = new LevelQuitEvent(player, level);
 		 this.getInstance().getServer().getPluginManager().callEvent(levelQuitEvent);
@@ -165,6 +173,10 @@ public class Dropper extends Game<DropperPlayer> {
 	 
 	 public void usualGameLeave(Player player){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
+
+		 if(dpPlayer.hasActiveCooldown()){
+			 dpPlayer.getActiveCooldown().cancel();
+		 }
 
 		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
 		.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté la partie en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);

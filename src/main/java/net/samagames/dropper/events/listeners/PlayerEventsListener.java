@@ -38,7 +38,6 @@ public class PlayerEventsListener implements Listener {
 
 				} else if(item.isSimilar(this.game.getGameItem(2))){
 					this.game.usualGameLeave(player);
-
 				} else if(item.isSimilar(this.game.getGameItem(0))) {
                     this.game.usualGameTypeUpdate(player, GameType.FREE);
 
