@@ -33,7 +33,7 @@ public class LevelActionsListener implements Listener {
 
         if(dpPlayer.getGameType().equals(GameType.FREE)) {
             player.teleport(level.getPlayLocation());
-            player.getInventory().setItem(3, this.game.getGameItem(3));
+            player.getInventory().setItem(4, this.game.ITEM_QUIT_LEVEL);
             dpPlayer.updateCurrentLevel(level);
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)) {
@@ -57,8 +57,8 @@ public class LevelActionsListener implements Listener {
         if(dpPlayer.getGameType().equals(GameType.FREE)){
             player.teleport(this.game.getMapHub());
             player.getInventory().clear();
-            player.getInventory().setItem(3, this.game.getGameItem(2));
-            player.getInventory().setItem(5, this.game.getGameItem(4));
+            player.getInventory().setItem(5, this.game.ITEM_QUIT_GAME);
+            player.getInventory().setItem(3, this.game.ITEM_SELECTGUI);
             dpPlayer.updateCurrentLevel(null);
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){

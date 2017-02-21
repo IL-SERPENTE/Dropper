@@ -22,21 +22,18 @@ import org.bukkit.scheduler.BukkitScheduler;
 public class Dropper extends Game<DropperPlayer> {
 	
 	private DropperMain instance;
-	private Map<Integer, ItemStack> gameItems;
 	private List<DropperLevel> registeredLevels;
+	
+	public static final ItemStack ITEM_MODE_FREE = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.GREEN + "Entrainement", null, Material.BANNER, (byte) 2);
+	public static final ItemStack ITEM_MODE_COMPETITION = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.RED + "Compétition", null, Material.BANNER, (byte) 1);
+	public static final ItemStack ITEM_QUIT_GAME = stackBuilder(ChatColor.WHITE + "Quitter le mode de jeu", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
+	public static final ItemStack ITEM_QUIT_LEVEL = stackBuilder(ChatColor.RED + "Quitter le niveau", null, Material.BARRIER, (byte) 0);;
+	public static final ItemStack ITEM_SELECTGUI = stackBuilder(ChatColor.WHITE + "Sélectionner un niveau", null, Material.BOOK, (byte) 0);
 	
 	 public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
 		 super(gameCodeName, gameName, gameDescription, gamePlayerClass);
 		 
 		 this.instance = instance;
-
-		 // Registering items
-		 this.gameItems = new HashMap<>();
-		 this.gameItems.put(0, this.stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.GREEN + "Entrainement", null, Material.BANNER, (byte) 2));
-		 this.gameItems.put(1, this.stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.RED + "Compétition", null, Material.BANNER, (byte) 1));
-		 this.gameItems.put(2, this.stackBuilder(ChatColor.WHITE + "Quitter le mode de jeu", null, Material.BIRCH_DOOR_ITEM, (byte) 0));
-		 this.gameItems.put(3, this.stackBuilder(ChatColor.RED + "Quitter ce niveau", null, Material.BARRIER, (byte) 0));
-		 this.gameItems.put(4, this.stackBuilder(ChatColor.WHITE + "Sélectionner un niveau", null, Material.BOOK, (byte) 0));
 
 		 // Registering levels
 		 this.registeredLevels = new ArrayList<>();
@@ -72,13 +69,9 @@ public class Dropper extends Game<DropperPlayer> {
 		 super.handleLogin(player);
 		 player.teleport(this.getMapHub());
 		 player.getInventory().clear();
-		 player.getInventory().setItem(3, this.getGameItem(0));
-		 player.getInventory().setItem(5, this.getGameItem(1));
+		 player.getInventory().setItem(3, this.ITEM_MODE_FREE);
+		 player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
 		 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 2));
-	 }
-
-	 public ItemStack getGameItem(int ref){
-	 	return this.gameItems.get(ref);
 	 }
 
 	 public DropperMain getInstance(){
@@ -109,13 +102,12 @@ public class Dropper extends Game<DropperPlayer> {
 		 }
 
 		 if(newGameType.equals(GameType.FREE)){
-			 player.getInventory().setItem(3, this.getGameItem(4));
-			 player.getInventory().setItem(5, this.getGameItem(2));
+			 player.getInventory().setItem(3, this.ITEM_SELECTGUI);
+			 player.getInventory().setItem(5, this.ITEM_QUIT_GAME);
 
 		 } else if(newGameType.equals(GameType.COMPETITION)){
 			 player.getInventory().clear();
-			 player.getInventory().setItem(0,this.getGameItem(2));
-			 usualLevelJoin(player, 0);
+			 player.getInventory().setItem(0,this.ITEM_QUIT_GAME);
 
 		 }
 
@@ -126,7 +118,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperLevel level = this.getDropperLevel(levelRef);
 
          player.getInventory().clear();
-         player.getInventory().setItem(4, this.getGameItem(2));
+         player.getInventory().setItem(4, this.ITEM_QUIT_LEVEL);
 
          if(! dpPlayer.hasActiveCooldown()){
 			 new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
@@ -177,8 +169,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
 		 dpPlayer.updateCurrentLevel(null);
 		 player.getInventory().clear();
-		 player.getInventory().setItem(3, this.getGameItem(0));
-		 player.getInventory().setItem(5, this.getGameItem(1));
+		 player.getInventory().setItem(3, this.ITEM_MODE_FREE);
+		 player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
 		 
 	 }
 
@@ -190,7 +182,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 return this.registeredLevels.get(id);
 	 }
 	 
-	 private ItemStack stackBuilder(String name, List<String> lore, Material material, byte data){ 
+	 private static ItemStack stackBuilder(String name, List<String> lore, Material material, byte data){
 	        org.bukkit.inventory.ItemStack tmpStack = new ItemStack(material, 1, data); 
 	        ItemMeta tmpStackMeta = tmpStack.getItemMeta(); 
 	        tmpStackMeta.setDisplayName(name); 

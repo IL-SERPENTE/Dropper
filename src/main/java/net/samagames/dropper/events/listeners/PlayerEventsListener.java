@@ -31,20 +31,20 @@ public class PlayerEventsListener implements Listener {
 				ItemStack item = event.getItem();
 				DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
 
-				if (item.isSimilar(this.game.getGameItem(3))) {
+				if (item.isSimilar(this.game.ITEM_QUIT_LEVEL)) {
 					if (gamePlayer.getCurrentLevel() != null) {
 						this.game.usualLevelLeave(player);
 					}
 
-				} else if(item.isSimilar(this.game.getGameItem(2))){
+				} else if(item.isSimilar(this.game.ITEM_QUIT_GAME)){
 					this.game.usualGameLeave(player);
-				} else if(item.isSimilar(this.game.getGameItem(0))) {
+				} else if(item.isSimilar(this.game.ITEM_MODE_FREE)) {
                     this.game.usualGameTypeUpdate(player, GameType.FREE);
 
-                } else if(item.isSimilar(this.game.getGameItem(1))){
+                } else if(item.isSimilar(this.game.ITEM_MODE_COMPETITION)){
 				    this.game.usualGameTypeUpdate(player, GameType.COMPETITION);
 
-				} else if(item.isSimilar(this.game.getGameItem(4))){
+				} else if(item.isSimilar(this.game.ITEM_SELECTGUI)){
 					SamaGamesAPI.get().getGuiManager().openGui(player, new LevelGUI(this.game.getInstance()));
 				}
                 
