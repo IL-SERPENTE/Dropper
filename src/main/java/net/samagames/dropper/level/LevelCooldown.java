@@ -5,6 +5,7 @@ import net.samagames.dropper.DropperPlayer;
 import net.samagames.dropper.events.CooldownDoneEvent;
 import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -46,6 +47,7 @@ public class LevelCooldown extends BukkitRunnable {
 
         } else {
             ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.AQUA + "Début du niveau dans " + ChatColor.GOLD + this.formatSecondColor(act) + ChatColor.AQUA + " " + this.formatSecondsText(act));
+            this.player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 20, 20);
         }
 
     }
