@@ -44,7 +44,7 @@ public class PlayerEventsListener implements Listener {
 
 				if (item.isSimilar(this.game.ITEM_QUIT_LEVEL)) {
 					if (gamePlayer.getCurrentLevel() != null) {
-						this.game.usualLevelLeave(player);
+						this.game.usualLevelLeave(player, true);
 					}
 
 				} else if(item.isSimilar(this.game.ITEM_QUIT_GAME)){
@@ -74,7 +74,7 @@ public class PlayerEventsListener implements Listener {
 		DropperPlayer dpPlayer = this.game.getPlayer(event.getEntity().getUniqueId());
 		event.setDeathMessage("");
 		if(dpPlayer.getGameType().equals(GameType.FREE)){
-			this.game.usualLevelLeave(event.getEntity());
+			this.game.usualLevelLeave(event.getEntity(), false);
 		} else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
 			this.game.usualGameLeave(event.getEntity());
 		}

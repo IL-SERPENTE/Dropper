@@ -67,7 +67,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();		 
 		 for(DropperLevel level : this.getRegisteredLevels()){
 			 ProximityUtils.onNearbyOf(this.instance, level.getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
-			() -> this.usualLevelLeave(player)));
+			() -> this.usualLevelLeave(player, false)));
 		 }
 
 	 }
@@ -173,9 +173,10 @@ public class Dropper extends Game<DropperPlayer> {
 	/**
 	 * This is the entry point of the level-leaving process.
 	 * @param player The player.
+	 * @param cancelled True if if the level was leaved during the cooldown.
 	 */
 
-	public void usualLevelLeave(Player player){
+	public void usualLevelLeave(Player player, boolean cancelled){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = dpPlayer.getCurrentLevel();
 
@@ -188,8 +189,13 @@ public class Dropper extends Game<DropperPlayer> {
 		 LevelQuitEvent levelQuitEvent = new LevelQuitEvent(player, level);
 		 this.getInstance().getServer().getPluginManager().callEvent(levelQuitEvent);
 
-		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
-		.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a terminé le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
+		 if(cancelled){
+			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
+					 .writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
+		 } else {
+			 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
+					 .writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a terminé le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
+		 }
 
 	 }
 
@@ -203,9 +209,9 @@ public class Dropper extends Game<DropperPlayer> {
 	 	if(type.equals(GameType.UNSELECTED)){
 	 		return ChatColor.GRAY + "Non sélectionné";
 		} else if(type.equals(GameType.FREE)){
-	 		return ChatColor.GREEN + "Entrainement";
+	 		return "" + ChatColor.GREEN + ChatColor.BOLD + "Entrainement";
 		} else if(type.equals(GameType.COMPETITION)){
-			return ChatColor.RED + "Compétition";
+			return "" + ChatColor.RED + ChatColor.BOLD + "Compétition";
 		}
 		return "";
 	 }
@@ -225,7 +231,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 }
 
 		 SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
-		.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté la partie en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
+		.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté le mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 
 		 if(dpPlayer.getCurrentLevel() != null){
 			 player.teleport(this.getMapHub());
