@@ -42,12 +42,12 @@ public class LevelCooldown extends BukkitRunnable {
 
             this.cancel();
             this.done = true;
-            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.AQUA + "Début du niveau !" );
+            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_RED + "Début du niveau !" );
             CooldownDoneEvent cooldownDoneEvent = new CooldownDoneEvent(player, this.level);
             this.game.getInstance().getServer().getPluginManager().callEvent(cooldownDoneEvent);
 
         } else {
-            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.AQUA + "Début du niveau dans " + ChatColor.GOLD + this.formatSecondColor(act) + ChatColor.AQUA + " " + this.formatSecondsText(act));
+            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Début du niveau dans " + this.formatSecondColor(act) + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + this.formatSecondsText(act));
             this.player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 20, 20);
         }
 
