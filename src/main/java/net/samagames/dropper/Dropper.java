@@ -10,6 +10,9 @@ import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,6 +23,8 @@ import net.samagames.tools.LocationUtils;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitScheduler;
+
+import static org.bukkit.Bukkit.getWorlds;
 
 public class Dropper extends Game<DropperPlayer> {
 
@@ -61,7 +66,6 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.registeredLevels.add(new DropperLevel(14, "Minecraft is huge", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(15, "Hardware", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(16, "Moria", "n/a"));
-		 
 
 		 // Start proximity tasks
 		 BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();		 
@@ -69,6 +73,11 @@ public class Dropper extends Game<DropperPlayer> {
 			 ProximityUtils.onNearbyOf(this.instance, level.getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
 			() -> this.usualLevelLeave(player, false)));
 		 }
+
+		 // Special proximity task for level 14
+		 ArmorStand specialLvl14 = this.armorStandBuilder(new Location(getWorlds().get(0), 1444, 16, 1327), getWorlds().get(0));
+		 ProximityUtils.onNearbyOf(this.instance, specialLvl14, 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+				 () -> player.teleport(new Location(getWorlds().get(0), 510, 177, 1531))));
 
 	 }
 
@@ -272,6 +281,13 @@ public class Dropper extends Game<DropperPlayer> {
 	        tmpStack.setItemMeta(tmpStackMeta); 
 	 
 	        return tmpStack; 
-	    }
+	 }
+
+	public static ArmorStand armorStandBuilder(Location spawn, World world){
+		ArmorStand as = (ArmorStand) world.spawnEntity(spawn, EntityType.ARMOR_STAND);
+		as.setVisible(false);
+		as.setGravity(false);
+		return as;
+	}
 	
 }

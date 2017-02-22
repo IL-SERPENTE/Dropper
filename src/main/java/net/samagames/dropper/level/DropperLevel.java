@@ -1,5 +1,6 @@
 package net.samagames.dropper.level;
 
+import net.samagames.dropper.Dropper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import com.google.gson.JsonObject;
@@ -7,7 +8,6 @@ import net.samagames.api.SamaGamesAPI;
 import net.samagames.tools.LocationUtils;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
 
 public class DropperLevel {
 
@@ -32,15 +32,8 @@ public class DropperLevel {
         this.levelPlayLocation = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
 
 		this.world.getChunkAt(levelPlayLocation.getBlock()).load();
-        this.LevelAs_End = this.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()));
+        this.LevelAs_End = Dropper.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()), this.world);
 
-	}
-
-	private ArmorStand armorStandBuilder(Location spawn){
-		ArmorStand as = (ArmorStand) this.world.spawnEntity(spawn, EntityType.ARMOR_STAND);
-		as.setVisible(false);
-		as.setGravity(false);
-		return as;
 	}
 
 	/**
