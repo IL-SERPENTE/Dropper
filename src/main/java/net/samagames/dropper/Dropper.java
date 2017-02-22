@@ -5,7 +5,6 @@ import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.dropper.level.LevelCooldown;
 import net.samagames.tools.ProximityUtils;
-import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -70,6 +69,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 public void handleLogin(Player player){
 		 super.handleLogin(player);
 		 player.teleport(this.getMapHub());
+		 player.setBedSpawnLocation(this.getMapHub());
 		 player.getInventory().clear();
 		 player.getInventory().setItem(3, this.ITEM_MODE_FREE);
 		 player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
