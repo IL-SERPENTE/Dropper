@@ -17,8 +17,6 @@ import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
 
-import static org.bukkit.Bukkit.broadcastMessage;
-
 public class PlayerEventsListener implements Listener {
 	
 	private Dropper game;
