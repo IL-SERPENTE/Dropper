@@ -5,6 +5,7 @@ import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.dropper.level.LevelCooldown;
 import net.samagames.tools.ProximityUtils;
+import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -122,6 +123,8 @@ public class Dropper extends Game<DropperPlayer> {
          player.getInventory().clear();
          player.getInventory().setItem(4, this.ITEM_QUIT_LEVEL);
          dpPlayer.updateCurrentLevel(level);
+
+		 Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
 
          if(! dpPlayer.hasActiveCooldown()){
 			 new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
