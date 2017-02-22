@@ -27,7 +27,7 @@ public class LevelGUI extends AbstractGui {
         this.inventory = this.instance.getServer().createInventory(null, 54, "Sélectionner un niveau");
 
         for(DropperLevel level : this.instance.get().getRegisteredLevels()){
-            this.setSlotData(level.getName(), Material.ENDER_PEARL, level.getID(), new String[]{ ChatColor.RED + level.getDescription()}, "" + level.getID());
+            this.setSlotData(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID(), Material.ENDER_PEARL, level.getID(), new String[]{ ChatColor.RED + level.getDescription()}, "" + level.getID());
         }
 
         player.openInventory(this.inventory);
