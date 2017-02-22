@@ -10,9 +10,11 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
@@ -54,6 +56,22 @@ public class PlayerEventsListener implements Listener {
                 
             }
             
+		}
+	}
+
+	@EventHandler
+	public void onPlayerRespawn(PlayerRespawnEvent event){
+		event.getPlayer().teleport(this.game.getMapHub());
+	}
+
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent event){
+		DropperPlayer dpPlayer = this.game.getPlayer(event.getEntity().getUniqueId());
+		event.setDeathMessage("");
+		if(dpPlayer.getGameType().equals(GameType.FREE)){
+			this.game.usualLevelLeave(event.getEntity());
+		} else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
+			this.game.usualGameLeave(event.getEntity());
 		}
 	}
 
