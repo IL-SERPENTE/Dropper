@@ -63,8 +63,8 @@ public class LevelActionsListener implements Listener {
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
             DropperLevel next = this.game.getNextFromCurrent(level);
-            dpPlayer.updateCurrentLevel(next);
-            player.teleport(next.getPlayLocation());
+            player.teleport(this.game.getMapHub());
+            this.game.usualLevelJoin(player, next.getID());
         }
 
     }

@@ -142,8 +142,8 @@ public class Dropper extends Game<DropperPlayer> {
 
 		 } else if(newGameType.equals(GameType.COMPETITION)){
 			 player.getInventory().clear();
-			 player.getInventory().setItem(0,this.ITEM_QUIT_GAME);
-
+			 player.getInventory().setItem(4,this.ITEM_QUIT_GAME);
+			 this.usualLevelJoin(player, 0);
 		 }
 
 	 }
@@ -159,7 +159,7 @@ public class Dropper extends Game<DropperPlayer> {
 		 DropperLevel level = this.getDropperLevel(levelRef);
 
          player.getInventory().clear();
-         player.getInventory().setItem(4, this.ITEM_QUIT_LEVEL);
+         player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
          dpPlayer.updateCurrentLevel(level);
 
 		 Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
@@ -252,11 +252,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 */
 
 	public DropperLevel getNextFromCurrent(DropperLevel current){
-	 	int id = current.getID();
-	 	if(id < this.registeredLevels.size() + 1){
-			id++;
-		}
-		 return this.registeredLevels.get(id);
+	 	return this.getDropperLevel(current.getID()-1);
 	 }
 
 	/**
