@@ -11,6 +11,11 @@ import org.bukkit.event.HandlerList;
 
 public class CooldownDoneEvent extends Event {
 
+    /**
+     * This event was called when a the cooldown is done.
+     * @author Vialonyx
+     */
+
     private static final HandlerList handlers = new HandlerList();
     private Player player;
     private DropperLevel level;

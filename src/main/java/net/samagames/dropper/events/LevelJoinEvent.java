@@ -5,11 +5,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-/**
- * @author Vialonyx
- */
-
 public class LevelJoinEvent extends Event {
+
+    /**
+     * This event was called when a player join a level.
+     * @author Vialonyx
+     */
 
     private static final HandlerList handlers = new HandlerList();
     private Player player;

@@ -14,11 +14,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-/**
- * @author Vialonyx
- */
-
 public class LevelActionsListener implements Listener {
+
+    /**
+     * This is the listener of actions relative to the levels.
+     * @author Vialonyx
+     */
 
     private Dropper game;
     public LevelActionsListener(Dropper game){

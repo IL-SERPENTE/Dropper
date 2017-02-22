@@ -20,6 +20,11 @@ import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
 
 public class PlayerEventsListener implements Listener {
+
+	/**
+	 * This is the listener of actions relative to the player.
+	 * @author Vialonyx
+	 */
 	
 	private Dropper game;
 	public PlayerEventsListener(Dropper game) {

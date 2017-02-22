@@ -5,17 +5,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.events.listeners.PlayerEventsListener;
 
-/**
- * @author Vialonyx
- */
-
 public class DropperMain extends JavaPlugin {
+
+	/**
+	 * This is the entry point of the Dropper game.
+	 * @author Vialonyx
+	 */
 
 	private Dropper game;
 	
     @Override
     public void onEnable(){
-    	
+
     	this.game = new Dropper("gameCode", "Dropper", "The Dropper", DropperPlayer.class, this);
     	this.getServer().getPluginManager().registerEvents(new PlayerEventsListener(this.game), this);
     	this.getServer().getPluginManager().registerEvents(new LevelActionsListener(this.game), this);
@@ -24,7 +25,12 @@ public class DropperMain extends JavaPlugin {
     	
     }
 
-    public Dropper get(){
+	/**
+	 * Get the internal representation of the game.
+	 * @return A dropper instance.
+	 */
+
+	public Dropper get(){
     	return this.game;
 	}
 

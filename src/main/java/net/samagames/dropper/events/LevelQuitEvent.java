@@ -11,6 +11,11 @@ import org.bukkit.event.HandlerList;
 
 public class LevelQuitEvent extends Event {
 
+    /**
+     * This event was called when a player leave a level.
+     * @author Vialonyx
+     */
+
     private static final HandlerList handlers = new HandlerList();
     private Player player;
     private DropperLevel level;

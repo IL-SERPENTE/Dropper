@@ -9,11 +9,12 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-/**
- * @author Vialonyx
- */
-
 public class LevelCooldown extends BukkitRunnable {
+
+    /**
+     * This is the cooldown started to a player before a level.
+     * @author Vialonyx
+     */
 
     private Dropper game;
     private Player player;

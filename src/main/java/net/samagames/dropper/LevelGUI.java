@@ -9,11 +9,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
-/**
- * @author Vialonyx
- */
-
 public class LevelGUI extends AbstractGui {
+
+    /**
+     * Here is created and managed the GUI used to select level on free gametype.
+     * @author Vialonyx
+     */
 
     private DropperMain instance;
 

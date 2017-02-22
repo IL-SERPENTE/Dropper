@@ -22,10 +22,16 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class Dropper extends Game<DropperPlayer> {
+
+	/**
+	 * This is the game class, the game was managed globally here.
+	 * @author Vialonyx
+	 */
 	
 	private DropperMain instance;
 	private List<DropperLevel> registeredLevels;
-	
+
+	// Creating game items.
 	public static final ItemStack ITEM_MODE_FREE = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.GREEN + "Entrainement", null, Material.BANNER, (byte) 2);
 	public static final ItemStack ITEM_MODE_COMPETITION = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.RED + "Compétition", null, Material.BANNER, (byte) 1);
 	public static final ItemStack ITEM_QUIT_GAME = stackBuilder(ChatColor.WHITE + "Quitter le mode de jeu", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
@@ -65,6 +71,10 @@ public class Dropper extends Game<DropperPlayer> {
 		 }
 
 	 }
+
+	 /*
+	  * handlelogin was called by SamaGamesAPI when a player is joining the game.
+	  */
 	 
 	 @Override 
 	 public void handleLogin(Player player){
@@ -77,22 +87,44 @@ public class Dropper extends Game<DropperPlayer> {
 		 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 2));
 	 }
 
-	 public DropperMain getInstance(){
+	public DropperMain getInstance(){
 	 	return this.instance;
 	 }
 
-	 public List<DropperLevel> getRegisteredLevels(){
+	/**
+	 * Get all registered levels.
+	 * @return a list of registered levels.
+	 */
+
+	public List<DropperLevel> getRegisteredLevels(){
 	 	return this.registeredLevels;
 	 }
+
+	/**
+	 * Get the location of the map hub via the Json file.
+	 * @return the location of map hub.
+	 */
 
 	public Location getMapHub(){
 		JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
 		return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("map-hub").getAsString());
 	}
 
+	/**
+	 * Get a dropper level by his id.
+	 * @param ref The level ID.
+	 * @return The DropperLevel from given id.
+	 */
+
 	 public DropperLevel getDropperLevel(int ref){
 	 	return this.registeredLevels.get(ref);
 	 }
+
+	/**
+	 * Update the gametype of the player.
+	 * @param player The player.
+	 * @param newGameType The new gametype.
+	 */
 	 
 	 public void usualGameTypeUpdate(Player player, GameType newGameType){
 
@@ -116,6 +148,12 @@ public class Dropper extends Game<DropperPlayer> {
 
 	 }
 
+	/**
+	 * This is the entry point of the level-joining process.
+	 * @param player The player.
+	 * @param levelRef The level ref.
+	 */
+
 	 public void usualLevelJoin(Player player, int levelRef) {
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = this.getDropperLevel(levelRef);
@@ -132,7 +170,12 @@ public class Dropper extends Game<DropperPlayer> {
 
 	 }
 
-	 public void usualLevelLeave(Player player){
+	/**
+	 * This is the entry point of the level-leaving process.
+	 * @param player The player.
+	 */
+
+	public void usualLevelLeave(Player player){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		 DropperLevel level = dpPlayer.getCurrentLevel();
 
@@ -150,6 +193,12 @@ public class Dropper extends Game<DropperPlayer> {
 
 	 }
 
+	/**
+	 * Format the gametype.
+	 * @param type The type
+	 * @return The gametype colored.
+	 */
+
 	 public String getGameTypeFormatColor(GameType type){
 	 	if(type.equals(GameType.UNSELECTED)){
 	 		return ChatColor.GRAY + "Non sélectionné";
@@ -160,8 +209,13 @@ public class Dropper extends Game<DropperPlayer> {
 		}
 		return "";
 	 }
-	 
-	 public void usualGameLeave(Player player){
+
+	/**
+	 * This is the entry point of the level-leaving process.
+	 * @param player The player.
+	 */
+
+	public void usualGameLeave(Player player){
 		 DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 
 		 if(dpPlayer.hasActiveCooldown()){
@@ -185,13 +239,28 @@ public class Dropper extends Game<DropperPlayer> {
 		 
 	 }
 
-	 public DropperLevel getNextFromCurrent(DropperLevel current){
+	/**
+	 * Get the next level from current (as competition gametype).
+	 * @param current The current level.
+	 * @return The next level.
+	 */
+
+	public DropperLevel getNextFromCurrent(DropperLevel current){
 	 	int id = current.getID();
 	 	if(id < this.registeredLevels.size() + 1){
 			id++;
 		}
 		 return this.registeredLevels.get(id);
 	 }
+
+	/**
+	 * Build an ItemStack simply.
+	 * @param name Item name.
+	 * @param lore Item lore.
+	 * @param material The material of item.
+	 * @param data Item data.
+	 * @return The builded ItemStack.
+	 */
 	 
 	 private static ItemStack stackBuilder(String name, List<String> lore, Material material, byte data){
 	        org.bukkit.inventory.ItemStack tmpStack = new ItemStack(material, 1, data); 
