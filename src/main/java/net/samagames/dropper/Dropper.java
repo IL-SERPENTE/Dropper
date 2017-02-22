@@ -32,8 +32,8 @@ public class Dropper extends Game<DropperPlayer> {
 	private List<DropperLevel> registeredLevels;
 
 	// Creating game items.
-	public static final ItemStack ITEM_MODE_FREE = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.GREEN + "Entrainement", null, Material.BANNER, (byte) 2);
-	public static final ItemStack ITEM_MODE_COMPETITION = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.RED + "Compétition", null, Material.BANNER, (byte) 1);
+	public static final ItemStack ITEM_MODE_FREE = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.GREEN + "Entrainement", Arrays.asList(ChatColor.GREEN + "Entrainez vous autant que vous le voulez sur chaque niveau !"), Material.BANNER, (byte) 2);
+	public static final ItemStack ITEM_MODE_COMPETITION = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.RED + "Compétition", Arrays.asList(ChatColor.RED + "Défiez vos amis et améliorez votre propre record !"), Material.BANNER, (byte) 1);
 	public static final ItemStack ITEM_QUIT_GAME = stackBuilder(ChatColor.WHITE + "Quitter le mode de jeu", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
 	public static final ItemStack ITEM_QUIT_LEVEL = stackBuilder(ChatColor.RED + "Quitter le niveau", null, Material.BARRIER, (byte) 0);;
 	public static final ItemStack ITEM_SELECTGUI = stackBuilder(ChatColor.WHITE + "Sélectionner un niveau", null, Material.BOOK, (byte) 0);
