@@ -31,7 +31,8 @@ public class DropperLevel {
 		// Getting level data from Json file.
 		JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
 		this.world = Bukkit.getWorld(object.get("world-name").getAsString());
-		this.levelPlayLocation = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString()).add(0.5D, 0D, 0.5D);
+		Location loc = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
+		this.levelPlayLocation = loc.add(loc.getX() > 0 ? 0.5 : -0.5, 0.0, loc.getZ() > 0 ? 0.5 : -0.5);
 
 		// Loading chunck and spawning Armor Stand.
 		this.world.getChunkAt(levelPlayLocation.getBlock()).load();
