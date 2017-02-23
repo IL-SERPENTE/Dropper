@@ -43,8 +43,10 @@ public class PlayerEventsListener implements Listener {
 				DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
 
 				if (item.isSimilar(Dropper.ITEM_QUIT_LEVEL)) {
-					if (gamePlayer.getCurrentLevel() != null) {
+					if (gamePlayer.getCurrentLevel() == null) {
 						this.game.usualLevelLeave(player, true);
+					} else {
+						this.game.usualLevelLeave(player, false);
 					}
 
 				} else if(item.isSimilar(Dropper.ITEM_QUIT_GAME)){
