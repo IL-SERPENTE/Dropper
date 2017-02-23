@@ -8,11 +8,14 @@ import net.samagames.dropper.events.CooldownDoneEvent;
 import net.samagames.dropper.events.LevelJoinEvent;
 import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
+import net.samagames.dropper.level.LevelSpecialCooldown;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import static org.bukkit.Bukkit.getWorlds;
 
 public class LevelActionsListener implements Listener {
 
@@ -39,7 +42,11 @@ public class LevelActionsListener implements Listener {
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)) {
             player.teleport(level.getPlayLocation());
+        }
 
+        if(level.getID() == 4){
+            player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.AQUA + " Vous disposez de " + ChatColor.RED + "30 secondes" + ChatColor.AQUA + " pour mémoriser ces symboles !");
+            new LevelSpecialCooldown(this.game, player, new Location(getWorlds().get(0), -653, 330, -638)).runTaskTimer(this.game.getInstance(), 20L, 20L);
         }
 
         SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
