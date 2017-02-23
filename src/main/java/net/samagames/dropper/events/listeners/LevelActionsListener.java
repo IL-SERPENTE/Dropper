@@ -4,6 +4,7 @@ import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
 import net.samagames.dropper.GameType;
+import net.samagames.dropper.TimeCalculator;
 import net.samagames.dropper.events.CooldownDoneEvent;
 import net.samagames.dropper.events.LevelJoinEvent;
 import net.samagames.dropper.events.LevelQuitEvent;
@@ -15,6 +16,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import static org.bukkit.Bukkit.broadcastMessage;
 import static org.bukkit.Bukkit.getWorlds;
 
 public class LevelActionsListener implements Listener {
@@ -54,6 +56,8 @@ public class LevelActionsListener implements Listener {
         SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
                 .writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a rejoint le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.game.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 
+        dpPlayer.defineNewCalculator(new TimeCalculator());
+
     }
 
     @EventHandler
@@ -77,6 +81,10 @@ public class LevelActionsListener implements Listener {
             player.teleport(this.game.getSpawn());
             this.game.usualLevelJoin(player, next.getID());
         }
+
+        TimeCalculator calculator = dpPlayer.getCurrentCalculator();
+        calculator.stop();
+        broadcastMessage("Vous avez mis " + calculator.getHours() + " heures, " + calculator.getMinutes() + " minutes, " + calculator.getSeconds() + " secondes à compléter ce niveau !");
 
     }
 

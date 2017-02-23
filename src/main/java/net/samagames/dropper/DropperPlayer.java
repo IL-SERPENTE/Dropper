@@ -18,6 +18,7 @@ public class DropperPlayer extends GamePlayer {
 	private DropperLevel current;
 	private boolean hasActiveCooldown;
 	private LevelCooldown activeCooldown;
+	private TimeCalculator currentCalculator;
 
 	public DropperPlayer(Player player){
 		super(player);
@@ -102,6 +103,24 @@ public class DropperPlayer extends GamePlayer {
 
 	public LevelCooldown getActiveCooldown(){
 		return this.activeCooldown;
+	}
+
+	/**
+	 * Assign new TimeCalculator to the player.
+	 * @param calculator The calculator.
+	 */
+
+	public void defineNewCalculator(TimeCalculator calculator){
+		this.currentCalculator = calculator;
+	}
+
+	/**
+	 * Get the current Time Calculator.
+	 * @return The current calculator.
+	 */
+
+	public TimeCalculator getCurrentCalculator(){
+		return this.currentCalculator;
 	}
 
 }
