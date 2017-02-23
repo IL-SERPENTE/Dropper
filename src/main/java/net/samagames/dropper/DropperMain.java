@@ -26,8 +26,10 @@ public class DropperMain extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new PlayerEventsListener(this.game), this);
 		this.getServer().getPluginManager().registerEvents(new LevelActionsListener(this.game), this);
 
-		// Editing gamerules.
+		// Editing gamerules & setting-up eternal night.
 		getWorlds().get(0).setGameRuleValue("randomTickSpeed", "0");
+		getWorlds().get(0).setGameRuleValue("doDaylightCycle", "false");
+		getWorlds().get(0).setTime(19000);
 
 		// Registering game on SamaGamesAPI.
 		SamaGamesAPI.get().getGameManager().setFreeMode(true);
