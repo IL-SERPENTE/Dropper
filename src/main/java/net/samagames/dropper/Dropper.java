@@ -251,7 +251,7 @@ public class Dropper extends Game<DropperPlayer> {
 		SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
 				.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté le mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 
-		if(dpPlayer.getCurrentLevel() != null){
+		if(dpPlayer.getCurrentLevel() == null){
 			player.teleport(this.getSpawn());
 		}
 
