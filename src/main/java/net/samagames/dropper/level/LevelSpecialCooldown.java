@@ -1,6 +1,5 @@
 package net.samagames.dropper.level;
 
-import net.samagames.dropper.Dropper;
 import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -15,13 +14,11 @@ public class LevelSpecialCooldown extends BukkitRunnable {
      * @author Vialonyx
      */
 
-    private Dropper game;
     private Player player;
     private int act;
     private Location next;
 
-    public LevelSpecialCooldown(Dropper game, Player player, Location next){
-        this.game = game;
+    public LevelSpecialCooldown(Player player, Location next){
         this.player = player;
         this.act = 31;
         this.next = next;

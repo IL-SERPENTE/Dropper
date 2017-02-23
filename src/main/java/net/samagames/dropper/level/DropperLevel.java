@@ -14,25 +14,25 @@ public class DropperLevel {
 	/**
 	 * This is the representation of a Level.
 	 */
-	
+
 	private int levelID;
 	private String levelName, levelDescription;
 	private World world;
 	private Location levelPlayLocation;
-	private ArmorStand LevelAs_End;
-	
+	private ArmorStand armorStandEnd;
+
 	public DropperLevel(int levelID, String levelName, String levelDescription){
 		this.levelID = levelID;
 		this.levelName = levelName;
 		this.levelDescription = levelDescription;
-		
-		 // Getting level data from Json file
-        JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
-        this.world = Bukkit.getWorld(object.get("world-name").getAsString());
-        this.levelPlayLocation = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
+
+		// Getting level data from Json file
+		JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
+		this.world = Bukkit.getWorld(object.get("world-name").getAsString());
+		this.levelPlayLocation = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
 
 		this.world.getChunkAt(levelPlayLocation.getBlock()).load();
-        this.LevelAs_End = Dropper.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()), this.world);
+		this.armorStandEnd = Dropper.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()), this.world);
 
 	}
 
@@ -49,7 +49,7 @@ public class DropperLevel {
 	 * Get the level's name.
 	 * @return The level's name.
 	 */
-	
+
 	public String getName(){
 		return this.levelName;
 	}
@@ -58,7 +58,7 @@ public class DropperLevel {
 	 * Get the level's description.
 	 * @return The level's description.
 	 */
-	
+
 	public String getDescription(){
 		return this.levelDescription;
 	}
@@ -67,7 +67,7 @@ public class DropperLevel {
 	 * Get the level's play location.
 	 * @return The level play location.
 	 */
-	
+
 	public Location getPlayLocation(){
 		return this.levelPlayLocation;
 	}
@@ -78,7 +78,7 @@ public class DropperLevel {
 	 */
 
 	public ArmorStand getSecretEnd(){
-		return this.LevelAs_End;
+		return this.armorStandEnd;
 	}
 
 }

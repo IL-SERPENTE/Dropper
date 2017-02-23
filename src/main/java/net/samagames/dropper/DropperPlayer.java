@@ -12,19 +12,19 @@ public class DropperPlayer extends GamePlayer {
 	 * This is the internal representation of a player in SamaGamesAPI.
 	 * @author Vialonyx
 	 */
-	
+
 	private Player bukkitPlayer;
 	private GameType gameType;
 	private DropperLevel current;
 	private boolean hasActiveCooldown;
 	private LevelCooldown activeCooldown;
-	
+
 	public DropperPlayer(Player player){
 		super(player);
 		this.bukkitPlayer = player;
 		this.hasActiveCooldown = false;
 	}
-	
+
 	@Override
 	public void handleLogin(boolean reconnect){
 		this.bukkitPlayer.setGameMode(GameMode.ADVENTURE);
@@ -35,7 +35,7 @@ public class DropperPlayer extends GamePlayer {
 	 * Get the current gametype of the player.
 	 * @return The current gametype.
 	 */
-	
+
 	public GameType getGameType(){
 		return this.gameType;
 	}
@@ -44,7 +44,7 @@ public class DropperPlayer extends GamePlayer {
 	 * Get the current level of the player.
 	 * @return The current level.
 	 */
-	
+
 	public DropperLevel getCurrentLevel(){
 		return this.current;
 	}
@@ -53,7 +53,7 @@ public class DropperPlayer extends GamePlayer {
 	 * Update the current level.
 	 * @param newLevel The new level.
 	 */
-	
+
 	public void updateCurrentLevel(DropperLevel newLevel){
 		this.current = newLevel;
 	}
@@ -62,7 +62,7 @@ public class DropperPlayer extends GamePlayer {
 	 * Update the player gametype.
 	 * @param newGameType The new gametype.
 	 */
-	
+
 	public void updatePlayerGameType(GameType newGameType){
 		this.gameType = newGameType;
 	}

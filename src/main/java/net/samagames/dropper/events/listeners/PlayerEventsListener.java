@@ -25,42 +25,42 @@ public class PlayerEventsListener implements Listener {
 	 * This is the listener of actions relative to the player.
 	 * @author Vialonyx
 	 */
-	
+
 	private Dropper game;
 	public PlayerEventsListener(Dropper game) {
 		this.game = game;
 	}
-	
+
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event){
-		
+
 		if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.RIGHT_CLICK_AIR)){
-			
-            if(event.getItem() != null) {
+
+			if(event.getItem() != null) {
 				event.setCancelled(true);
 				Player player = event.getPlayer();
 				ItemStack item = event.getItem();
 				DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
 
-				if (item.isSimilar(this.game.ITEM_QUIT_LEVEL)) {
+				if (item.isSimilar(Dropper.ITEM_QUIT_LEVEL)) {
 					if (gamePlayer.getCurrentLevel() != null) {
 						this.game.usualLevelLeave(player, true);
 					}
 
-				} else if(item.isSimilar(this.game.ITEM_QUIT_GAME)){
+				} else if(item.isSimilar(Dropper.ITEM_QUIT_GAME)){
 					this.game.usualGameLeave(player);
-				} else if(item.isSimilar(this.game.ITEM_MODE_FREE)) {
-                    this.game.usualGameTypeUpdate(player, GameType.FREE);
+				} else if(item.isSimilar(Dropper.ITEM_MODE_FREE)) {
+					this.game.usualGameTypeUpdate(player, GameType.FREE);
 
-                } else if(item.isSimilar(this.game.ITEM_MODE_COMPETITION)){
-				    this.game.usualGameTypeUpdate(player, GameType.COMPETITION);
+				} else if(item.isSimilar(Dropper.ITEM_MODE_COMPETITION)){
+					this.game.usualGameTypeUpdate(player, GameType.COMPETITION);
 
-				} else if(item.isSimilar(this.game.ITEM_SELECTGUI)){
+				} else if(item.isSimilar(Dropper.ITEM_SELECTGUI)){
 					SamaGamesAPI.get().getGuiManager().openGui(player, new LevelGUI(this.game.getInstance()));
 				}
-                
-            }
-            
+
+			}
+
 		}
 	}
 
@@ -109,5 +109,5 @@ public class PlayerEventsListener implements Listener {
 		// Disabling food.
 		event.setCancelled(true);
 	}
-	
+
 }

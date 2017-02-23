@@ -25,6 +25,7 @@ public class LevelQuitEvent extends Event {
         this.level = level;
     }
 
+    @Override
     public HandlerList getHandlers(){
         return handlers;
     }

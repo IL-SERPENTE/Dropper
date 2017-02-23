@@ -40,7 +40,7 @@ public class LevelActionsListener implements Listener {
 
         if(dpPlayer.getGameType().equals(GameType.FREE)) {
             player.teleport(level.getPlayLocation());
-            player.getInventory().setItem(4, this.game.ITEM_QUIT_LEVEL);
+            player.getInventory().setItem(4, Dropper.ITEM_QUIT_LEVEL);
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)) {
             player.teleport(level.getPlayLocation());
@@ -48,11 +48,11 @@ public class LevelActionsListener implements Listener {
 
         if(level.getID() == 4){
             player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.AQUA + " Vous disposez de " + ChatColor.RED + "30 secondes" + ChatColor.AQUA + " pour mémoriser ces symboles !");
-            new LevelSpecialCooldown(this.game, player, new Location(getWorlds().get(0), -653, 330, -638)).runTaskTimer(this.game.getInstance(), 20L, 20L);
+            new LevelSpecialCooldown(player, new Location(getWorlds().get(0), -653, 330, -638)).runTaskTimer(this.game.getInstance(), 20L, 20L);
         }
 
         SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
-        .writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a rejoint le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.game.getGameTypeFormatColor(dpPlayer.getGameType()),true);
+                .writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a rejoint le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.game.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 
     }
 
@@ -68,8 +68,8 @@ public class LevelActionsListener implements Listener {
         if(dpPlayer.getGameType().equals(GameType.FREE)){
             player.teleport(this.game.getMapHub());
             player.getInventory().clear();
-            player.getInventory().setItem(5, this.game.ITEM_QUIT_GAME);
-            player.getInventory().setItem(3, this.game.ITEM_SELECTGUI);
+            player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
+            player.getInventory().setItem(3, Dropper.ITEM_SELECTGUI);
             dpPlayer.updateCurrentLevel(null);
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){

@@ -21,6 +21,7 @@ public class LevelJoinEvent extends Event {
         this.level = level;
     }
 
+    @Override
     public HandlerList getHandlers(){
         return handlers;
     }

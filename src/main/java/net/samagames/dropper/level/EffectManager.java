@@ -1,6 +1,5 @@
 package net.samagames.dropper.level;
 
-import net.samagames.dropper.Dropper;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -10,11 +9,6 @@ import org.bukkit.potion.PotionEffectType;
  */
 
 public class EffectManager {
-
-    private Dropper game;
-    public EffectManager(Dropper game){
-        this.game = game;
-    }
 
     public void restoreDefaultEffects(Player player){
         for (PotionEffect effect : player.getActivePotionEffects()) {

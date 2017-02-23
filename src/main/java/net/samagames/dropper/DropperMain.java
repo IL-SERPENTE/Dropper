@@ -15,18 +15,18 @@ public class DropperMain extends JavaPlugin {
 	 */
 
 	private Dropper game;
-	
-    @Override
-    public void onEnable(){
 
-    	this.game = new Dropper("gameCode", "Dropper", "The Dropper", DropperPlayer.class, this);
-    	this.getServer().getPluginManager().registerEvents(new PlayerEventsListener(this.game), this);
-    	this.getServer().getPluginManager().registerEvents(new LevelActionsListener(this.game), this);
-    	getWorlds().get(0).setGameRuleValue("randomTickSpeed", "0");
+	@Override
+	public void onEnable(){
+
+		this.game = new Dropper("gameCode", "Dropper", "The Dropper", DropperPlayer.class, this);
+		this.getServer().getPluginManager().registerEvents(new PlayerEventsListener(this.game), this);
+		this.getServer().getPluginManager().registerEvents(new LevelActionsListener(this.game), this);
+		getWorlds().get(0).setGameRuleValue("randomTickSpeed", "0");
 		SamaGamesAPI.get().getGameManager().setFreeMode(true);
-    	SamaGamesAPI.get().getGameManager().registerGame(this.game);
-    	
-    }
+		SamaGamesAPI.get().getGameManager().registerGame(this.game);
+
+	}
 
 
 
@@ -36,7 +36,7 @@ public class DropperMain extends JavaPlugin {
 	 */
 
 	public Dropper get(){
-    	return this.game;
+		return this.game;
 	}
 
 }

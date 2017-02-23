@@ -20,14 +20,12 @@ public class LevelCooldown extends BukkitRunnable {
     private Player player;
     private DropperLevel level;
     private int act;
-    private boolean done;
 
     public LevelCooldown(Dropper game, Player player, DropperLevel level){
         this.game = game;
         this.player = player;
         this.level = level;
         this.act = 6;
-        this.done = false;
 
         DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
         dpPlayer.enableCooldown(this);
@@ -41,7 +39,6 @@ public class LevelCooldown extends BukkitRunnable {
         if(act == 0){
 
             this.cancel();
-            this.done = true;
             ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_RED + ChatColor.BOLD + "Début du niveau !" );
             CooldownDoneEvent cooldownDoneEvent = new CooldownDoneEvent(player, this.level);
             this.game.getInstance().getServer().getPluginManager().callEvent(cooldownDoneEvent);
