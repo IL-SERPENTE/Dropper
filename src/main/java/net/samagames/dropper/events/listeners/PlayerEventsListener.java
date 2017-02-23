@@ -67,6 +67,7 @@ public class PlayerEventsListener implements Listener {
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event){
 		event.getPlayer().teleport(this.game.getMapHub());
+		this.game.getEffectManager().restoreDefaultEffects(event.getPlayer());
 	}
 
 	@EventHandler
