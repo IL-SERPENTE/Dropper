@@ -134,7 +134,7 @@ public class Dropper extends Game<DropperPlayer> {
 
 	public Location getSpawn(){
 		JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
-		return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("map-hub").getAsString());
+		return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("map-hub").getAsString()).add(0.5D, 0D, 0.5D);
 	}
 
 	/**
