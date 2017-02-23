@@ -22,15 +22,18 @@ public class DropperLevel {
 	private ArmorStand armorStandEnd;
 
 	public DropperLevel(int levelID, String levelName, String levelDescription){
+
+		// Setting global data.
 		this.levelID = levelID;
 		this.levelName = levelName;
 		this.levelDescription = levelDescription;
 
-		// Getting level data from Json file
+		// Getting level data from Json file.
 		JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
 		this.world = Bukkit.getWorld(object.get("world-name").getAsString());
 		this.levelPlayLocation = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
 
+		// Loading chunck and spawning Armor Stand.
 		this.world.getChunkAt(levelPlayLocation.getBlock()).load();
 		this.armorStandEnd = Dropper.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()), this.world);
 

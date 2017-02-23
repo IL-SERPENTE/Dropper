@@ -28,7 +28,7 @@ import static org.bukkit.Bukkit.getWorlds;
 public class Dropper extends Game<DropperPlayer> {
 
 	/**
-	 * This is the game class, the game was managed globally here.
+	 * This is the game class, the game was mainly managed here.
 	 * @author Vialonyx
 	 */
 
@@ -48,7 +48,7 @@ public class Dropper extends Game<DropperPlayer> {
 
 		this.instance = instance;
 
-		// Registering levels
+		// Registering levels.
 		this.registeredLevels = new ArrayList<>();
 		this.registeredLevels.add(new DropperLevel(1, "Rainbow", "Plongez dans le monde des couleurs !"));
 		this.registeredLevels.add(new DropperLevel(2, "Isengard", "En pleine terre du milieu ..."));
@@ -67,40 +67,52 @@ public class Dropper extends Game<DropperPlayer> {
 		this.registeredLevels.add(new DropperLevel(15, "Hardware", "Votre ordinateur vous cache des choses !"));
 		this.registeredLevels.add(new DropperLevel(16, "Moria", "Sauve qui peut !"));
 
+		// Registering the level manager.
 		this.effectManager = new EffectManager();
 
-		// Start proximity tasks
+		// Create proximity tasks for all registered levels.
 		BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();
 		for(DropperLevel level : this.getRegisteredLevels()){
 			ProximityUtils.onNearbyOf(this.instance, level.getSecretEnd(), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
 					() -> this.usualLevelLeave(player, false)));
 		}
 
-		// Special proximity task for level 14
+		// Creating special proximity task for level 14.
 		ArmorStand specialLvl14 = this.armorStandBuilder(new Location(getWorlds().get(0), 1444, 16, 1327), getWorlds().get(0));
 		ProximityUtils.onNearbyOf(this.instance, specialLvl14, 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
 				() -> player.teleport(new Location(getWorlds().get(0), 510, 177, 1531))));
 
 	}
 
-	 /*
-	  * handlelogin was called by SamaGamesAPI when a player is joining the game.
-	  */
+	/**
+	 * Called by SamaGamesAPI when player login.
+	 * @param player the player.
+	 */
 
 	@Override
 	public void handleLogin(Player player){
 		super.handleLogin(player);
-		player.teleport(this.getMapHub());
-		player.setBedSpawnLocation(this.getMapHub());
+		player.teleport(this.getSpawn());
+		player.setBedSpawnLocation(this.getSpawn());
 		player.getInventory().clear();
 		player.getInventory().setItem(3, this.ITEM_MODE_FREE);
 		player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
 		this.effectManager.restoreDefaultEffects(player);
 	}
 
+	/**
+	 * Get the main instance of Dropper game.
+	 * @return an instance of dropper game plugin.
+	 */
+
 	public DropperMain getInstance(){
 		return this.instance;
 	}
+
+	/**
+	 * Get an instance of the effect manager.
+	 * @return an instance of effect manager.
+	 */
 
 	public EffectManager getEffectManager(){
 		return this.effectManager;
@@ -116,19 +128,19 @@ public class Dropper extends Game<DropperPlayer> {
 	}
 
 	/**
-	 * Get the location of the map hub via the Json file.
-	 * @return the location of map hub.
+	 * Get the location of the spawn from the json file.
+	 * @return the spawn location.
 	 */
 
-	public Location getMapHub(){
+	public Location getSpawn(){
 		JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
 		return LocationUtils.str2loc(object.get("world-name").getAsString() + ", " + object.get("map-hub").getAsString());
 	}
 
 	/**
-	 * Get a dropper level by his id.
-	 * @param ref The level ID.
-	 * @return The DropperLevel from given id.
+	 * Get a dropper level by his ID.
+	 * @param ref the level ID.
+	 * @return the DropperLevel with gived ID.
 	 */
 
 	public DropperLevel getDropperLevel(int ref){
@@ -137,8 +149,8 @@ public class Dropper extends Game<DropperPlayer> {
 
 	/**
 	 * Update the gametype of the player.
-	 * @param player The player.
-	 * @param newGameType The new gametype.
+	 * @param player the player.
+	 * @param newGameType the new gametype.
 	 */
 
 	public void usualGameTypeUpdate(Player player, GameType newGameType){
@@ -165,20 +177,25 @@ public class Dropper extends Game<DropperPlayer> {
 
 	/**
 	 * This is the entry point of the level-joining process.
-	 * @param player The player.
-	 * @param levelRef The level ref.
+	 * @param player the player.
+	 * @param levelRef the desired level.
 	 */
 
 	public void usualLevelJoin(Player player, int levelRef) {
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		DropperLevel level = this.getDropperLevel(levelRef);
 
+		// Managing player inventory.
 		player.getInventory().clear();
 		player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
+
+		// Updating current level of player.
 		dpPlayer.updateCurrentLevel(level);
 
+		// Sending title with level's name & his description.
 		Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
 
+		// Starting cooldown if he does not have anyone started before.
 		if(! dpPlayer.hasActiveCooldown()){
 			new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
 		}
@@ -187,24 +204,23 @@ public class Dropper extends Game<DropperPlayer> {
 
 	/**
 	 * This is the entry point of the level-leaving process.
-	 * @param player The player.
-	 * @param cancelled True if if the level was leaved during the cooldown.
+	 * @param player the player.
+	 * @param cancelled true if the level was leaved during the cooldown.
 	 */
 
 	public void usualLevelLeave(Player player, boolean cancelled){
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		DropperLevel level = dpPlayer.getCurrentLevel();
 
-		if(dpPlayer.hasActiveCooldown()){
+		// Checking if the level is cancelled.
+		if(cancelled){
+
+			// Stopping current cooldown and sending message to the player.
 			dpPlayer.getActiveCooldown().cancel();
 			dpPlayer.resetCooldownData();
 			ActionBarAPI.sendMessage(player.getUniqueId(), ChatColor.DARK_RED + "Démarrage du niveau annulé !");
-		}
 
-		LevelQuitEvent levelQuitEvent = new LevelQuitEvent(player, level);
-		this.getInstance().getServer().getPluginManager().callEvent(levelQuitEvent);
-
-		if(cancelled){
+			// Sending message to everybody using CoherenceMachine.
 			SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
 					.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 		} else {
@@ -212,23 +228,10 @@ public class Dropper extends Game<DropperPlayer> {
 					.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a terminé le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 		}
 
-	}
+		// Calling the custom LevelQuitEvent.
+		LevelQuitEvent levelQuitEvent = new LevelQuitEvent(player, level);
+		this.getInstance().getServer().getPluginManager().callEvent(levelQuitEvent);
 
-	/**
-	 * Format the gametype.
-	 * @param type The type
-	 * @return The gametype colored.
-	 */
-
-	public String getGameTypeFormatColor(GameType type){
-		if(type.equals(GameType.UNSELECTED)){
-			return ChatColor.GRAY + "Non sélectionné";
-		} else if(type.equals(GameType.FREE)){
-			return "" + ChatColor.GREEN + ChatColor.BOLD + "Entrainement";
-		} else if(type.equals(GameType.COMPETITION)){
-			return "" + ChatColor.RED + ChatColor.BOLD + "Compétition";
-		}
-		return "";
 	}
 
 	/**
@@ -249,7 +252,7 @@ public class Dropper extends Game<DropperPlayer> {
 				.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté le mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
 
 		if(dpPlayer.getCurrentLevel() != null){
-			player.teleport(this.getMapHub());
+			player.teleport(this.getSpawn());
 		}
 
 		dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
@@ -261,13 +264,30 @@ public class Dropper extends Game<DropperPlayer> {
 	}
 
 	/**
-	 * Get the next level from current (as competition gametype).
-	 * @param current The current level.
-	 * @return The next level.
+	 * Logically get to the next level from the current (used as competition gametype.)
+	 * @param current the current level.
+	 * @return the next level.
 	 */
 
 	public DropperLevel getNextFromCurrent(DropperLevel current){
 		return this.getDropperLevel(current.getID()-1);
+	}
+
+	/**
+	 * Get the gametype color.
+	 * @param type the gametype.
+	 * @return the colored gametype.
+	 */
+
+	public String getGameTypeFormatColor(GameType type){
+		if(type.equals(GameType.UNSELECTED)){
+			return ChatColor.GRAY + "Non sélectionné";
+		} else if(type.equals(GameType.FREE)){
+			return "" + ChatColor.GREEN + ChatColor.BOLD + "Entrainement";
+		} else if(type.equals(GameType.COMPETITION)){
+			return "" + ChatColor.RED + ChatColor.BOLD + "Compétition";
+		}
+		return "";
 	}
 
 	/**
@@ -289,11 +309,32 @@ public class Dropper extends Game<DropperPlayer> {
 		return tmpStack;
 	}
 
+	/**
+	 * Build an ArmorStand simply. Used for Proximity Tasks.
+	 * @param spawn the location where we want to spawn the AS.
+	 * @param world the world.
+	 * @return
+	 */
+
 	public static ArmorStand armorStandBuilder(Location spawn, World world){
 		ArmorStand as = (ArmorStand) world.spawnEntity(spawn, EntityType.ARMOR_STAND);
 		as.setVisible(false);
 		as.setGravity(false);
 		return as;
+	}
+
+	/**
+	 * Get the word at singular/plural depends to the act value.
+	 * @param act the current value of cooldown.
+	 * @return a correct word.
+	 */
+
+	public static String formatSecondsText(int act){
+		if(act > 1){
+			return "secondes";
+		} else {
+			return "seconde";
+		}
 	}
 
 }

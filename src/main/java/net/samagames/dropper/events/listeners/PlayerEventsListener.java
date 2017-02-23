@@ -22,7 +22,7 @@ import net.samagames.dropper.DropperPlayer;
 public class PlayerEventsListener implements Listener {
 
 	/**
-	 * This is the listener of actions relative to the player.
+	 * This is the listener of the events called by players.
 	 * @author Vialonyx
 	 */
 
@@ -66,7 +66,7 @@ public class PlayerEventsListener implements Listener {
 
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event){
-		event.getPlayer().teleport(this.game.getMapHub());
+		event.getPlayer().teleport(this.game.getSpawn());
 		this.game.getEffectManager().restoreDefaultEffects(event.getPlayer());
 	}
 
@@ -83,6 +83,7 @@ public class PlayerEventsListener implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event){
+		// Preventing players to move items in inventory.
 		event.setCancelled(true);
 	}
 
@@ -96,11 +97,13 @@ public class PlayerEventsListener implements Listener {
 
 	@EventHandler
 	public void onDrop(PlayerDropItemEvent event){
+		// Preventing players to drop anything.
 		event.setCancelled(true);
 	}
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event){
+		// Preventing players to place any block.
 		event.setCancelled(true);
 	}
 

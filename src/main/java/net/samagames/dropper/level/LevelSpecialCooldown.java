@@ -1,5 +1,6 @@
 package net.samagames.dropper.level;
 
+import net.samagames.dropper.Dropper;
 import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -34,18 +35,10 @@ public class LevelSpecialCooldown extends BukkitRunnable {
             this.player.teleport(this.next);
 
         } else {
-            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Téléportation dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + this.formatSecondsText(act));
+            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Téléportation dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
             this.player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 20, 20);
         }
 
-    }
-
-    private String formatSecondsText(int act){
-        if(act > 1){
-            return "secondes";
-        } else {
-            return "seconde";
-        }
     }
 
 }

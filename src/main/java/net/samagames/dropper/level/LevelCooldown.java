@@ -22,11 +22,14 @@ public class LevelCooldown extends BukkitRunnable {
     private int act;
 
     public LevelCooldown(Dropper game, Player player, DropperLevel level){
+
+        // Setting global data.
         this.game = game;
         this.player = player;
         this.level = level;
         this.act = 6;
 
+        // Enabling new cooldown for the player.
         DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
         dpPlayer.enableCooldown(this);
 
@@ -38,24 +41,21 @@ public class LevelCooldown extends BukkitRunnable {
         act--;
         if(act == 0){
 
+            // Cancelling the task & sending message to the player.
             this.cancel();
             ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_RED + ChatColor.BOLD + "Début du niveau !" );
+
+            // Calling the custom CoolDownEvent.
             CooldownDoneEvent cooldownDoneEvent = new CooldownDoneEvent(player, this.level);
             this.game.getInstance().getServer().getPluginManager().callEvent(cooldownDoneEvent);
 
         } else {
-            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Début du niveau dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + this.formatSecondsText(act));
+
+            // Sending cooldown evolution to the player using titles.
+            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Début du niveau dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
             this.player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 20, 20);
         }
 
-    }
-
-    private String formatSecondsText(int act){
-        if(act > 1){
-            return "secondes";
-        } else {
-            return "seconde";
-        }
     }
 
 }

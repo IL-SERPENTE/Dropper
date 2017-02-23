@@ -19,16 +19,21 @@ public class DropperMain extends JavaPlugin {
 	@Override
 	public void onEnable(){
 
+		// Creating game.
 		this.game = new Dropper("gameCode", "Dropper", "The Dropper", DropperPlayer.class, this);
+
+		// Registering events.
 		this.getServer().getPluginManager().registerEvents(new PlayerEventsListener(this.game), this);
 		this.getServer().getPluginManager().registerEvents(new LevelActionsListener(this.game), this);
+
+		// Editing gamerules.
 		getWorlds().get(0).setGameRuleValue("randomTickSpeed", "0");
+
+		// Registering game on SamaGamesAPI.
 		SamaGamesAPI.get().getGameManager().setFreeMode(true);
 		SamaGamesAPI.get().getGameManager().registerGame(this.game);
 
 	}
-
-
 
 	/**
 	 * Get the internal representation of the game.

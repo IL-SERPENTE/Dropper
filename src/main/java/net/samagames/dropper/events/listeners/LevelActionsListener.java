@@ -66,7 +66,7 @@ public class LevelActionsListener implements Listener {
         this.game.getEffectManager().restoreDefaultEffects(player);
 
         if(dpPlayer.getGameType().equals(GameType.FREE)){
-            player.teleport(this.game.getMapHub());
+            player.teleport(this.game.getSpawn());
             player.getInventory().clear();
             player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
             player.getInventory().setItem(3, Dropper.ITEM_SELECTGUI);
@@ -74,7 +74,7 @@ public class LevelActionsListener implements Listener {
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
             DropperLevel next = this.game.getNextFromCurrent(level);
-            player.teleport(this.game.getMapHub());
+            player.teleport(this.game.getSpawn());
             this.game.usualLevelJoin(player, next.getID());
         }
 

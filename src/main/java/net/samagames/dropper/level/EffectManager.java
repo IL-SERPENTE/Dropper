@@ -4,11 +4,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-/**
- * @author Vialonyx
- */
-
 public class EffectManager {
+
+    /**
+     * The effect manager is used to manages effects gived to player on levels.
+     * @author Vialonyx
+     */
+
+    /**
+     * Remove all actives effects and add the default night vision effect.
+     * @param player The player on which want to restore effects.
+     */
 
     public void restoreDefaultEffects(Player player){
         for (PotionEffect effect : player.getActivePotionEffects()) {
