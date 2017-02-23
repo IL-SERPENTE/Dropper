@@ -50,22 +50,22 @@ public class Dropper extends Game<DropperPlayer> {
 
 		 // Registering levels
 		 this.registeredLevels = new ArrayList<>();
-		 this.registeredLevels.add(new DropperLevel(1, "Rainbow", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(2, "Isengard", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(3, "Neo", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(4, "Symbols", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(5, "The Three", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(6, "Embryo", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(7, "Brain", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(8, "Dimension Jumper", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(9, "BeetleJuice", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(10, "Web", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(11, "Armor", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(12, "Dracula's Bedroom", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(13, "DNA", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(14, "Minecraft is huge", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(15, "Hardware", "n/a"));
-		 this.registeredLevels.add(new DropperLevel(16, "Moria", "n/a"));
+		 this.registeredLevels.add(new DropperLevel(1, "Rainbow", "Plongez dans le monde des couleurs !"));
+		 this.registeredLevels.add(new DropperLevel(2, "Isengard", "En pleine terre du milieu ..."));
+		 this.registeredLevels.add(new DropperLevel(3, "Neo", "Un nouvel univers informatique"));
+		 this.registeredLevels.add(new DropperLevel(4, "Symbols", "Arriverez vous à déchiffrer les symboles ?"));
+		 this.registeredLevels.add(new DropperLevel(5, "The Three", "Panique en plein pique-nique !"));
+		 this.registeredLevels.add(new DropperLevel(6, "Embryo", "Au commencement d'une vie"));
+		 this.registeredLevels.add(new DropperLevel(7, "Brain", "Dans votre masse cérébrale ..."));
+		 this.registeredLevels.add(new DropperLevel(8, "Dimension Jumper", "Hé non ! rien à voir avec le Dimensions !"));
+		 this.registeredLevels.add(new DropperLevel(9, "BeetleJuice", "Ne vous perdez pas dans l'illusion !"));
+		 this.registeredLevels.add(new DropperLevel(10, "Web", "L'arignée est en train de tisser sa toile ..."));
+		 this.registeredLevels.add(new DropperLevel(11, "Armor", "L'acordéon de la chute vous attend "));
+		 this.registeredLevels.add(new DropperLevel(12, "Dracula's Bedroom", "Protégez vous bien des morsures !"));
+		 this.registeredLevels.add(new DropperLevel(13, "DNA", "Votre code génétique est-il si complexe ?"));
+		 this.registeredLevels.add(new DropperLevel(14, "Minecraft is huge", "Ce monde cubique paraît si petit ..."));
+		 this.registeredLevels.add(new DropperLevel(15, "Hardware", "Votre ordinateur vous cache des choses !"));
+		 this.registeredLevels.add(new DropperLevel(16, "Moria", "Sauve qui peut !"));
 
 		 this.effectManager = new EffectManager(this);
 
