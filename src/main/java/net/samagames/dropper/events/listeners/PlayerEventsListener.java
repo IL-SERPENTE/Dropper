@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -84,12 +85,6 @@ public class PlayerEventsListener implements Listener {
 	}
 
 	@EventHandler
-	public void onInventoryClick(InventoryClickEvent event){
-		// Preventing players to move items in inventory.
-		event.setCancelled(true);
-	}
-
-	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent event){
 		// Disabling PVP.
 		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
@@ -104,8 +99,19 @@ public class PlayerEventsListener implements Listener {
 	}
 
 	@EventHandler
+	public void onInventoryClick(InventoryClickEvent event){
+		// Preventing players to move items in inventory.
+		event.setCancelled(true);
+	}
+
+	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event){
 		// Preventing players to place any block.
+		event.setCancelled(true);
+	}
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event){
+		// Preventing players to break any block.
 		event.setCancelled(true);
 	}
 
