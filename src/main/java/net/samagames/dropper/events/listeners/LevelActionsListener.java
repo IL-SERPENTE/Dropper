@@ -36,6 +36,8 @@ public class LevelActionsListener implements Listener {
         DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
         DropperLevel level = event.getLevel();
 
+        this.game.getEffectManager().addEffectsForLevel(player, level);
+
         if(dpPlayer.getGameType().equals(GameType.FREE)) {
             player.teleport(level.getPlayLocation());
             player.getInventory().setItem(4, this.game.ITEM_QUIT_LEVEL);
@@ -60,6 +62,8 @@ public class LevelActionsListener implements Listener {
         Player player = event.getPlayer();
         DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
         DropperLevel level = event.getLevel();
+
+        this.game.getEffectManager().restoreDefaultEffects(player);
 
         if(dpPlayer.getGameType().equals(GameType.FREE)){
             player.teleport(this.game.getMapHub());

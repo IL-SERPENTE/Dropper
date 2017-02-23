@@ -3,6 +3,7 @@ package net.samagames.dropper;
 import java.util.*;
 import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
+import net.samagames.dropper.level.EffectManager;
 import net.samagames.dropper.level.LevelCooldown;
 import net.samagames.tools.ProximityUtils;
 import net.samagames.tools.Titles;
@@ -20,8 +21,6 @@ import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
 import net.samagames.tools.LocationUtils;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import static org.bukkit.Bukkit.getWorlds;
@@ -34,6 +33,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 */
 	
 	private DropperMain instance;
+	private EffectManager effectManager;
 	private List<DropperLevel> registeredLevels;
 
 	// Creating game items.
@@ -67,6 +67,8 @@ public class Dropper extends Game<DropperPlayer> {
 		 this.registeredLevels.add(new DropperLevel(15, "Hardware", "n/a"));
 		 this.registeredLevels.add(new DropperLevel(16, "Moria", "n/a"));
 
+		 this.effectManager = new EffectManager(this);
+
 		 // Start proximity tasks
 		 BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();		 
 		 for(DropperLevel level : this.getRegisteredLevels()){
@@ -93,11 +95,15 @@ public class Dropper extends Game<DropperPlayer> {
 		 player.getInventory().clear();
 		 player.getInventory().setItem(3, this.ITEM_MODE_FREE);
 		 player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
-		 player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 2));
+		 this.effectManager.restoreDefaultEffects(player);
 	 }
 
 	public DropperMain getInstance(){
 	 	return this.instance;
+	 }
+
+	 public EffectManager getEffectManager(){
+		return this.effectManager;
 	 }
 
 	/**
