@@ -30,7 +30,9 @@ public class EffectManager {
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 999999, 4));
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 2));
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 1));
-        } else if (level.getID() == 12){
+        } else if (level.getID() == 4){
+            player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 999999, 4));
+        }else if (level.getID() == 12){
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 4));
         } else if(level.getID() == 13) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 999999, 4));
