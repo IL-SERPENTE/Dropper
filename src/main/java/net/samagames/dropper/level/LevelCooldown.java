@@ -3,6 +3,7 @@ package net.samagames.dropper.level;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
 import net.samagames.dropper.events.CooldownDoneEvent;
+import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -43,7 +44,8 @@ public class LevelCooldown extends BukkitRunnable {
 
             // Cancelling the task & sending message to the player.
             this.cancel();
-            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_RED + ChatColor.BOLD + "Début du niveau !" );
+
+            Titles.sendTitle(this.player, 10, 20, 10, "", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Début du niveau !");
 
             // Calling the custom CoolDownEvent.
             CooldownDoneEvent cooldownDoneEvent = new CooldownDoneEvent(player, this.level);
@@ -52,7 +54,8 @@ public class LevelCooldown extends BukkitRunnable {
         } else {
 
             // Sending cooldown evolution to the player using titles.
-            ActionBarAPI.sendMessage(this.player.getUniqueId(), "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Début du niveau dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
+
+            Titles.sendTitle(this.player, 10, 20, 10, "", "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Début du niveau dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
             this.player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 20, 20);
         }
 
