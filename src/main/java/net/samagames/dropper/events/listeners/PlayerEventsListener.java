@@ -15,10 +15,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
@@ -118,6 +115,12 @@ public class PlayerEventsListener implements Listener {
 			this.game.usualGameLeave(event.getEntity());
 		}
 	}
+
+	@EventHandler
+    public void onPlayerSwap(PlayerSwapHandItemsEvent event){
+	    // Preventing players to swap item in hands.
+	    event.setCancelled(true);
+    }
 
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent event){
