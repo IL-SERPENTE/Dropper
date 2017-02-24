@@ -35,19 +35,28 @@ public class Dropper extends Game<DropperPlayer> {
 	private DropperMain instance;
 	private EffectManager effectManager;
 	private List<DropperLevel> registeredLevels;
+	private Map<ItemStack, String> itemsDescriptions;
 
 	// Creating game items.
-	public static final ItemStack ITEM_MODE_FREE = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.GREEN + "Entrainement", Arrays.asList(ChatColor.GREEN + "Entrainez vous autant que vous le voulez sur chaque niveau !"), Material.BANNER, (byte) 2);
-	public static final ItemStack ITEM_MODE_COMPETITION = stackBuilder(ChatColor.GRAY + "Mode " + ChatColor.RED + "Compétition", Arrays.asList(ChatColor.RED + "Défiez vos amis et améliorez votre propre record !"), Material.BANNER, (byte) 1);
-	public static final ItemStack ITEM_QUIT_GAME = stackBuilder(ChatColor.WHITE + "Quitter le mode de jeu", null, Material.BIRCH_DOOR_ITEM, (byte) 0);
-	public static final ItemStack ITEM_QUIT_LEVEL = stackBuilder(ChatColor.RED + "Quitter le niveau", null, Material.BARRIER, (byte) 0);
-	public static final ItemStack ITEM_SELECTGUI = stackBuilder(ChatColor.WHITE + "Sélectionner un niveau", null, Material.BOOK, (byte) 0);
+	public static final ItemStack ITEM_MODE_FREE = stackBuilder(" ", Arrays.asList(ChatColor.GREEN + "Entrainez vous autant que vous le voulez sur chaque niveau !"), Material.BANNER, (byte) 2);
+	public static final ItemStack ITEM_MODE_COMPETITION = stackBuilder(" ", Arrays.asList(ChatColor.RED + "Enchainez le plus de niveaux possibles, la moindre erreur vous sera fatale !"), Material.BANNER, (byte) 1);
+	public static final ItemStack ITEM_QUIT_GAME = stackBuilder(" ", Arrays.asList(ChatColor.RED + "Quitter le mode de jeu"), Material.BIRCH_DOOR_ITEM, (byte) 0);
+	public static final ItemStack ITEM_QUIT_LEVEL = stackBuilder(" ", Arrays.asList(ChatColor.RED + "Quitter le niveau actuel"), Material.BARRIER, (byte) 0);
+	public static final ItemStack ITEM_SELECTGUI = stackBuilder(" ", Arrays.asList(ChatColor.GOLD + "Sélectionnez un niveau pour vous entrainer !"), Material.BOOK, (byte) 0);
 
 	public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
 		super(gameCodeName, gameName, gameDescription, gamePlayerClass);
 
 		this.instance = instance;
 		getWorlds().get(0).setSpawnLocation(this.getSpawn().getBlockX(), this.getSpawn().getBlockY(), this.getSpawn().getBlockZ());
+
+		// Creating descriptions for items.
+        this.itemsDescriptions = new HashMap<>();
+        this.itemsDescriptions.put(this.ITEM_MODE_FREE, this.ITEM_MODE_FREE.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
+        this.itemsDescriptions.put(this.ITEM_MODE_COMPETITION, this.ITEM_MODE_COMPETITION.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
+        this.itemsDescriptions.put(this.ITEM_QUIT_GAME, this.ITEM_QUIT_GAME.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
+        this.itemsDescriptions.put(this.ITEM_QUIT_LEVEL, this.ITEM_QUIT_LEVEL.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
+        this.itemsDescriptions.put(this.ITEM_SELECTGUI, this.ITEM_SELECTGUI.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
 
 		// Registering levels.
 		this.registeredLevels = new ArrayList<>();
@@ -139,6 +148,15 @@ public class Dropper extends Game<DropperPlayer> {
 
 		return loc.add(loc.getX() > 0 ? 0.5 : -0.5, 0.0, loc.getZ() > 0 ? 0.5 : -0.5);
 	}
+
+    /**
+     * Get description for items.
+     * @return a map of items & descriptions as String.
+     */
+
+	public Map<ItemStack, String> getItemsDescriptions(){
+	    return this.itemsDescriptions;
+    }
 
 	/**
 	 * Get a dropper level by his ID.

@@ -3,6 +3,7 @@ package net.samagames.dropper.events.listeners;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.GameType;
 import net.samagames.dropper.LevelGUI;
+import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,10 +16,13 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
+
+import static org.bukkit.Bukkit.broadcastMessage;
 
 public class PlayerEventsListener implements Listener {
 
@@ -66,6 +70,30 @@ public class PlayerEventsListener implements Listener {
 
 		}
 	}
+
+	@EventHandler
+    public void onPlayerHeldItem(PlayerItemHeldEvent event){
+
+	    Player player = event.getPlayer();
+        ItemStack inHand = event.getPlayer().getInventory().getItem(event.getNewSlot());
+
+        if(inHand != null){
+
+            if(inHand.isSimilar(Dropper.ITEM_MODE_FREE)){
+                ActionBarAPI.sendMessage(player.getUniqueId(), this.game.getItemsDescriptions().get(Dropper.ITEM_MODE_FREE));
+            } else if(inHand.isSimilar(Dropper.ITEM_MODE_COMPETITION)){
+                ActionBarAPI.sendMessage(player.getUniqueId(), this.game.getItemsDescriptions().get(Dropper.ITEM_MODE_COMPETITION));
+            } else if(inHand.isSimilar(Dropper.ITEM_SELECTGUI)){
+                ActionBarAPI.sendMessage(player.getUniqueId(), this.game.getItemsDescriptions().get(Dropper.ITEM_SELECTGUI));
+            } else if(inHand.isSimilar(Dropper.ITEM_QUIT_LEVEL)){
+                ActionBarAPI.sendMessage(player.getUniqueId(), this.game.getItemsDescriptions().get(Dropper.ITEM_MODE_FREE));
+            } else if(inHand.isSimilar(Dropper.ITEM_QUIT_GAME)) {
+                ActionBarAPI.sendMessage(player.getUniqueId(), this.game.getItemsDescriptions().get(Dropper.ITEM_QUIT_GAME));
+            }
+
+        }
+
+    }
 
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event){
