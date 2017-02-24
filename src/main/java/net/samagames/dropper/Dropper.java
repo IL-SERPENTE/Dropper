@@ -21,6 +21,7 @@ import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
 import net.samagames.tools.LocationUtils;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import static org.bukkit.Bukkit.getWorlds;
@@ -32,7 +33,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 * @author Vialonyx
 	 */
 
-	private DropperMain instance;
+	private static DropperMain instance;
 	private EffectManager effectManager;
 	private List<DropperLevel> registeredLevels;
 	private Map<ItemStack, String> itemsDescriptions;
@@ -92,6 +93,14 @@ public class Dropper extends Game<DropperPlayer> {
 		ProximityUtils.onNearbyOf(this.instance, specialLvl14, 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
 				() -> player.teleport(new Location(getWorlds().get(0), 510, 177, 1531))));
 
+		// Creating special proximity task for level 16
+		ArmorStand armorStandLevel16 = this.armorStandBuilder(new Location(getWorlds().get(0), 2727, 6, -302), getWorlds().get(0));
+		ProximityUtils.onNearbyOf(this.instance, armorStandLevel16, 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+				() -> player.teleport(new Location(getWorlds().get(0),2705, 251, -366))));
+		ArmorStand specialLvl6 = this.armorStandBuilder(new Location(getWorlds().get(0),  2706, 9, -368), getWorlds().get(0));
+		ProximityUtils.onNearbyOf(this.instance, specialLvl6, 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+				() -> player.teleport(new Location(getWorlds().get(0),2586, 251, -445))));
+
 	}
 
 	/**
@@ -122,8 +131,8 @@ public class Dropper extends Game<DropperPlayer> {
 	 * @return an instance of dropper game plugin.
 	 */
 
-	public DropperMain getInstance(){
-		return this.instance;
+	public static DropperMain getInstance(){
+		return instance;
 	}
 
 	/**
@@ -211,24 +220,18 @@ public class Dropper extends Game<DropperPlayer> {
 	public void usualLevelJoin(Player player, int levelRef) {
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		DropperLevel level = this.getDropperLevel(levelRef);
-
 		// Managing player inventory.
 		player.getInventory().clear();
 		player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
-
 		// Updating current level of player.
 		dpPlayer.updateCurrentLevel(level);
-
 		// Sending title with level's name & his description.
 		Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
-
 		// Starting cooldown if he does not have anyone started before.
 		if(! dpPlayer.hasActiveCooldown()){
 			new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
 		}
-
 	}
-
 	/**
 	 * This is the entry point of the level-leaving process.
 	 * @param player the player.
