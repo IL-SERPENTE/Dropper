@@ -106,6 +106,7 @@ public class Dropper extends Game<DropperPlayer> {
 		player.getInventory().clear();
 		player.getInventory().setItem(3, this.ITEM_MODE_FREE);
 		player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
+		player.setCollidable(false);
 		player.setBedSpawnLocation(this.getSpawn(), true);
 		this.effectManager.restoreDefaultEffects(player);
         this.getPlayer(player.getUniqueId()).defineNewAFKChecker(new AFKChecker(this.instance, player));
