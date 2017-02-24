@@ -180,8 +180,7 @@ public class Dropper extends Game<DropperPlayer> {
 		player.getInventory().clear();
 
 		if(! newGameType.equals(GameType.UNSELECTED)){
-			SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
-					.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " joues désormais en mode " + this.getGameTypeFormatColor(newGameType),true);
+		    player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous jouez désormais en mode " + this.getGameTypeFormatColor(newGameType));
 		}
 
 		if(newGameType.equals(GameType.FREE)){
@@ -241,12 +240,10 @@ public class Dropper extends Game<DropperPlayer> {
 			dpPlayer.resetCooldownData();
 			ActionBarAPI.sendMessage(player.getUniqueId(), ChatColor.DARK_RED + "Démarrage du niveau annulé !");
 
-			// Sending message to everybody using CoherenceMachine.
-			SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
-					.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
+			// Sending message to the player.
+            player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez quitté le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
 		} else {
-			SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
-					.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a terminé le niveau " + ChatColor.RED + ChatColor.BOLD + "#" + level.getID() +  ChatColor.RED + "(" + ChatColor.ITALIC + level.getName() + ")" + ChatColor.RESET + " en mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
+            player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez terminé le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
 		}
 
 		// Calling the custom LevelQuitEvent.
@@ -269,9 +266,7 @@ public class Dropper extends Game<DropperPlayer> {
 			ActionBarAPI.sendMessage(player.getUniqueId(), ChatColor.RED + "Démarrage du niveau annulé !");
 		}
 
-		SamaGamesAPI.get().getGameManager().getCoherenceMachine().getMessageManager()
-				.writeCustomMessage("" + ChatColor.BLUE + ChatColor.BOLD + player.getName() + ChatColor.RESET + " a quitté le mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()),true);
-
+        player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez quitté le mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()));
 		if(dpPlayer.getCurrentLevel() == null){
 			player.teleport(this.getSpawn());
 		}
