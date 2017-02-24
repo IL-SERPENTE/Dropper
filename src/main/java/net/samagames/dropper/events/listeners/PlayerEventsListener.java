@@ -3,6 +3,7 @@ package net.samagames.dropper.events.listeners;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.GameType;
 import net.samagames.dropper.LevelGUI;
+import net.samagames.dropper.events.PlayerAFKEvent;
 import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -93,6 +94,12 @@ public class PlayerEventsListener implements Listener {
 
         }
 
+    }
+
+    @EventHandler
+    public void onPlayerAFK(PlayerAFKEvent event){
+        // Temporary we just send a message, more things here in the future.
+        event.getPlayer().sendMessage("[AFKChecker] You has detected as AFK.");
     }
 
 	@EventHandler

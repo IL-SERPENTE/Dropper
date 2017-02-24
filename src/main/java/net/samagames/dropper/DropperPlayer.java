@@ -19,6 +19,7 @@ public class DropperPlayer extends GamePlayer {
 	private boolean hasActiveCooldown;
 	private LevelCooldown activeCooldown;
 	private TimeCalculator currentCalculator;
+	private AFKChecker afkChecker;
 
 	public DropperPlayer(Player player){
 		super(player);
@@ -121,6 +122,24 @@ public class DropperPlayer extends GamePlayer {
 
 	public TimeCalculator getCurrentCalculator(){
 		return this.currentCalculator;
+	}
+
+	/**
+	 * Assign new AFKChecker to the player.
+	 * @param checker An instance of AFKChecker.
+	 */
+
+	public void defineNewAFKChecker(AFKChecker checker){
+		this.afkChecker = checker;
+	}
+
+	/**
+	 * Get the AFKChecker of the player.
+	 * @return an instance of AFKChecker.
+	 */
+
+	public AFKChecker getAfkChecker(){
+		return this.afkChecker;
 	}
 
 }

@@ -108,7 +108,13 @@ public class Dropper extends Game<DropperPlayer> {
 		player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
 		player.setBedSpawnLocation(this.getSpawn(), true);
 		this.effectManager.restoreDefaultEffects(player);
+        this.getPlayer(player.getUniqueId()).defineNewAFKChecker(new AFKChecker(this.instance, player));
 	}
+
+	@Override
+    public void handleLogout(Player player){
+	    this.getPlayer(player.getUniqueId()).getAfkChecker().cancel();
+    }
 
 	/**
 	 * Get the main instance of Dropper game.
