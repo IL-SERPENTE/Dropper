@@ -42,7 +42,7 @@ public class Dropper extends Game<DropperPlayer> {
 	public static final ItemStack ITEM_MODE_COMPETITION = stackBuilder(" ", Arrays.asList(ChatColor.RED + "Enchainez le plus de niveaux possibles, la moindre erreur vous sera fatale !"), Material.BANNER, (byte) 1);
 	public static final ItemStack ITEM_QUIT_GAME = stackBuilder(" ", Arrays.asList(ChatColor.RED + "Quitter le mode de jeu"), Material.WOOD_DOOR, (byte) 0);
 	public static final ItemStack ITEM_QUIT_LEVEL = stackBuilder(" ", Arrays.asList(ChatColor.RED + "Quitter le niveau actuel"), Material.BARRIER, (byte) 0);
-	public static final ItemStack ITEM_SELECTGUI = stackBuilder(" ", Arrays.asList(ChatColor.GOLD + "Sélectionnez un niveau pour vous entrainer !"), Material.BOOK, (byte) 0);
+	public static final ItemStack ITEM_SELECTGUI = stackBuilder(" ", Arrays.asList(ChatColor.GOLD + "Sélectionnez un niveau pour vous entrainer !"), Material.ITEM_FRAME, (byte) 0);
 
 	public Dropper(String gameCodeName, String gameName, String gameDescription, Class<DropperPlayer> gamePlayerClass, DropperMain instance) {
 		super(gameCodeName, gameName, gameDescription, gamePlayerClass);
