@@ -16,6 +16,7 @@ public class DropperPlayer extends GamePlayer {
 	private Player bukkitPlayer;
 	private GameType gameType;
 	private DropperLevel current;
+	private Boolean isNeutralized;
 	private boolean hasActiveCooldown;
 	private LevelCooldown activeCooldown;
 	private TimeCalculator currentCalculator;
@@ -24,6 +25,7 @@ public class DropperPlayer extends GamePlayer {
 	public DropperPlayer(Player player){
 		super(player);
 		this.bukkitPlayer = player;
+		this.isNeutralized = false;
 		this.hasActiveCooldown = false;
 	}
 
@@ -33,6 +35,18 @@ public class DropperPlayer extends GamePlayer {
 		this.gameType = GameType.UNSELECTED;
 	}
 
+	/**
+	 * @param isNeutralized Set true if player is neutralized
+	 */
+	public void setNeutralized(Boolean isNeutralized){
+		this.isNeutralized = isNeutralized;
+	}
+	/**
+	 * @return True if player isneutralized else false
+	 */
+	public boolean isNeutralized(){
+		return this.isNeutralized;
+	}
 	/**
 	 * Get the current gametype of the player.
 	 * @return The current gametype.
