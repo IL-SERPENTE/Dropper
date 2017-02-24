@@ -38,12 +38,14 @@ public class DropperPlayer extends GamePlayer {
 	/**
 	 * @param isNeutralized Set true if player is neutralized
 	 */
+
 	public void setNeutralized(Boolean isNeutralized){
 		this.isNeutralized = isNeutralized;
 	}
 	/**
 	 * @return True if player isneutralized else false
 	 */
+
 	public boolean isNeutralized(){
 		return this.isNeutralized;
 	}
