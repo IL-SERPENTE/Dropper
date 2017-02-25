@@ -1,13 +1,11 @@
 package net.samagames.dropper.level;
 
-import net.samagames.dropper.Dropper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.tools.LocationUtils;
 import org.bukkit.World;
-import org.bukkit.entity.ArmorStand;
 
 public class DropperLevel {
 
@@ -19,7 +17,6 @@ public class DropperLevel {
 	private String levelName, levelDescription;
 	private World world;
 	private Location levelPlayLocation;
-	private ArmorStand armorStandEnd;
 
 	public DropperLevel(int levelID, String levelName, String levelDescription){
 
@@ -34,9 +31,8 @@ public class DropperLevel {
 		Location loc = LocationUtils.str2loc(this.world.getName() + ", " + object.get("level" + levelID).getAsString());
 		this.levelPlayLocation = loc.add(loc.getX() > 0 ? 0.5 : -0.5, 0.0, loc.getZ() > 0 ? 0.5 : -0.5);
 
-		// Loading chunck and spawning Armor Stand.
+		// Loading chunck.
 		this.world.getChunkAt(levelPlayLocation.getBlock()).load();
-		this.armorStandEnd = Dropper.armorStandBuilder(LocationUtils.str2loc(this.world.getName() +  ", " + object.get("level" + this.levelID + "-asWin").getAsString()), this.world);
 
 	}
 
@@ -74,15 +70,6 @@ public class DropperLevel {
 
 	public Location getPlayLocation(){
 		return this.levelPlayLocation;
-	}
-
-	/**
-	 * Get the armor stand using by proximity tasks to detect win.
-	 * @return The armor stand.
-	 */
-
-	public ArmorStand getSecretEnd(){
-		return this.armorStandEnd;
 	}
 
 }
