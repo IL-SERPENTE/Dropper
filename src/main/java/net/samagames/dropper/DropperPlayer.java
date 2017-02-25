@@ -42,6 +42,7 @@ public class DropperPlayer extends GamePlayer {
 	public void setNeutralized(Boolean isNeutralized){
 		this.isNeutralized = isNeutralized;
 	}
+
 	/**
 	 * @return True if player isneutralized else false
 	 */
@@ -49,6 +50,7 @@ public class DropperPlayer extends GamePlayer {
 	public boolean isNeutralized(){
 		return this.isNeutralized;
 	}
+
 	/**
 	 * Get the current gametype of the player.
 	 * @return The current gametype.

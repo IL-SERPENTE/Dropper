@@ -94,6 +94,13 @@ public class PlayerEventsListener implements Listener {
     }
 
     @EventHandler
+	public void onPlayerMove(PlayerMoveEvent event){
+        if(this.game.getPlayer(event.getPlayer().getUniqueId()).isNeutralized()){
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
     public void onPlayerAFK(PlayerAFKEvent event){
         // Temporary we just send a message, more things here in the future.
         event.getPlayer().sendMessage("[AFKChecker] You has detected as AFK.");

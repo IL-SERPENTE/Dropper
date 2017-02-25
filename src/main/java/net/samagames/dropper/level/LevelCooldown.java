@@ -4,7 +4,6 @@ import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
 import net.samagames.dropper.events.CooldownDoneEvent;
 import net.samagames.tools.Titles;
-import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

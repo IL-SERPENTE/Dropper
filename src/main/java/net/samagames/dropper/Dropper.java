@@ -219,6 +219,8 @@ public class Dropper extends Game<DropperPlayer> {
 	public void usualLevelJoin(Player player, int levelRef) {
         DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
         DropperLevel level = this.getDropperLevel(levelRef);
+
+        // Starting Level 1 as tutorial.
         if (level.getID() == 1) {
             BukkitRunnable bukkitRunnable = new BukkitRunnable() {
                 int step = 0;
@@ -226,50 +228,63 @@ public class Dropper extends Game<DropperPlayer> {
                 @Override
                 public void run() {
                         if (step == 0) {
+
                             player.setGameMode(GameMode.SPECTATOR);
                             dpPlayer.setNeutralized(true);
-                            player.sendTitle("Bienvenue", "Sur la map The Dropper");
-                            Location loc = LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-1").getAsString());
-                            player.teleport(loc);
+                            Titles.sendTitle(player, 30, 70, 30, "Bienvenue", "Sur la map The Dropper !");
+							player.teleport(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-1").getAsString()));
+
                         } else if (step == 1) {
-                            player.sendTitle("Les blocks d'eau representent l'arrivé", "Il faut rentrer dedans");
-                            Location loc = LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-2").getAsString());
-                            player.teleport(loc);
+
+                            Titles.sendTitle(player,30, 70, 30, "Pour compléter le niveau","Dirigez vous vers les blocks d'eau !");
+							player.teleport(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-2").getAsString()));
+
                         } else if (step == 2) {
-                            player.sendTitle("Les citrouilles vous permettent de retrouvez votre chemin", "");
-						    Location locPumkin = LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("tutorialBlock").getAsString());
-						    player.getPlayer().sendBlockChange(locPumkin,Material.PUMPKIN,(byte) 0);
+
+                            Titles.sendTitle(player,30, 70, 30, "", "Si vous êtes perdus, suivez les citrouilles !");
+						    player.getPlayer().sendBlockChange(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-2").getAsString()),Material.PUMPKIN,(byte) 0);
+
+                        } else if (step == 3) {
+
+                            Titles.sendTitle(player,30, 70, 30, "Les toiles d'araignées", "Vous permettent d'atterir en toute sécurité");
+                            player.getPlayer().sendBlockChange(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("tutorialBlock").getAsString()), Material.WEB, (byte) 0);
+
                         } else if (step == 4) {
-                            player.sendTitle("Les toiles d'araignée permmetent d'atterir en toute sécurité", "");
-                            Location locCobWeb = LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("tutorialBlock").getAsString());
-                            player.getPlayer().sendBlockChange(locCobWeb, Material.WEB, (byte) 0);
-                        } else if (step == 5) {
-                            player.setGameMode(GameMode.ADVENTURE);
-                            player.sendTitle("Maintenant a toi de jouer", "");
-                            Location loc = LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("tutorialBlock").getAsString());
-                            player.getPlayer().sendBlockChange(loc, Material.AIR, (byte) 0);
+
+							player.teleport(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-1").getAsString()));
+							Titles.sendTitle(player, 20, 60, 20, "", "Maintenant à toi de jouer !");
+
+						} else if(step == 5) {
+
+							player.setGameMode(GameMode.ADVENTURE);
                             player.teleport(getSpawn());
                             dpPlayer.setNeutralized(false);
                             usualStartLevel(dpPlayer,player,level);
                             this.cancel();
                         }
+
                         step++;
                 }
             };
             bukkitRunnable.runTaskTimer(this.getInstance(), 20, 100);
+
         } else {
             usualStartLevel(dpPlayer,player,level);
         }
     }
 
     public void usualStartLevel(DropperPlayer dpPlayer, Player player,DropperLevel level){
+
         // Managing player inventory.
         player.getInventory().clear();
         player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
+
         // Updating current level of player.
-        dpPlayer.updateCurrentLevel(level);
+		dpPlayer.updateCurrentLevel(level);
+
         // Sending title with level's name & his description.
         Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
+
         // Starting cooldown if he does not have anyone started before.
         if (!dpPlayer.hasActiveCooldown()) {
             new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);

@@ -2,7 +2,6 @@ package net.samagames.dropper.level;
 
 import net.samagames.dropper.Dropper;
 import net.samagames.tools.Titles;
-import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
