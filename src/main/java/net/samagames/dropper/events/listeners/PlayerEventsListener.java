@@ -5,7 +5,9 @@ import net.samagames.dropper.GameType;
 import net.samagames.dropper.LevelGUI;
 import net.samagames.dropper.events.PlayerAFKEvent;
 import net.samagames.dropper.level.DropperLevel;
+import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -102,13 +104,13 @@ public class PlayerEventsListener implements Listener {
             event.setCancelled(true);
         }else if (player.getLocation().getBlock().getType().equals(org.bukkit.Material.STATIONARY_WATER) && dpPlayer.getCurrentLevel() != null){
 
-			// neutralize player en set his inventory
+			// Neutralize player and set his inventory
 				dpPlayer.setNeutralized(true);
-
 				player.getInventory().clear();
-
 				player.getInventory().setHelmet(Dropper.stackBuilder("Pumkin", null, org.bukkit.Material.PUMPKIN,(byte)0));
-				player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
+                Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.GREEN + ChatColor.BOLD + "GG !", "");
+
+            player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
 				player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
 
 				new BukkitRunnable() {
@@ -124,9 +126,7 @@ public class PlayerEventsListener implements Listener {
 
 							dropperLevel = dpPlayer.getCurrentLevel();
 							game.usualLevelLeave(player, false);
-
 							dpPlayer.setNeutralized(false);
-
 							game.usualStartLevel(dpPlayer,player,dropperLevel);
 						}
 					}
