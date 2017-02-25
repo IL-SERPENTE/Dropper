@@ -130,14 +130,6 @@ public class PlayerEventsListener implements Listener {
     }
 
 	@EventHandler
-	public void onDamage(EntityDamageByEntityEvent event){
-		// Disabling PVP.
-		if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
-			event.setCancelled(true);
-		}
-	}
-
-	@EventHandler
 	public void onDrop(PlayerDropItemEvent event){
 		// Preventing players to drop anything.
 		event.setCancelled(true);
