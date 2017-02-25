@@ -376,7 +376,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 * @return The builded ItemStack.
 	 */
 
-	private static ItemStack stackBuilder(String name, List<String> lore, Material material, byte data){
+	public static ItemStack stackBuilder(String name, List<String> lore, Material material, byte data){
 		org.bukkit.inventory.ItemStack tmpStack = new ItemStack(material, 1, data);
 		ItemMeta tmpStackMeta = tmpStack.getItemMeta();
 		tmpStackMeta.setDisplayName(name);
