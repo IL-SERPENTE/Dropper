@@ -28,57 +28,57 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerEventsListener implements Listener {
 
-	/**
-	 * This is the listener of the events called by players.
-	 * @author Vialonyx
-	 */
+    /**
+     * This is the listener of the events called by players.
+     * @author Vialonyx
+     */
 
-	private Dropper game;
-	public PlayerEventsListener(Dropper game) {
-		this.game = game;
-	}
+    private Dropper game;
+    public PlayerEventsListener(Dropper game) {
+        this.game = game;
+    }
 
-	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event){
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event){
 
-		if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.RIGHT_CLICK_AIR)){
+        if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || event.getAction().equals(Action.RIGHT_CLICK_AIR)){
 
-			if(event.getItem() != null) {
-				event.setCancelled(true);
-				Player player = event.getPlayer();
-				ItemStack item = event.getItem();
-				DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
+            if(event.getItem() != null) {
+                event.setCancelled(true);
+                Player player = event.getPlayer();
+                ItemStack item = event.getItem();
+                DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
 
-				if (item.isSimilar(Dropper.ITEM_QUIT_LEVEL)) {
-					gamePlayer.setNeutralized(false);
-					if (gamePlayer.getCurrentLevel() == null) {
-						this.game.usualLevelLeave(player, true);
-					} else {
-						this.game.usualLevelLeave(player, false);
-					}
+                if (item.isSimilar(Dropper.ITEM_QUIT_LEVEL)) {
+                    gamePlayer.setNeutralized(false);
+                    if (gamePlayer.getCurrentLevel() == null) {
+                        this.game.usualLevelLeave(player, true);
+                    } else {
+                        this.game.usualLevelLeave(player, false);
+                    }
 
-				} else if(item.isSimilar(Dropper.ITEM_QUIT_GAME)){
-					this.game.usualGameLeave(player);
-					gamePlayer.setNeutralized(false);
-				} else if(item.isSimilar(Dropper.ITEM_MODE_FREE)) {
-					this.game.usualGameTypeUpdate(player, GameType.FREE);
+                } else if(item.isSimilar(Dropper.ITEM_QUIT_GAME)){
+                    this.game.usualGameLeave(player);
+                    gamePlayer.setNeutralized(false);
+                } else if(item.isSimilar(Dropper.ITEM_MODE_FREE)) {
+                    this.game.usualGameTypeUpdate(player, GameType.FREE);
 
-				} else if(item.isSimilar(Dropper.ITEM_MODE_COMPETITION)){
-					this.game.usualGameTypeUpdate(player, GameType.COMPETITION);
+                } else if(item.isSimilar(Dropper.ITEM_MODE_COMPETITION)){
+                    this.game.usualGameTypeUpdate(player, GameType.COMPETITION);
 
-				} else if(item.isSimilar(Dropper.ITEM_SELECTGUI)){
-					SamaGamesAPI.get().getGuiManager().openGui(player, new LevelGUI(this.game.getInstance()));
-				}
+                } else if(item.isSimilar(Dropper.ITEM_SELECTGUI)){
+                    SamaGamesAPI.get().getGuiManager().openGui(player, new LevelGUI(this.game.getInstance()));
+                }
 
-			}
+            }
 
-		}
-	}
+        }
+    }
 
-	@EventHandler
+    @EventHandler
     public void onPlayerHeldItem(PlayerItemHeldEvent event){
 
-	    Player player = event.getPlayer();
+        Player player = event.getPlayer();
         ItemStack inHand = event.getPlayer().getInventory().getItem(event.getNewSlot());
 
         if(inHand != null){
@@ -100,18 +100,20 @@ public class PlayerEventsListener implements Listener {
     }
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event){
-            if(((Player) event.getEntity()).getHealth() == 20){
-                event.setCancelled(true);
-                DropperPlayer dpPlayer = this.game.getPlayer(event.getEntity().getUniqueId());
-                Player player = (Player) event.getEntity();
-                // Neutralize player and set his inventory
-                dpPlayer.setNeutralized(true);
-                player.getInventory().clear();
-                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
-                Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.RED + ChatColor.BOLD + "Vous êtes mort !", "Vous allez être retéléporté");
 
+        if(event.getEntity() instanceof Player){
+            Player player = (Player) event.getEntity();
+
+            if(player.getHealth() == 20){
+
+                event.setCancelled(true);
+                DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
+                dpPlayer.setNeutralized(true);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
+                player.getInventory().clear();
                 player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
                 player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
+                Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.RED + ChatColor.BOLD + "W A S T E D !", "Le niveau va redémarrer dans quelques secondes...");
 
                 new BukkitRunnable() {
 
@@ -119,7 +121,7 @@ public class PlayerEventsListener implements Listener {
 
                     @Override
                     public void run() {
-                        //check if player hasn't use the quit button and restart the level.
+                        // Check if player hasn't use the quit button and restart the level.
                         if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
                             player.teleport(game.getSpawn());
                             player.getInventory().clear();
@@ -136,49 +138,56 @@ public class PlayerEventsListener implements Listener {
                     this.game.usualGameLeave(player);
 
             }
+
+        }
+
     }
 
     @EventHandler
-	public void onPlayerMove(PlayerMoveEvent event){
-		DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
-		Player player = event.getPlayer();
-		if(dpPlayer.isNeutralized()){
+    public void onPlayerMove(PlayerMoveEvent event){
+
+        DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
+        Player player = event.getPlayer();
+
+        if(dpPlayer.isNeutralized()){
             event.setCancelled(true);
-        }else if (player.getLocation().getBlock().getType().equals(org.bukkit.Material.STATIONARY_WATER) && dpPlayer.getCurrentLevel() != null){
+        } else if (player.getLocation().getBlock().getType().equals(org.bukkit.Material.STATIONARY_WATER) && dpPlayer.getCurrentLevel() != null){
 
-			// Neutralize player and set his inventory
-				dpPlayer.setNeutralized(true);
-				player.getInventory().clear();
-                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
+            // Neutralize player and set his inventory.
+            dpPlayer.setNeutralized(true);
+            player.getInventory().clear();
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
 
-                Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.GREEN + ChatColor.BOLD + "Bravo !", "Vous allez être téléporté au niveau suivant au niveau suivant");
+            Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.GREEN + ChatColor.BOLD + "Bravo !", "Vous allez être téléporté au niveau suivant au niveau suivant");
 
             player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
-				player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
+            player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
 
-				new BukkitRunnable() {
+            new BukkitRunnable() {
 
-					DropperLevel dropperLevel;
+                DropperLevel dropperLevel;
 
-					@Override
-					public void run() {
-						//check if player hasn't use the quit button and restart the level.
-						if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
-							player.teleport(game.getSpawn());
-							player.getInventory().clear();
+                @Override
+                public void run() {
 
-							dropperLevel = dpPlayer.getCurrentLevel();
-							game.usualLevelLeave(player, false);
-							dpPlayer.setNeutralized(false);
-							game.usualStartLevel(dpPlayer,player,dropperLevel.getID() + 1);
-						}
-					}
-				}.runTaskLater(Dropper.getInstance(),100);
+                    //check if player hasn't use the quit button and restart the level.
+                    if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
+                        player.teleport(game.getSpawn());
+                        player.getInventory().clear();
 
-				if (dpPlayer.getGameType().equals(GameType.COMPETITION))
-					this.game.usualGameLeave(player);
+                        dropperLevel = dpPlayer.getCurrentLevel();
+                        game.usualLevelLeave(player, false);
+                        dpPlayer.setNeutralized(false);
+                        game.usualStartLevel(dpPlayer,player,dropperLevel.getID() + 1);
+                    }
+                }
 
-			}
+            }.runTaskLater(Dropper.getInstance(),100);
+
+            if (dpPlayer.getGameType().equals(GameType.COMPETITION))
+                this.game.usualGameLeave(player);
+
+        }
     }
 
     @EventHandler
@@ -187,45 +196,45 @@ public class PlayerEventsListener implements Listener {
         event.getPlayer().sendMessage("[AFKChecker] You has detected as AFK.");
     }
 
-	@EventHandler
-	public void onPlayerRespawn(PlayerRespawnEvent event){
-		event.getPlayer().teleport(this.game.getSpawn());
-		this.game.getEffectManager().restoreDefaultEffects(event.getPlayer());
-	}
-
-	@EventHandler
-    public void onPlayerSwap(PlayerSwapHandItemsEvent event){
-	    // Preventing players to swap item in hands.
-	    event.setCancelled(true);
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event){
+        event.getPlayer().teleport(this.game.getSpawn());
+        this.game.getEffectManager().restoreDefaultEffects(event.getPlayer());
     }
 
-	@EventHandler
-	public void onDrop(PlayerDropItemEvent event){
-		// Preventing players to drop anything.
-		event.setCancelled(true);
-	}
+    @EventHandler
+    public void onPlayerSwap(PlayerSwapHandItemsEvent event){
+        // Preventing players to swap item in hands.
+        event.setCancelled(true);
+    }
 
-	@EventHandler
-	public void onInventoryClick(InventoryClickEvent event){
-		// Preventing players to move items in inventory.
-		event.setCancelled(true);
-	}
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent event){
+        // Preventing players to drop anything.
+        event.setCancelled(true);
+    }
 
-	@EventHandler
-	public void onBlockPlace(BlockPlaceEvent event){
-		// Preventing players to place any block.
-		event.setCancelled(true);
-	}
-	@EventHandler
-	public void onBlockBreak(BlockBreakEvent event){
-		// Preventing players to break any block.
-		event.setCancelled(true);
-	}
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event){
+        // Preventing players to move items in inventory.
+        event.setCancelled(true);
+    }
 
-	@EventHandler
-	public void onFoodLevelChange(FoodLevelChangeEvent event){
-		// Disabling food.
-		event.setCancelled(true);
-	}
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event){
+        // Preventing players to place any block.
+        event.setCancelled(true);
+    }
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event){
+        // Preventing players to break any block.
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onFoodLevelChange(FoodLevelChangeEvent event){
+        // Disabling food.
+        event.setCancelled(true);
+    }
 
 }
