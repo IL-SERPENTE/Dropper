@@ -1,23 +1,18 @@
 package net.samagames.dropper.events.listeners;
 
-import net.minecraft.server.v1_10_R1.Material;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.GameType;
 import net.samagames.dropper.LevelGUI;
 import net.samagames.dropper.events.PlayerAFKEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.tools.chat.ActionBarAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
@@ -25,9 +20,6 @@ import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Arrays;
-
-import static org.bukkit.Bukkit.broadcastMessage;
 
 public class PlayerEventsListener implements Listener {
 
@@ -157,38 +149,7 @@ public class PlayerEventsListener implements Listener {
 		event.getPlayer().teleport(this.game.getSpawn());
 		this.game.getEffectManager().restoreDefaultEffects(event.getPlayer());
 	}
-	/*
-	@EventHandler
-	public void onPlayerDamage(EntityDamageEvent event){
-		DropperPlayer dpPlayer = this.game.getPlayer(event.getEntity().getUniqueId());
-		Player player = (Player) event.getEntity();
-		if(dpPlayer.getPlayerIfOnline().getHealth() == 1){
-			player.getInventory().setHelmet(Dropper.stackBuilder("Pumkin", null, org.bukkit.Material.PUMPKIN,(byte)0));
-			dpPlayer.setNeutralized(true);
-			player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
-			player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					game.usualGameLeave(player);
-				}
-			}.runTaskLater(Dropper.getInstance(),100);
-			if (dpPlayer.getGameType().equals(GameType.COMPETITION))
-				this.game.usualGameLeave(player);
 
-		}
-	}
-	@EventHandler
-	public void onPlayerDeath(PlayerDeathEvent event){
-		DropperPlayer dpPlayer = this.game.getPlayer(event.getEntity().getUniqueId());
-		event.setDeathMessage("");
-		if(dpPlayer.getGameType().equals(GameType.FREE)){
-			this.game.usualLevelLeave(event.getEntity(), false);
-		} else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
-			this.game.usualGameLeave(event.getEntity());
-		}
-	}
-*/
 	@EventHandler
     public void onPlayerSwap(PlayerSwapHandItemsEvent event){
 	    // Preventing players to swap item in hands.
