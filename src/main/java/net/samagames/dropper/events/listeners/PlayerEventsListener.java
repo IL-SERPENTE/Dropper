@@ -14,12 +14,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperPlayer;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
@@ -95,11 +98,50 @@ public class PlayerEventsListener implements Listener {
         }
 
     }
+    @EventHandler
+    public void onPlayerDamage(EntityDamageEvent event){
+            if(((Player) event.getEntity()).getHealth() == 20){
+                event.setCancelled(true);
+                DropperPlayer dpPlayer = this.game.getPlayer(event.getEntity().getUniqueId());
+                Player player = (Player) event.getEntity();
+                // Neutralize player and set his inventory
+                dpPlayer.setNeutralized(true);
+                player.getInventory().clear();
+                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
+                Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.RED + ChatColor.BOLD + "Vous êtes mort !", "Vous allez être retéléporté");
+
+                player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
+                player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
+
+                new BukkitRunnable() {
+
+                    DropperLevel dropperLevel;
+
+                    @Override
+                    public void run() {
+                        //check if player hasn't use the quit button and restart the level.
+                        if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
+                            player.teleport(game.getSpawn());
+                            player.getInventory().clear();
+
+                            dropperLevel = dpPlayer.getCurrentLevel();
+                            game.usualLevelLeave(player, false);
+                            dpPlayer.setNeutralized(false);
+                            game.usualStartLevel(dpPlayer,player,dropperLevel);
+                        }
+                    }
+                }.runTaskLater(Dropper.getInstance(),100);
+
+                if (dpPlayer.getGameType().equals(GameType.COMPETITION))
+                    this.game.usualGameLeave(player);
+
+            }
+    }
 
     @EventHandler
 	public void onPlayerMove(PlayerMoveEvent event){
 		DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
-		Player player = (Player) event.getPlayer();
+		Player player = event.getPlayer();
 		if(dpPlayer.isNeutralized()){
             event.setCancelled(true);
         }else if (player.getLocation().getBlock().getType().equals(org.bukkit.Material.STATIONARY_WATER) && dpPlayer.getCurrentLevel() != null){
@@ -107,8 +149,9 @@ public class PlayerEventsListener implements Listener {
 			// Neutralize player and set his inventory
 				dpPlayer.setNeutralized(true);
 				player.getInventory().clear();
-				player.getInventory().setHelmet(Dropper.stackBuilder("Pumkin", null, org.bukkit.Material.PUMPKIN,(byte)0));
-                Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.GREEN + ChatColor.BOLD + "GG !", "");
+                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
+
+                Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.GREEN + ChatColor.BOLD + "Bravo !", "Vous allez être téléporté au niveau suivant au niveau suivant");
 
             player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
 				player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
@@ -127,7 +170,7 @@ public class PlayerEventsListener implements Listener {
 							dropperLevel = dpPlayer.getCurrentLevel();
 							game.usualLevelLeave(player, false);
 							dpPlayer.setNeutralized(false);
-							game.usualStartLevel(dpPlayer,player,dropperLevel);
+							game.usualStartLevel(dpPlayer,player,dropperLevel.getID() + 1);
 						}
 					}
 				}.runTaskLater(Dropper.getInstance(),100);
