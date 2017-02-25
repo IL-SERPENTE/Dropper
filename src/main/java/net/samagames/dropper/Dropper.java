@@ -229,7 +229,7 @@ public class Dropper extends Game<DropperPlayer> {
 
                         } else if (step == 1) {
 
-                            Titles.sendTitle(player,30, 70, 30, "Pour compléter le niveau","Dirigez vous vers les blocks d'eau !");
+                            Titles.sendTitle(player,30, 70, 30, "Compléter le niveau suivant :","Dirigez vous vers les blocks d'eau !");
 							player.teleport(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-2").getAsString()));
 
                         } else if (step == 2) {
@@ -283,6 +283,25 @@ public class Dropper extends Game<DropperPlayer> {
             new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
         }
     }
+    public void usualStartLevel(DropperPlayer dpPlayer, Player player,Integer levelId){
+
+        // Managing player inventory.
+        player.getInventory().clear();
+        player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
+
+        DropperLevel level = getDropperLevel(levelId-1);
+
+        // Updating current level of player.
+        dpPlayer.updateCurrentLevel(level);
+
+        // Sending title with level's name & his description.
+        Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
+
+        // Starting cooldown if he does not have anyone started before.
+        if (!dpPlayer.hasActiveCooldown()) {
+            new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
+        }
+    }
 	/**
 	 * This is the entry point of the level-leaving process.
 	 * @param player the player.
@@ -320,6 +339,8 @@ public class Dropper extends Game<DropperPlayer> {
 
 	public void usualGameLeave(Player player){
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
+		if(dpPlayer.getCurrentLevel() != null)
+		    player.teleport(getSpawn());
 
 		if(dpPlayer.hasActiveCooldown()){
 			dpPlayer.getActiveCooldown().cancel();
