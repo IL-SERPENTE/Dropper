@@ -48,7 +48,8 @@ public class LevelActionsListener implements Listener {
             player.teleport(level.getPlayLocation());
         }
 
-        if(level.getID() == 4){
+        // Started special cooldown for level 16.
+        if(level.getID() == 16){
             player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.AQUA + " Vous disposez de " + ChatColor.RED + "30 secondes" + ChatColor.AQUA + " pour mémoriser ces symboles !");
             new LevelSpecialCooldown(player, new Location(getWorlds().get(0), -653, 330, -638)).runTaskTimer(this.game.getInstance(), 20L, 20L);
         }
