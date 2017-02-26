@@ -24,21 +24,19 @@ public class AFKChecker {
         this.atOldCheck = player.getLocation();
         this.minutesWithoutMove = 0;
         this.isAfk = false;
-        Location current = player.getLocation();
         PlayerAFKEvent playerAFKEvent = new PlayerAFKEvent(player);
 
         this.task = instance.getServer().getScheduler().scheduleSyncRepeatingTask(instance, new Runnable() {
             @Override
             public void run() {
 
-                if(current.getX() == atOldCheck.getX() && current.getY() == atOldCheck.getY() && current.getZ() == atOldCheck.getZ()){
+                if(player.getLocation().getX() == atOldCheck.getX() && player.getLocation().getY() == atOldCheck.getY() && player.getLocation().getZ() == atOldCheck.getZ()){
                     minutesWithoutMove++;
                 } else {
                     minutesWithoutMove = 0;
                     isAfk = false;
                 }
 
-                atOldCheck = current;
                 if(minutesWithoutMove == 6){
                     instance.getServer().getPluginManager().callEvent(playerAFKEvent);
                     isAfk = true;
