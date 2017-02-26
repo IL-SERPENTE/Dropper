@@ -2,7 +2,6 @@ package net.samagames.dropper.events.listeners;
 
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.GameType;
-import net.samagames.dropper.level.gui.CategoryOneGUI;
 import net.samagames.dropper.events.PlayerAFKEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.dropper.level.gui.LevelCategorySelectorGUI;

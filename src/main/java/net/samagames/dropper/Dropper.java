@@ -97,16 +97,13 @@ public class Dropper extends Game<DropperPlayer> {
 		// Create proximity tasks for special levels.
 		BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();
 
-		ArmorStand specialLvl14 = this.armorStandBuilder(new Location(getWorlds().get(0), 1444, 16, 1327), getWorlds().get(0));
-		ProximityUtils.onNearbyOf(this.instance, specialLvl14, 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		ProximityUtils.onNearbyOf(this.instance, this.armorStandBuilder(new Location(getWorlds().get(0), 1444, 16, 1327), getWorlds().get(0)), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
 				() -> player.teleport(new Location(getWorlds().get(0), 510, 177, 1531))));
 
-		ArmorStand armorStandLevel16 = this.armorStandBuilder(new Location(getWorlds().get(0), 2727, 6, -302), getWorlds().get(0));
-		ProximityUtils.onNearbyOf(this.instance, armorStandLevel16, 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		ProximityUtils.onNearbyOf(this.instance, this.armorStandBuilder(new Location(getWorlds().get(0), 2727, 6, -302), getWorlds().get(0)), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
 				() -> player.teleport(new Location(getWorlds().get(0),2705, 251, -366))));
 
-		ArmorStand specialLvl6 = this.armorStandBuilder(new Location(getWorlds().get(0),  2706, 9, -368), getWorlds().get(0));
-		ProximityUtils.onNearbyOf(this.instance, specialLvl6, 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
+		ProximityUtils.onNearbyOf(this.instance, this.armorStandBuilder(new Location(getWorlds().get(0),  2706, 9, -368), getWorlds().get(0)), 1.0D, 1.0D, 1.0D, Player.class, player -> bukkitScheduler.runTask(this.instance,
 				() -> player.teleport(new Location(getWorlds().get(0),2586, 251, -445))));
 
 	}

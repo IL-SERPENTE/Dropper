@@ -11,16 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
-
 import java.util.Arrays;
 
-import static net.samagames.tools.GameUtils.broadcastMessage;
-
-/**
- * @author Vialonyx
- */
-
 public class LevelCategorySelectorGUI extends AbstractGui {
+
+    /**
+     * This GUI is used to select the category of desired level.
+     * @author Vialonyx
+     */
 
     private DropperMain instance;
     public LevelCategorySelectorGUI(DropperMain instance){
@@ -41,12 +39,7 @@ public class LevelCategorySelectorGUI extends AbstractGui {
     @Override
     public void onClick(Player player, ItemStack stack, String action, ClickType clickType) {
 
-        switch(action){
-            case "1":
-                SamaGamesAPI.get().getGuiManager().openGui(player, new CategoryOneGUI(this.instance));
-            case "2":
-                SamaGamesAPI.get().getGuiManager().openGui(player, new CategoryTwoGUI(this.instance));
-        }
+        SamaGamesAPI.get().getGuiManager().openGui(player, new LevelBrowserGUI(this.instance, Integer.parseInt(action)));
 
     }
 

@@ -1,7 +1,6 @@
 package net.samagames.dropper.level.gui;
 
 import net.samagames.api.gui.AbstractGui;
-import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperMain;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,24 +9,37 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
-public class CategoryOneGUI extends AbstractGui {
+public class LevelBrowserGUI extends AbstractGui {
+
+    /**
+     * This GUI is used to select a level to play.
+     * @author Vialonyx
+     */
 
     private DropperMain instance;
-    public CategoryOneGUI(DropperMain instance) {
+    private int category, i;
+    public LevelBrowserGUI(DropperMain instance, int category) {
         this.instance = instance;
+        this.category = category;
+        this.i = 0;
     }
 
     @Override
     public void display(Player player) {
+
         this.inventory = this.instance.getServer().createInventory(null, InventoryType.CHEST, "Sélectionner un niveau");
 
-        this.instance.get().getRegisteredLevels().stream().filter(level -> level.getCategory() == 1).forEach(level -> {
-            this.setSlotData(this.inventory, Dropper.stackBuilder(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID(), null, Material.ENDER_PEARL,(byte) 0), level.getID(), "1");
-        });
+        this.instance.get().getRegisteredLevels().stream().filter(level -> level.getCategory() == this.category).forEach(level -> {
 
-        this.instance.get().getRegisteredLevels().stream().filter(level -> level.getCategory() == 2).forEach(level -> {
-            this.setSlotData(this.inventory, Dropper.stackBuilder(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID(), null, Material.ENDER_PEARL,(byte) 0), level.getID(), "2");
+            ItemStack stack =  new ItemStack(Material.NETHER_STAR, level.getID());
+            ItemMeta meta = stack.getItemMeta();
+            meta.setDisplayName(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID());
+            stack.setItemMeta(meta);
+            this.setSlotData(stack, i, "-");
+            i++;
+
         });
 
         player.openInventory(this.inventory);
