@@ -9,7 +9,6 @@ import net.samagames.tools.ProximityUtils;
 import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
 import net.samagames.tools.tutorials.Tutorial;
-import net.samagames.tools.tutorials.TutorialRunner;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -20,9 +19,7 @@ import com.google.gson.JsonObject;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.games.Game;
 import net.samagames.tools.LocationUtils;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
-
 import static org.bukkit.Bukkit.getWorlds;
 
 public class Dropper extends Game<DropperPlayer> {
@@ -83,7 +80,7 @@ public class Dropper extends Game<DropperPlayer> {
 		this.effectManager = new EffectManager();
 
 		// Registering the tutorial.
-		this.tutorial = new DropperTutorial();
+		this.tutorial = new DropperTutorial(this);
 
 		// Create proximity tasks for special levels.
 		BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();
@@ -223,6 +220,7 @@ public class Dropper extends Game<DropperPlayer> {
         // Starting Level 1 as tutorial.
         if (level.getID() == 1) {
 
+            dpPlayer.setNeutralized(true);
         	this.getInstance().getServer().getScheduler().runTaskLater(this.getInstance(), () -> this.tutorial.start(player.getUniqueId()), 20L);
 
         } else {
