@@ -42,6 +42,8 @@ public class AFKChecker {
                     isAfk = true;
                 }
 
+                atOldCheck = player.getLocation();
+
             }
         }, 0L, 1200);
 
