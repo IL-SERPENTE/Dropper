@@ -230,7 +230,7 @@ public class Dropper extends Game<DropperPlayer> {
         DropperLevel level = this.getDropperLevel(levelRef);
 
         // Starting Level 13 as tutorial.
-        if (level.getID() == 13) {
+        if (level.getID() == 13 && !dpPlayer.getGameType().equals(GameType.COMPETITION)) {
 
             dpPlayer.neutralizePlayer(true);
         	this.getInstance().getServer().getScheduler().runTaskLater(this.getInstance(), () -> this.tutorial.start(player.getUniqueId()), 20L);
