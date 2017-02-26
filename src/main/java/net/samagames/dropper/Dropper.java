@@ -71,7 +71,7 @@ public class Dropper extends Game<DropperPlayer> {
         this.registeredLevels.add(new DropperLevel(10, "Rail", "n/a"));
         this.registeredLevels.add(new DropperLevel(11, "Hell", "n/a"));
         this.registeredLevels.add(new DropperLevel(12, "The End", "n/a"));
-        this.registeredLevels.add(new DropperLevel(13, "Rainbow", "Plongez dans le monde des couleurs !"));
+        this.registeredLevels.add(new DropperLevel(13, "Rainbow (Tutorial)", "Plongez dans le monde des couleurs !"));
 		this.registeredLevels.add(new DropperLevel(14, "Isengard", "En pleine terre du milieu ..."));
 		this.registeredLevels.add(new DropperLevel(15, "Neo", "Un nouvel univers informatique"));
 		this.registeredLevels.add(new DropperLevel(16, "Symbols", "Arriverez vous à déchiffrer les symboles ?"));
@@ -229,8 +229,8 @@ public class Dropper extends Game<DropperPlayer> {
         DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
         DropperLevel level = this.getDropperLevel(levelRef);
 
-        // Starting Level 1 as tutorial.
-        if (level.getID() == 1) {
+        // Starting Level 13 as tutorial.
+        if (level.getID() == 13) {
 
             dpPlayer.neutralizePlayer(true);
         	this.getInstance().getServer().getScheduler().runTaskLater(this.getInstance(), () -> this.tutorial.start(player.getUniqueId()), 20L);
