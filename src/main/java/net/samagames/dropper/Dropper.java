@@ -8,6 +8,8 @@ import net.samagames.dropper.level.LevelCooldown;
 import net.samagames.tools.ProximityUtils;
 import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
+import net.samagames.tools.tutorials.Tutorial;
+import net.samagames.tools.tutorials.TutorialRunner;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -34,6 +36,8 @@ public class Dropper extends Game<DropperPlayer> {
 	private EffectManager effectManager;
 	private List<DropperLevel> registeredLevels;
 	private Map<ItemStack, String> itemsDescriptions;
+	private Tutorial tutorial;
+
 
 	// Creating game items.
 	public static final ItemStack ITEM_MODE_FREE = stackBuilder(" ", Arrays.asList(ChatColor.GREEN + "Entrainez vous autant que vous le voulez sur chaque niveau !"), Material.BANNER, (byte) 10);
@@ -77,6 +81,9 @@ public class Dropper extends Game<DropperPlayer> {
 
 		// Registering the level manager.
 		this.effectManager = new EffectManager();
+
+		// Registering the tutorial.
+		this.tutorial = new DropperTutorial();
 
 		// Create proximity tasks for special levels.
 		BukkitScheduler bukkitScheduler = this.instance.getServer().getScheduler();
@@ -215,51 +222,8 @@ public class Dropper extends Game<DropperPlayer> {
 
         // Starting Level 1 as tutorial.
         if (level.getID() == 1) {
-            BukkitRunnable bukkitRunnable = new BukkitRunnable() {
-                int step = 0;
-                JsonObject object = SamaGamesAPI.get().getGameManager().getGameProperties().getConfigs();
-                @Override
-                public void run() {
-                        if (step == 0) {
 
-                            player.setGameMode(GameMode.SPECTATOR);
-                            dpPlayer.setNeutralized(true);
-                            Titles.sendTitle(player, 30, 70, 30, "Bienvenue", "Sur la map The Dropper !");
-							player.teleport(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-1").getAsString()));
-
-                        } else if (step == 1) {
-
-                            Titles.sendTitle(player,30, 70, 30, "Compléter le niveau suivant :","Dirigez vous vers les blocks d'eau !");
-							player.teleport(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-2").getAsString()));
-
-                        } else if (step == 2) {
-
-                            Titles.sendTitle(player,30, 70, 30, "", "Si vous êtes perdus, suivez les citrouilles !");
-						    player.getPlayer().sendBlockChange(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-2").getAsString()),Material.PUMPKIN,(byte) 0);
-
-                        } else if (step == 3) {
-
-                            Titles.sendTitle(player,30, 70, 30, "Les toiles d'araignées", "Vous permettent d'atterir en toute sécurité");
-                            player.getPlayer().sendBlockChange(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("tutorialBlock").getAsString()), Material.WEB, (byte) 0);
-
-                        } else if (step == 4) {
-
-							player.teleport(LocationUtils.str2loc(getWorlds().get(0).getName() + ", " + object.get("step-1").getAsString()));
-							Titles.sendTitle(player, 20, 60, 20, "", "Maintenant à toi de jouer !");
-
-						} else if(step == 5) {
-
-							player.setGameMode(GameMode.ADVENTURE);
-                            player.teleport(getSpawn());
-                            dpPlayer.setNeutralized(false);
-                            usualStartLevel(dpPlayer,player,level);
-                            this.cancel();
-                        }
-
-                        step++;
-                }
-            };
-            bukkitRunnable.runTaskTimer(this.getInstance(), 20, 100);
+        	this.getInstance().getServer().getScheduler().runTaskLater(this.getInstance(), () -> this.tutorial.start(player.getUniqueId()), 20L);
 
         } else {
             usualStartLevel(dpPlayer,player,level);
