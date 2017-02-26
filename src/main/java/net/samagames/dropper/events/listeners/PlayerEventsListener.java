@@ -5,6 +5,7 @@ import net.samagames.dropper.GameType;
 import net.samagames.dropper.LevelGUI;
 import net.samagames.dropper.events.PlayerAFKEvent;
 import net.samagames.dropper.level.DropperLevel;
+import net.samagames.dropper.level.EffectManager;
 import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
@@ -51,6 +52,7 @@ public class PlayerEventsListener implements Listener {
 
                 if (item.isSimilar(Dropper.ITEM_QUIT_LEVEL)) {
                     gamePlayer.neutralizePlayer(false);
+                    player.getActivePotionEffects().clear();
                     if (gamePlayer.getCurrentLevel() == null) {
                         this.game.usualLevelLeave(player, true);
                     } else {
@@ -58,6 +60,7 @@ public class PlayerEventsListener implements Listener {
                     }
 
                 } else if(item.isSimilar(Dropper.ITEM_QUIT_GAME)){
+                    player.getActivePotionEffects().clear();
                     this.game.usualGameLeave(player);
                     gamePlayer.neutralizePlayer(false);
                 } else if(item.isSimilar(Dropper.ITEM_MODE_FREE)) {
@@ -100,14 +103,14 @@ public class PlayerEventsListener implements Listener {
     }
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event){
-
         if(event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
-
-            if(player.getHealth() == 20){
+            DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
+            if(dpPlayer.getCurrentLevel() == null)
+                event.setCancelled(true);
+            if(player.getHealth() == 20 && dpPlayer.getCurrentLevel() != null){
 
                 event.setCancelled(true);
-                DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
                 dpPlayer.neutralizePlayer(true);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
                 player.getInventory().clear();
@@ -176,15 +179,14 @@ public class PlayerEventsListener implements Listener {
                         dropperLevel = dpPlayer.getCurrentLevel();
                         game.usualLevelLeave(player, false);
                         dpPlayer.neutralizePlayer(false);
-                        game.usualStartLevel(dpPlayer,player,dropperLevel.getID() + 1);
+                        if(dropperLevel.getID() + 1 <= game.getRegisteredLevels().size()+1)
+                            game.usualStartLevel(dpPlayer,player,dropperLevel.getID() + 1);
+                        else
+                            game.usualGameLeave(player);
                     }
                 }
 
             }.runTaskLater(Dropper.getInstance(),100);
-
-            if (dpPlayer.getGameType().equals(GameType.COMPETITION))
-                this.game.usualGameLeave(player);
-
         }
     }
 
