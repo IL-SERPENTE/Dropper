@@ -13,15 +13,16 @@ public class DropperLevel {
 	 * This is the representation of a Level.
 	 */
 
-	private int levelID;
+	private int levelID, levelCategory;
 	private String levelName, levelDescription;
 	private World world;
 	private Location levelPlayLocation;
 
-	public DropperLevel(int levelID, String levelName, String levelDescription){
+	public DropperLevel(int levelID, int levelCategory, String levelName, String levelDescription){
 
 		// Setting global data.
 		this.levelID = levelID;
+		this.levelCategory = levelCategory;
 		this.levelName = levelName;
 		this.levelDescription = levelDescription;
 
@@ -43,6 +44,15 @@ public class DropperLevel {
 
 	public int getID(){
 		return this.levelID;
+	}
+
+	/**
+	 * Get the level's category.
+	 * @return The level category.
+	 */
+
+	public int getCategory(){
+		return this.levelCategory;
 	}
 
 	/**

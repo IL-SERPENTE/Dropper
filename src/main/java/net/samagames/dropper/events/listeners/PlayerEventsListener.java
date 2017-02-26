@@ -2,10 +2,10 @@ package net.samagames.dropper.events.listeners;
 
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.GameType;
-import net.samagames.dropper.LevelGUI;
+import net.samagames.dropper.level.gui.CategoryOneGUI;
 import net.samagames.dropper.events.PlayerAFKEvent;
 import net.samagames.dropper.level.DropperLevel;
-import net.samagames.dropper.level.EffectManager;
+import net.samagames.dropper.level.gui.LevelCategorySelectorGUI;
 import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
@@ -70,7 +70,7 @@ public class PlayerEventsListener implements Listener {
                     this.game.usualGameTypeUpdate(player, GameType.COMPETITION);
 
                 } else if(item.isSimilar(Dropper.ITEM_SELECTGUI)){
-                    SamaGamesAPI.get().getGuiManager().openGui(player, new LevelGUI(this.game.getInstance()));
+                    SamaGamesAPI.get().getGuiManager().openGui(player, new LevelCategorySelectorGUI(this.game.getInstance()));
                 }
 
             }

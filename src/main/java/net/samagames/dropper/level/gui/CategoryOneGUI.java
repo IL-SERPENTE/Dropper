@@ -1,40 +1,41 @@
-package net.samagames.dropper;
+package net.samagames.dropper.level.gui;
 
 import net.samagames.api.gui.AbstractGui;
+import net.samagames.dropper.DropperMain;
 import net.samagames.dropper.level.DropperLevel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class LevelGUI extends AbstractGui {
-
-    /**
-     * Here is created and managed the GUI used to select level on free gametype.
-     * @author Vialonyx
-     */
+public class CategoryOneGUI extends AbstractGui {
 
     private DropperMain instance;
-
-    public LevelGUI(DropperMain instance) {
+    public CategoryOneGUI(DropperMain instance) {
         this.instance = instance;
     }
 
     @Override
     public void display(Player player) {
-        this.inventory = this.instance.getServer().createInventory(null, 54, "Sélectionner un niveau");
+        this.inventory = this.instance.getServer().createInventory(null, InventoryType.CHEST, "Sélectionner un niveau");
 
         for(DropperLevel level : this.instance.get().getRegisteredLevels()){
 
-            ItemStack stack =  new ItemStack(Material.ENDER_PEARL, level.getID());
-            ItemMeta meta = stack.getItemMeta();
-            meta.setDisplayName(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID());
-            stack.setItemMeta(meta);
+            if(level.getCategory() == 1){
 
-            this.setSlotData(this.inventory, stack, level.getID(), Integer.toString(level.getID()));
+                ItemStack stack =  new ItemStack(Material.ENDER_PEARL, level.getID());
+                ItemMeta meta = stack.getItemMeta();
+                meta.setDisplayName(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID());
+                stack.setItemMeta(meta);
+
+                this.setSlotData(this.inventory, stack, level.getID(), Integer.toString(level.getID()));
+
+            }
+
         }
 
         player.openInventory(this.inventory);
