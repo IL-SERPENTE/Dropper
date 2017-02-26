@@ -1,8 +1,8 @@
 package net.samagames.dropper.level.gui;
 
 import net.samagames.api.gui.AbstractGui;
+import net.samagames.dropper.Dropper;
 import net.samagames.dropper.DropperMain;
-import net.samagames.dropper.level.DropperLevel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class CategoryOneGUI extends AbstractGui {
 
@@ -23,20 +22,13 @@ public class CategoryOneGUI extends AbstractGui {
     public void display(Player player) {
         this.inventory = this.instance.getServer().createInventory(null, InventoryType.CHEST, "Sélectionner un niveau");
 
-        for(DropperLevel level : this.instance.get().getRegisteredLevels()){
+        this.instance.get().getRegisteredLevels().stream().filter(level -> level.getCategory() == 1).forEach(level -> {
+            this.setSlotData(this.inventory, Dropper.stackBuilder(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID(), null, Material.ENDER_PEARL,(byte) 0), level.getID(), "1");
+        });
 
-            if(level.getCategory() == 1){
-
-                ItemStack stack =  new ItemStack(Material.ENDER_PEARL, level.getID());
-                ItemMeta meta = stack.getItemMeta();
-                meta.setDisplayName(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID());
-                stack.setItemMeta(meta);
-
-                this.setSlotData(this.inventory, stack, level.getID(), Integer.toString(level.getID()));
-
-            }
-
-        }
+        this.instance.get().getRegisteredLevels().stream().filter(level -> level.getCategory() == 2).forEach(level -> {
+            this.setSlotData(this.inventory, Dropper.stackBuilder(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID(), null, Material.ENDER_PEARL,(byte) 0), level.getID(), "2");
+        });
 
         player.openInventory(this.inventory);
         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1.0F, 1.0F);
