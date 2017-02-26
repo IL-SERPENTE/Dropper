@@ -50,7 +50,7 @@ public class PlayerEventsListener implements Listener {
                 DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
 
                 if (item.isSimilar(Dropper.ITEM_QUIT_LEVEL)) {
-                    gamePlayer.setNeutralized(false);
+                    gamePlayer.neutralizePlayer(false);
                     if (gamePlayer.getCurrentLevel() == null) {
                         this.game.usualLevelLeave(player, true);
                     } else {
@@ -59,7 +59,7 @@ public class PlayerEventsListener implements Listener {
 
                 } else if(item.isSimilar(Dropper.ITEM_QUIT_GAME)){
                     this.game.usualGameLeave(player);
-                    gamePlayer.setNeutralized(false);
+                    gamePlayer.neutralizePlayer(false);
                 } else if(item.isSimilar(Dropper.ITEM_MODE_FREE)) {
                     this.game.usualGameTypeUpdate(player, GameType.FREE);
 
@@ -108,7 +108,7 @@ public class PlayerEventsListener implements Listener {
 
                 event.setCancelled(true);
                 DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
-                dpPlayer.setNeutralized(true);
+                dpPlayer.neutralizePlayer(true);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
                 player.getInventory().clear();
                 player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
@@ -128,7 +128,7 @@ public class PlayerEventsListener implements Listener {
 
                             dropperLevel = dpPlayer.getCurrentLevel();
                             game.usualLevelLeave(player, false);
-                            dpPlayer.setNeutralized(false);
+                            dpPlayer.neutralizePlayer(false);
                             game.usualStartLevel(dpPlayer,player,dropperLevel);
                         }
                     }
@@ -149,12 +149,10 @@ public class PlayerEventsListener implements Listener {
         DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
         Player player = event.getPlayer();
 
-        if(dpPlayer.isNeutralized()){
-            event.setCancelled(true);
-        } else if (player.getLocation().getBlock().getType().equals(org.bukkit.Material.STATIONARY_WATER) && dpPlayer.getCurrentLevel() != null){
+        if (player.getLocation().getBlock().getType().equals(org.bukkit.Material.STATIONARY_WATER) && dpPlayer.getCurrentLevel() != null){
 
             // Neutralize player and set his inventory.
-            dpPlayer.setNeutralized(true);
+            dpPlayer.neutralizePlayer(true);
             player.getInventory().clear();
             player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
 
@@ -177,7 +175,7 @@ public class PlayerEventsListener implements Listener {
 
                         dropperLevel = dpPlayer.getCurrentLevel();
                         game.usualLevelLeave(player, false);
-                        dpPlayer.setNeutralized(false);
+                        dpPlayer.neutralizePlayer(false);
                         game.usualStartLevel(dpPlayer,player,dropperLevel.getID() + 1);
                     }
                 }

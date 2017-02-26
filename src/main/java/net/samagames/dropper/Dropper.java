@@ -220,7 +220,7 @@ public class Dropper extends Game<DropperPlayer> {
         // Starting Level 1 as tutorial.
         if (level.getID() == 1) {
 
-            dpPlayer.setNeutralized(true);
+            dpPlayer.neutralizePlayer(true);
         	this.getInstance().getServer().getScheduler().runTaskLater(this.getInstance(), () -> this.tutorial.start(player.getUniqueId()), 20L);
 
         } else {
