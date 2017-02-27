@@ -25,6 +25,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import static org.bukkit.Bukkit.broadcastMessage;
+
 
 public class PlayerEventsListener implements Listener {
 
@@ -102,14 +104,15 @@ public class PlayerEventsListener implements Listener {
     }
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event){
+
         if(event.getEntity() instanceof Player){
+
             Player player = (Player) event.getEntity();
             DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
-            if(dpPlayer.getCurrentLevel() == null)
-                event.setCancelled(true);
-            if(player.getHealth() == 20 && dpPlayer.getCurrentLevel() != null){
+            event.setCancelled(true);
 
-                event.setCancelled(true);
+            if(dpPlayer.getCurrentLevel() != null && player.getHealth() == 20 && dpPlayer.getCurrentLevel() != null){
+
                 dpPlayer.neutralizePlayer(true);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
                 player.getInventory().clear();
@@ -119,18 +122,20 @@ public class PlayerEventsListener implements Listener {
 
                 new BukkitRunnable() {
 
-                    DropperLevel dropperLevel;
+                    DropperLevel old = dpPlayer.getCurrentLevel();
 
                     @Override
                     public void run() {
+
                         // Check if player hasn't use the quit button and restart the level.
                         if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
                             player.teleport(game.getSpawn());
                             player.getInventory().clear();
                             game.usualLevelLeave(player, false);
                             dpPlayer.neutralizePlayer(false);
-                            game.usualLevelJoin(player, game.getDropperLevel(dropperLevel.getID()-1));
+                            game.usualLevelJoin(player, game.getDropperLevel(old.getID() -1));
                         }
+
                     }
                 }.runTaskLater(Dropper.getInstance(),100);
 
@@ -173,13 +178,14 @@ public class PlayerEventsListener implements Listener {
                     //check if player hasn't use the quit button and restart the level.
                     if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
 
+                        DropperLevel old = dpPlayer.getCurrentLevel();
                         player.teleport(game.getSpawn());
                         player.getInventory().clear();
                         game.usualLevelLeave(player, false);
                         dpPlayer.neutralizePlayer(false);
 
-                        if(dpPlayer.getCurrentLevel().getID() + 1 <= game.getRegisteredLevels().size()+1) {
-                            game.usualLevelJoin(player, game.getDropperLevel(dpPlayer.getCurrentLevel().getID() +1));
+                        if(old.getID() + 1 <= game.getRegisteredLevels().size()+1) {
+                            game.usualLevelJoin(player, game.getDropperLevel(old.getID()));
                         } else {
                             game.usualGameLeave(player);
                         }
