@@ -302,6 +302,7 @@ public class Dropper extends Game<DropperPlayer> {
 
 		dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
 		dpPlayer.updateCurrentLevel(null);
+		dpPlayer.neutralizePlayer(false);
 		player.getInventory().clear();
 		player.getInventory().setItem(3, this.ITEM_MODE_FREE);
 		player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
