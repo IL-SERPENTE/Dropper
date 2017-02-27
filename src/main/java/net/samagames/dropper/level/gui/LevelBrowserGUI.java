@@ -37,7 +37,7 @@ public class LevelBrowserGUI extends AbstractGui {
             ItemMeta meta = stack.getItemMeta();
             meta.setDisplayName(ChatColor.AQUA + level.getName() + ChatColor.RED + ChatColor.RED + ChatColor.ITALIC + " #" + level.getID());
             stack.setItemMeta(meta);
-            this.setSlotData(stack, this.i, "1");
+            this.setSlotData(stack, this.i, Integer.toString(level.getID()));
             i++;
 
         });
