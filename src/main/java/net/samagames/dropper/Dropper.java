@@ -122,6 +122,7 @@ public class Dropper extends Game<DropperPlayer> {
 		player.setBedSpawnLocation(this.getSpawn(), true);
 		this.effectManager.restoreDefaultEffects(player);
         this.getPlayer(player.getUniqueId()).defineNewAFKChecker(new AFKChecker(this.instance, player));
+        player.sendMessage(ChatColor.AQUA + "Bienvenue sur " + ChatColor.RED + ChatColor.BOLD + "TheDropper !" + ChatColor.AQUA + " Prenez votre élan, jetez-vous dans le vide, appréciez le voyage et tentez de rester en vie !");
 	}
 
 	@Override
