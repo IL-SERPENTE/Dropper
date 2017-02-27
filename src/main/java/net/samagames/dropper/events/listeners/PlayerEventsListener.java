@@ -151,6 +151,10 @@ public class PlayerEventsListener implements Listener {
         DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
         Player player = event.getPlayer();
 
+        if(dpPlayer.isNeutralized()){
+            event.setCancelled(true);
+        }
+
         if (player.getLocation().getBlock().getType().equals(org.bukkit.Material.STATIONARY_WATER) && dpPlayer.getCurrentLevel() != null){
 
             // Neutralize player and set his inventory.

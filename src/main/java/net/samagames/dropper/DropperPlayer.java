@@ -35,17 +35,11 @@ public class DropperPlayer extends GamePlayer {
 	}
 
 	/**
-	 * @param isNeutralized Set true if player is neutralized
+	 * @param isNeutralized Set true if player is neutralized.
 	 */
 
 	public void neutralizePlayer(boolean b){
-	    if(b){
-	        this.getPlayerIfOnline().setWalkSpeed(0);
-	        this.getPlayerIfOnline().setFlySpeed(0);
-        } else {
-            this.getPlayerIfOnline().setWalkSpeed((float) 0.2);
-            this.getPlayerIfOnline().setFlySpeed((float) 0.1);
-        }
+		this.isNeutralized = b;
     }
 
 	/**
