@@ -6,13 +6,13 @@ import net.samagames.dropper.events.CooldownDoneEvent;
 import net.samagames.dropper.events.LevelJoinEvent;
 import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
+import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import static org.bukkit.Bukkit.broadcastMessage;
 import static org.bukkit.Bukkit.getWorlds;
 
 public class LevelActionsListener implements Listener {
@@ -79,7 +79,7 @@ public class LevelActionsListener implements Listener {
 
         TimeCalculator calculator = dpPlayer.getCurrentCalculator();
         calculator.stop();
-        broadcastMessage("Vous avez mis " + calculator.getHours() + " heures, " + calculator.getMinutes() + " minutes, " + calculator.getSeconds() + " secondes à compléter ce niveau !");
+        ActionBarAPI.sendMessage(player.getUniqueId(), ChatColor.BLUE + "Vous avez complété ce niveau en " + ChatColor.RED + calculator.getHours() + "h " + calculator.getMinutes() + "m " + calculator.getSeconds() + "s ");
 
     }
 
