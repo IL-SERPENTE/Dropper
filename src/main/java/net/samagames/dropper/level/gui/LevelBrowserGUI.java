@@ -1,5 +1,6 @@
 package net.samagames.dropper.level.gui;
 
+import net.samagames.api.SamaGamesAPI;
 import net.samagames.api.gui.AbstractGui;
 import net.samagames.dropper.DropperMain;
 import org.bukkit.ChatColor;
@@ -42,6 +43,12 @@ public class LevelBrowserGUI extends AbstractGui {
 
         });
 
+        ItemStack back = new ItemStack(Material.EMERALD, 1);
+        ItemMeta meta = back.getItemMeta();
+        meta.setDisplayName(ChatColor.GREEN + "« Retour");
+        back.setItemMeta(meta);
+        this.setSlotData(back, this.getInventory().getSize()-1, "back");
+
         player.openInventory(this.inventory);
         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1.0F, 1.0F);
     }
@@ -50,12 +57,20 @@ public class LevelBrowserGUI extends AbstractGui {
     public void onClick(Player player, ItemStack stack, String action, ClickType clickType) {
         player.closeInventory();
 
-        int level = Integer.parseInt(action);
-        if (level < 0 || level > instance.get().getRegisteredLevels().size()){
-            return;
-        }
+        if(action.equals("back")){
 
-        this.instance.get().usualLevelJoin(player, this.instance.get().getDropperLevel(level - 1));
+            SamaGamesAPI.get().getGuiManager().openGui(player, new LevelCategorySelectorGUI(this.instance));
+
+        } else {
+
+            int level = Integer.parseInt(action);
+            if (level < 0 || level > instance.get().getRegisteredLevels().size()){
+                return;
+            }
+
+            this.instance.get().usualLevelJoin(player, this.instance.get().getDropperLevel(level - 1));
+
+        }
 
     }
 
