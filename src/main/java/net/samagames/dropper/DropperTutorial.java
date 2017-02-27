@@ -64,8 +64,8 @@ public class DropperTutorial extends Tutorial {
     protected void onTutorialEnds(Player player, boolean interrupted){
         if(!interrupted){
             player.teleport(this.game.getSpawn());
-            this.game.usualStartLevel(this.game.getPlayer(player.getUniqueId()), player, this.game.getRegisteredLevels().get(0));
-            this.game.getPlayer(player.getUniqueId()).neutralizePlayer(false);
+            player.getInventory().setItem(4, Dropper.ITEM_QUIT_GAME);
+            this.game.usualLevelJoin(player, this.game.getRegisteredLevels().get(0));
         }
     }
 

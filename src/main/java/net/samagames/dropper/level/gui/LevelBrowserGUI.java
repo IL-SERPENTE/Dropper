@@ -55,7 +55,7 @@ public class LevelBrowserGUI extends AbstractGui {
             return;
         }
 
-        this.instance.get().usualLevelJoin(player, level - 1);
+        this.instance.get().usualLevelJoin(player, this.instance.get().getDropperLevel(level - 1));
 
     }
 

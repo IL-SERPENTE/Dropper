@@ -44,8 +44,8 @@ public class LevelActionsListener implements Listener {
             player.teleport(level.getPlayLocation());
         }
 
-        // Started special cooldown for level 16.
-        if(level.getID() == 16){
+        // Started special cooldown for level 15.
+        if(level.getID() == 15){
             player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.AQUA + " Vous disposez de " + ChatColor.RED + "30 secondes" + ChatColor.AQUA + " pour mémoriser ces symboles !");
             new DropperCooldown(player, new Location(getWorlds().get(0), -653, 330, -638)).runTaskTimer(this.game.getInstance(), 20L, 20L);
         }
@@ -74,7 +74,7 @@ public class LevelActionsListener implements Listener {
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
             DropperLevel next = this.game.getNextFromCurrent(level);
             player.teleport(this.game.getSpawn());
-            this.game.usualLevelJoin(player, next.getID());
+            this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
         }
 
         TimeCalculator calculator = dpPlayer.getCurrentCalculator();

@@ -70,22 +70,21 @@ public class Dropper extends Game<DropperPlayer> {
         this.registeredLevels.add(new DropperLevel(10, 1,"Rail", "n/a"));
         this.registeredLevels.add(new DropperLevel(11, 1,"Hell", "n/a"));
         this.registeredLevels.add(new DropperLevel(12, 1,"The End", "n/a"));
-        this.registeredLevels.add(new DropperLevel(13,2, "Rainbow (Tutorial)", "Plongez dans le monde des couleurs !"));
-		this.registeredLevels.add(new DropperLevel(14,2, "Isengard", "En pleine terre du milieu ..."));
-		this.registeredLevels.add(new DropperLevel(15,2, "Neo", "Un nouvel univers informatique"));
-		this.registeredLevels.add(new DropperLevel(16,2, "Symbols", "Arriverez vous à déchiffrer les symboles ?"));
-		this.registeredLevels.add(new DropperLevel(17,2, "The Three", "Panique en plein pique-nique !"));
-		this.registeredLevels.add(new DropperLevel(18,2, "Embryo", "Au commencement d'une vie"));
-		this.registeredLevels.add(new DropperLevel(19,2, "Brain", "Dans votre masse cérébrale ..."));
-		this.registeredLevels.add(new DropperLevel(20,2, "Dimension Jumper", "Hé non ! rien à voir avec le Dimensions !"));
-		this.registeredLevels.add(new DropperLevel(21,2, "BeetleJuice", "Ne vous perdez pas dans l'illusion !"));
-		this.registeredLevels.add(new DropperLevel(22,2, "Web", "L'arignée est en train de tisser sa toile ..."));
-		this.registeredLevels.add(new DropperLevel(23,2, "Armor", "L'acordéon de la chute vous attend "));
-		this.registeredLevels.add(new DropperLevel(24,2, "Dracula's Bedroom", "Protégez vous bien des morsures !"));
-		this.registeredLevels.add(new DropperLevel(25,2, "DNA", "Votre code génétique est-il si complexe ?"));
-		this.registeredLevels.add(new DropperLevel(26,2, "Minecraft is huge", "Ce monde cubique paraît si petit ..."));
-		this.registeredLevels.add(new DropperLevel(27,2, "Hardware", "Votre ordinateur vous cache des choses !"));
-		this.registeredLevels.add(new DropperLevel(28,2, "Moria", "Sauve qui peut !"));
+		this.registeredLevels.add(new DropperLevel(13,2, "Isengard", "En pleine terre du milieu ..."));
+		this.registeredLevels.add(new DropperLevel(14,2, "Neo", "Un nouvel univers informatique"));
+		this.registeredLevels.add(new DropperLevel(15,2, "Symbols", "Arriverez vous à déchiffrer les symboles ?"));
+		this.registeredLevels.add(new DropperLevel(16,2, "The Three", "Panique en plein pique-nique !"));
+		this.registeredLevels.add(new DropperLevel(17,2, "Embryo", "Au commencement d'une vie"));
+		this.registeredLevels.add(new DropperLevel(18,2, "Brain", "Dans votre masse cérébrale ..."));
+		this.registeredLevels.add(new DropperLevel(29,2, "Dimension Jumper", "Hé non ! rien à voir avec le Dimensions !"));
+		this.registeredLevels.add(new DropperLevel(20,2, "BeetleJuice", "Ne vous perdez pas dans l'illusion !"));
+		this.registeredLevels.add(new DropperLevel(21,2, "Web", "L'arignée est en train de tisser sa toile ..."));
+		this.registeredLevels.add(new DropperLevel(22,2, "Armor", "L'acordéon de la chute vous attend "));
+		this.registeredLevels.add(new DropperLevel(23,2, "Dracula's Bedroom", "Protégez vous bien des morsures !"));
+		this.registeredLevels.add(new DropperLevel(24,2, "DNA", "Votre code génétique est-il si complexe ?"));
+		this.registeredLevels.add(new DropperLevel(25,2, "Minecraft is huge", "Ce monde cubique paraît si petit ..."));
+		this.registeredLevels.add(new DropperLevel(26,2, "Hardware", "Votre ordinateur vous cache des choses !"));
+		this.registeredLevels.add(new DropperLevel(27,2, "Moria", "Sauve qui peut !"));
 
 		// Registering the level manager.
 		this.effectManager = new EffectManager();
@@ -188,6 +187,15 @@ public class Dropper extends Game<DropperPlayer> {
 		return this.registeredLevels.get(ref);
 	}
 
+    /**
+     * Get the Dropper tutorial.
+     * @return the dropper tutorial.
+     */
+
+	public Tutorial getTutorial(){
+	    return this.tutorial;
+    }
+
 	/**
 	 * Update the gametype of the player.
 	 * @param player the player.
@@ -210,7 +218,7 @@ public class Dropper extends Game<DropperPlayer> {
 		} else if(newGameType.equals(GameType.COMPETITION)){
 			player.getInventory().clear();
 			player.getInventory().setItem(4,this.ITEM_QUIT_GAME);
-			this.usualLevelJoin(player, 0);
+			this.usualLevelJoin(player, this.getRegisteredLevels().get(0));
 		}
 
 	}
@@ -218,60 +226,28 @@ public class Dropper extends Game<DropperPlayer> {
 	/**
 	 * This is the entry point of the level-joining process.
 	 * @param player the player.
-	 * @param levelRef the desired level.
+     * @param level the level.
 	 */
 
-	public void usualLevelJoin(Player player, int levelRef) {
+	public void usualLevelJoin(Player player, DropperLevel level) {
         DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
-        DropperLevel level = this.getDropperLevel(levelRef);
 
-        // Starting Level 13 as tutorial.
-        if (level.getID() == 13 && !dpPlayer.getGameType().equals(GameType.COMPETITION)) {
+			// Managing player inventory.
+			player.getInventory().clear();
+			player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
 
-            dpPlayer.neutralizePlayer(true);
-        	this.getInstance().getServer().getScheduler().runTaskLater(this.getInstance(), () -> this.tutorial.start(player.getUniqueId()), 20L);
+			// Updating current level of player.
+			this.getPlayer(player.getUniqueId()).updateCurrentLevel(level);
 
-        } else {
-            usualStartLevel(dpPlayer,player,level);
-        }
+			// Sending title with level's name & his description.
+			Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
+
+			// Starting cooldown if he does not have anyone started before.
+			if (!this.getPlayer(player.getUniqueId()).hasActiveCooldown()) {
+				new DropperCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
+			}
     }
 
-    public void usualStartLevel(DropperPlayer dpPlayer, Player player,DropperLevel level){
-
-        // Managing player inventory.
-        player.getInventory().clear();
-        player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
-
-        // Updating current level of player.
-		dpPlayer.updateCurrentLevel(level);
-
-        // Sending title with level's name & his description.
-        Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
-
-        // Starting cooldown if he does not have anyone started before.
-        if (!dpPlayer.hasActiveCooldown()) {
-            new DropperCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
-        }
-    }
-    public void usualStartLevel(DropperPlayer dpPlayer, Player player,Integer levelId){
-
-        // Managing player inventory.
-        player.getInventory().clear();
-        player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
-
-        DropperLevel level = getDropperLevel(levelId-1);
-
-        // Updating current level of player.
-        dpPlayer.updateCurrentLevel(level);
-
-        // Sending title with level's name & his description.
-        Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
-
-        // Starting cooldown if he does not have anyone started before.
-        if (!dpPlayer.hasActiveCooldown()) {
-            new DropperCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
-        }
-    }
 	/**
 	 * This is the entry point of the level-leaving process.
 	 * @param player the player.

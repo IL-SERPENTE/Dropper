@@ -127,11 +127,9 @@ public class PlayerEventsListener implements Listener {
                         if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
                             player.teleport(game.getSpawn());
                             player.getInventory().clear();
-
-                            dropperLevel = dpPlayer.getCurrentLevel();
                             game.usualLevelLeave(player, false);
                             dpPlayer.neutralizePlayer(false);
-                            game.usualStartLevel(dpPlayer,player,dropperLevel);
+                            game.usualLevelJoin(player, game.getDropperLevel(dropperLevel.getID()-1));
                         }
                     }
                 }.runTaskLater(Dropper.getInstance(),100);
@@ -183,7 +181,7 @@ public class PlayerEventsListener implements Listener {
                         game.usualLevelLeave(player, false);
                         dpPlayer.neutralizePlayer(false);
                         if(dropperLevel.getID() + 1 <= game.getRegisteredLevels().size()+1)
-                            game.usualStartLevel(dpPlayer,player,dropperLevel.getID() + 1);
+                            game.usualLevelJoin(player, game.getDropperLevel(dropperLevel.getID()+1));
                         else
                             game.usualGameLeave(player);
                     }

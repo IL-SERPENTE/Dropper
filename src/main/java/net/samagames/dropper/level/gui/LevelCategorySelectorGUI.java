@@ -9,7 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 
@@ -27,10 +26,11 @@ public class LevelCategorySelectorGUI extends AbstractGui {
 
     @Override
     public void display(Player player) {
-        this.inventory = this.instance.getServer().createInventory(null, InventoryType.HOPPER, "Sélectionner une catégorie");
+        this.inventory = this.instance.getServer().createInventory(null, 9, "Sélectionner une catégorie");
 
         this.setSlotData(Dropper.stackBuilder(ChatColor.BLUE + "Dropper V1", Arrays.asList(ChatColor.GRAY + "Madness, The Fall, In The Middle..."), Material.EYE_OF_ENDER, (byte) 0), 1, "1");
-        this.setSlotData(Dropper.stackBuilder(ChatColor.BLUE + "Dropper V2", Arrays.asList(ChatColor.GRAY + "Rainbow, Isengard, Neo..."), Material.EYE_OF_ENDER, (byte) 0), 3, "2");
+        this.setSlotData(Dropper.stackBuilder(ChatColor.BLUE + "Dropper V2", Arrays.asList(ChatColor.GRAY + "Rainbow, Isengard, Neo..."), Material.EYE_OF_ENDER, (byte) 0), 7, "2");
+        this.setSlotData(Dropper.stackBuilder(ChatColor.GOLD + "Tutoriel", Arrays.asList(ChatColor.GREEN + "Découvrez comment jouer à TheDropper !"), Material.ENDER_CHEST, (byte) 0), 4,"tuto");
 
         player.openInventory(this.inventory);
         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1.0F, 1.0F);
@@ -39,7 +39,14 @@ public class LevelCategorySelectorGUI extends AbstractGui {
     @Override
     public void onClick(Player player, ItemStack stack, String action, ClickType clickType) {
 
-        SamaGamesAPI.get().getGuiManager().openGui(player, new LevelBrowserGUI(this.instance, Integer.parseInt(action)));
+        player.closeInventory();
+
+        if(action.equals("1") || action.equals("2")){
+            SamaGamesAPI.get().getGuiManager().openGui(player, new LevelBrowserGUI(this.instance, Integer.parseInt(action)));
+        } else if (action.equals("tuto")){
+            player.getInventory().clear();
+            this.instance.getServer().getScheduler().runTaskLater(this.instance, () -> this.instance.get().getTutorial().start(player.getUniqueId()), 20L);
+        }
 
     }
 
