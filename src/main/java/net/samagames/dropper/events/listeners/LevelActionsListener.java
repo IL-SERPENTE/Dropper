@@ -1,15 +1,11 @@
 package net.samagames.dropper.events.listeners;
 
 import net.samagames.api.SamaGamesAPI;
-import net.samagames.dropper.Dropper;
-import net.samagames.dropper.DropperPlayer;
-import net.samagames.dropper.GameType;
-import net.samagames.dropper.TimeCalculator;
+import net.samagames.dropper.*;
 import net.samagames.dropper.events.CooldownDoneEvent;
 import net.samagames.dropper.events.LevelJoinEvent;
 import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
-import net.samagames.dropper.level.LevelSpecialCooldown;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -51,7 +47,7 @@ public class LevelActionsListener implements Listener {
         // Started special cooldown for level 16.
         if(level.getID() == 16){
             player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.AQUA + " Vous disposez de " + ChatColor.RED + "30 secondes" + ChatColor.AQUA + " pour mémoriser ces symboles !");
-            new LevelSpecialCooldown(player, new Location(getWorlds().get(0), -653, 330, -638)).runTaskTimer(this.game.getInstance(), 20L, 20L);
+            new DropperCooldown(player, new Location(getWorlds().get(0), -653, 330, -638)).runTaskTimer(this.game.getInstance(), 20L, 20L);
         }
 
         player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + ChatColor.BLUE + " Vous avez rejoint le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");

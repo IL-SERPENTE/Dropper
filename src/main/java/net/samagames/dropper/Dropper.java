@@ -4,7 +4,6 @@ import java.util.*;
 import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.dropper.level.EffectManager;
-import net.samagames.dropper.level.LevelCooldown;
 import net.samagames.tools.ProximityUtils;
 import net.samagames.tools.Titles;
 import net.samagames.tools.chat.ActionBarAPI;
@@ -251,7 +250,7 @@ public class Dropper extends Game<DropperPlayer> {
 
         // Starting cooldown if he does not have anyone started before.
         if (!dpPlayer.hasActiveCooldown()) {
-            new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
+            new DropperCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
         }
     }
     public void usualStartLevel(DropperPlayer dpPlayer, Player player,Integer levelId){
@@ -270,7 +269,7 @@ public class Dropper extends Game<DropperPlayer> {
 
         // Starting cooldown if he does not have anyone started before.
         if (!dpPlayer.hasActiveCooldown()) {
-            new LevelCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
+            new DropperCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
         }
     }
 	/**

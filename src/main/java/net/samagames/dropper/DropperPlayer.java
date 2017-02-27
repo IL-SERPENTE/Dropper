@@ -1,6 +1,5 @@
 package net.samagames.dropper;
 
-import net.samagames.dropper.level.LevelCooldown;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import net.samagames.api.games.GamePlayer;
@@ -18,7 +17,7 @@ public class DropperPlayer extends GamePlayer {
 	private DropperLevel current;
 	private Boolean isNeutralized;
 	private boolean hasActiveCooldown;
-	private LevelCooldown activeCooldown;
+	private DropperCooldown activeCooldown;
 	private TimeCalculator currentCalculator;
 	private AFKChecker afkChecker;
 
@@ -107,7 +106,7 @@ public class DropperPlayer extends GamePlayer {
 	 * @param cooldown The cooldown.
 	 */
 
-	public void enableCooldown(LevelCooldown cooldown){
+	public void enableCooldown(DropperCooldown cooldown){
 		this.activeCooldown = cooldown;
 		this.hasActiveCooldown = true;
 	}
@@ -126,7 +125,7 @@ public class DropperPlayer extends GamePlayer {
 	 * @return the active cooldown.
 	 */
 
-	public LevelCooldown getActiveCooldown(){
+	public DropperCooldown getActiveCooldown(){
 		return this.activeCooldown;
 	}
 
