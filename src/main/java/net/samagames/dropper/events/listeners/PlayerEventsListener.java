@@ -158,32 +158,32 @@ public class PlayerEventsListener implements Listener {
             // Neutralize player and set his inventory.
             dpPlayer.neutralizePlayer(true);
             player.getInventory().clear();
-            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
-
-            Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.GREEN + ChatColor.BOLD + "Bravo !", "Vous allez être téléporté au niveau suivant au niveau suivant");
-
             player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
             player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
 
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
+            Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.GREEN + ChatColor.BOLD + "Bien joué !", "Le niveau suivant va démarrer automatiquement...");
+
             new BukkitRunnable() {
 
-                DropperLevel dropperLevel;
 
                 @Override
                 public void run() {
 
                     //check if player hasn't use the quit button and restart the level.
                     if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
+
                         player.teleport(game.getSpawn());
                         player.getInventory().clear();
-
-                        dropperLevel = dpPlayer.getCurrentLevel();
                         game.usualLevelLeave(player, false);
                         dpPlayer.neutralizePlayer(false);
-                        if(dropperLevel.getID() + 1 <= game.getRegisteredLevels().size()+1)
-                            game.usualLevelJoin(player, game.getDropperLevel(dropperLevel.getID()+1));
-                        else
+
+                        if(dpPlayer.getCurrentLevel().getID() + 1 <= game.getRegisteredLevels().size()+1) {
+                            game.usualLevelJoin(player, game.getDropperLevel(dpPlayer.getCurrentLevel().getID() +1));
+                        } else {
                             game.usualGameLeave(player);
+                        }
+
                     }
                 }
 
