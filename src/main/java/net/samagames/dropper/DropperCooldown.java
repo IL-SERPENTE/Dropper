@@ -3,6 +3,7 @@ package net.samagames.dropper;
 import net.samagames.dropper.events.CooldownDoneEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.tools.Titles;
+import net.samagames.tools.chat.ActionBarAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -45,6 +46,7 @@ public class DropperCooldown extends BukkitRunnable {
         this.act = 31;
         this.next = next;
         this.type = 2;
+
     }
 
     @Override
@@ -67,7 +69,6 @@ public class DropperCooldown extends BukkitRunnable {
             } else {
 
                 // Sending cooldown evolution to the player using titles.
-
                 Titles.sendTitle(this.player, 10, 20, 10, "", "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Début du niveau dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
                 this.player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 20, 20);
             }
@@ -80,7 +81,7 @@ public class DropperCooldown extends BukkitRunnable {
                 this.player.teleport(this.next);
 
             } else {
-                Titles.sendTitle(this.player, 10, 20, 10, "", "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Téléportation dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
+                ActionBarAPI.sendMessage(player.getUniqueId(), "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Téléportation dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
                 this.player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 20, 20);
             }
 

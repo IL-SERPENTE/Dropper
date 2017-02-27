@@ -25,9 +25,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static org.bukkit.Bukkit.broadcastMessage;
-
-
 public class PlayerEventsListener implements Listener {
 
     /**
