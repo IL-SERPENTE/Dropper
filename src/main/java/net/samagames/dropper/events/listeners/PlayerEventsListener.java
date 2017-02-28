@@ -118,8 +118,8 @@ public class PlayerEventsListener implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 50, 4));
                 player.teleport(this.game.getSpawn());
                 player.getInventory().clear();
-                player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
-                player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
+                player.getInventory().setItem(5, Dropper.ITEM_QUIT_LEVEL);
+                player.getInventory().setItem(3, Dropper.ITEM_QUIT_GAME);
                 Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.RED + ChatColor.BOLD + "W A S T E D !", "Le niveau va redémarrer dans quelques secondes...");
 
                 new BukkitRunnable() {
