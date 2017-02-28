@@ -68,8 +68,8 @@ public class DropperCooldown extends BukkitRunnable {
 
             } else {
 
-                // Sending cooldown evolution to the player using titles.
-                Titles.sendTitle(this.player, 10, 20, 10, "", "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Début du niveau dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
+                // Sending cooldown evolution to the player in ActionBar.
+                ActionBarAPI.sendMessage(player.getUniqueId(),"" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Début du niveau dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
                 this.player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASS, 20, 20);
             }
 
