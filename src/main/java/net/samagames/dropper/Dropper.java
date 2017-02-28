@@ -76,7 +76,7 @@ public class Dropper extends Game<DropperPlayer> {
 		this.registeredLevels.add(new DropperLevel(16,2, "The Three", "Panique en plein pique-nique !"));
 		this.registeredLevels.add(new DropperLevel(17,2, "Embryo", "Au commencement d'une vie"));
 		this.registeredLevels.add(new DropperLevel(18,2, "Brain", "Dans votre masse cérébrale ..."));
-		this.registeredLevels.add(new DropperLevel(29,2, "Dimension Jumper", "Hé non ! rien à voir avec le Dimensions !"));
+		this.registeredLevels.add(new DropperLevel(19,2, "Dimension Jumper", "Hé non ! rien à voir avec le Dimensions !"));
 		this.registeredLevels.add(new DropperLevel(20,2, "BeetleJuice", "Ne vous perdez pas dans l'illusion !"));
 		this.registeredLevels.add(new DropperLevel(21,2, "Web", "L'arignée est en train de tisser sa toile ..."));
 		this.registeredLevels.add(new DropperLevel(22,2, "Armor", "L'acordéon de la chute vous attend "));
