@@ -58,18 +58,18 @@ public class Dropper extends Game<DropperPlayer> {
 
 		// Registering levels.
 		this.registeredLevels = new ArrayList<>();
-		this.registeredLevels.add(new DropperLevel(1, 1,"Madness", "n/a"));
-        this.registeredLevels.add(new DropperLevel(2, 1,"The Fall", "n/a"));
-        this.registeredLevels.add(new DropperLevel(3, 1,"In The Middle", "n/a"));
-        this.registeredLevels.add(new DropperLevel(4, 1,"Cars", "n/a"));
-        this.registeredLevels.add(new DropperLevel(5, 1,"Mine", "n/a"));
-        this.registeredLevels.add(new DropperLevel(6, 1,"Curtain", "n/a"));
-        this.registeredLevels.add(new DropperLevel(7, 1,"Some holes are closed", "n/a"));
-        this.registeredLevels.add(new DropperLevel(8, 1,"Reflection", "n/a"));
-        this.registeredLevels.add(new DropperLevel(9, 1,"Step by Step", "n/a"));
-        this.registeredLevels.add(new DropperLevel(10, 1,"Rail", "n/a"));
-        this.registeredLevels.add(new DropperLevel(11, 1,"Hell", "n/a"));
-        this.registeredLevels.add(new DropperLevel(12, 1,"The End", "n/a"));
+		this.registeredLevels.add(new DropperLevel(1, 1,"Madness", "Un tourbillon de lumière..."));
+        this.registeredLevels.add(new DropperLevel(2, 1,"The Fall", "Le monde s'est renversé"));
+        this.registeredLevels.add(new DropperLevel(3, 1,"In The Middle", "Un accordéon arc-en-ciel !"));
+        this.registeredLevels.add(new DropperLevel(4, 1,"Cars", "Des voitures marines ?"));
+        this.registeredLevels.add(new DropperLevel(5, 1,"Mine", "Faites attention aux wagons !"));
+        this.registeredLevels.add(new DropperLevel(6, 1,"Curtain", "Invitez-vous dans cette douche"));
+        this.registeredLevels.add(new DropperLevel(7, 1,"Some holes are closed", "Pile ou face ?"));
+        this.registeredLevels.add(new DropperLevel(8, 1,"Reflection", "Le trône de fer"));
+        this.registeredLevels.add(new DropperLevel(9, 1,"Step by Step", "Cauchemard en cuisine..."));
+        this.registeredLevels.add(new DropperLevel(10, 1,"Rail", "Le tunnel sous la manche"));
+        this.registeredLevels.add(new DropperLevel(11, 1,"Hell", "Un véritable enfer..."));
+        this.registeredLevels.add(new DropperLevel(12, 1,"The End", "Ce salon ne vous laissera pas sur votre faim !"));
 		this.registeredLevels.add(new DropperLevel(13,2, "Isengard", "En pleine terre du milieu ..."));
 		this.registeredLevels.add(new DropperLevel(14,2, "Neo", "Un nouvel univers informatique"));
 		this.registeredLevels.add(new DropperLevel(15,2, "Symbols", "Arriverez vous à déchiffrer les symboles ?"));
