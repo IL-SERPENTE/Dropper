@@ -109,12 +109,17 @@ public class PlayerEventsListener implements Listener {
 
             Player player = (Player) event.getEntity();
             DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
-            event.setCancelled(true);
 
-            if(dpPlayer.getCurrentLevel() != null && player.getHealth() == 20 && dpPlayer.getCurrentLevel() != null){
+            if(dpPlayer.getCurrentLevel() == null){
+                event.setCancelled(true);
+            }
+
+            if(dpPlayer.getCurrentLevel() != null && player.getHealth() == 20){
 
                 dpPlayer.neutralizePlayer(true);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 50, 4));
+                player.teleport(this.game.getSpawn());
                 player.getInventory().clear();
                 player.getInventory().setItem(3, Dropper.ITEM_QUIT_LEVEL);
                 player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);

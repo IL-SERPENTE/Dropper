@@ -13,8 +13,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-
-import static org.bukkit.Bukkit.broadcastMessage;
 import static org.bukkit.Bukkit.getWorlds;
 
 public class LevelActionsListener implements Listener {
@@ -37,6 +35,7 @@ public class LevelActionsListener implements Listener {
         DropperLevel level = event.getLevel();
 
         this.game.getEffectManager().addEffectsForLevel(player, level);
+        dpPlayer.neutralizePlayer(false);
 
         if(dpPlayer.getGameType().equals(GameType.FREE)) {
             player.teleport(level.getPlayLocation());
@@ -68,6 +67,8 @@ public class LevelActionsListener implements Listener {
         DropperLevel level = event.getLevel();
 
         this.game.getEffectManager().restoreDefaultEffects(player);
+        player.setHealth(20);
+        dpPlayer.neutralizePlayer(false);
 
         if(dpPlayer.getGameType().equals(GameType.FREE)){
             player.teleport(this.game.getSpawn());
