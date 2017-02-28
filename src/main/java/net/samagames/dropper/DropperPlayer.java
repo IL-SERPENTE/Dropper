@@ -15,8 +15,9 @@ public class DropperPlayer extends GamePlayer {
 	private Player bukkitPlayer;
 	private GameType gameType;
 	private DropperLevel current;
-	private Boolean isNeutralized;
+	private boolean isNeutralized;
 	private boolean hasActiveCooldown;
+	private int competitionCategory;
 	private DropperCooldown activeCooldown;
 	private TimeCalculator currentCalculator;
 	private AFKChecker afkChecker;
@@ -26,6 +27,7 @@ public class DropperPlayer extends GamePlayer {
 		this.bukkitPlayer = player;
 		this.isNeutralized = false;
 		this.hasActiveCooldown = false;
+		this.competitionCategory = 1;
 	}
 
 	@Override
@@ -157,6 +159,14 @@ public class DropperPlayer extends GamePlayer {
 
 	public AFKChecker getAfkChecker(){
 		return this.afkChecker;
+	}
+
+	public void setCompetitionCategory(int category){
+		this.competitionCategory = category;
+	}
+
+	public int getCompetitionCategory(){
+		return this.competitionCategory;
 	}
 
 }

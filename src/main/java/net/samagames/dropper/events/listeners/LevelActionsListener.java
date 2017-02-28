@@ -82,9 +82,16 @@ public class LevelActionsListener implements Listener {
             dpPlayer.updateCurrentLevel(null);
 
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
+
             DropperLevel next = this.game.getNextFromCurrent(level);
-            player.teleport(this.game.getSpawn());
-            this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
+            if(next.getCategory() == dpPlayer.getCompetitionCategory()){
+                player.teleport(this.game.getSpawn());
+                this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
+            } else {
+                // - END OF COMPETITION -
+                this.game.usualGameLeave(player);
+            }
+
         }
 
         TimeCalculator calculator = dpPlayer.getCurrentCalculator();
