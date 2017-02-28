@@ -49,12 +49,15 @@ public class PlayerEventsListener implements Listener {
                 DropperPlayer gamePlayer = this.game.getRegisteredGamePlayers().get(player.getUniqueId());
 
                 if (item.isSimilar(Dropper.ITEM_QUIT_LEVEL)) {
+
                     gamePlayer.neutralizePlayer(false);
                     player.getActivePotionEffects().clear();
-                    if (gamePlayer.getCurrentLevel() == null) {
-                        this.game.usualLevelLeave(player, true);
-                    } else {
+
+                    if (gamePlayer.getActiveCooldown() == null) {
                         this.game.usualLevelLeave(player, false);
+
+                    } else {
+                        this.game.usualLevelLeave(player, true);
                     }
 
                 } else if(item.isSimilar(Dropper.ITEM_QUIT_GAME)){

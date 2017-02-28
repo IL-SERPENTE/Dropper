@@ -13,6 +13,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+
+import static org.bukkit.Bukkit.broadcastMessage;
 import static org.bukkit.Bukkit.getWorlds;
 
 public class LevelActionsListener implements Listener {
@@ -47,7 +49,10 @@ public class LevelActionsListener implements Listener {
         // Started special cooldown for level 15.
         if(level.getID() == 15){
             player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.AQUA + " Vous disposez de " + ChatColor.RED + "30 secondes" + ChatColor.AQUA + " pour mémoriser ces symboles !");
-            new DropperCooldown(player, new Location(getWorlds().get(0), -653, 330, -638)).runTaskTimer(this.game.getInstance(), 20L, 20L);
+
+            DropperCooldown cooldown = new DropperCooldown(player, new Location(getWorlds().get(0), -653, 330, -638));
+            cooldown.runTaskTimer(this.game.getInstance(), 20L, 20L);
+            dpPlayer.enableCooldown(cooldown);
         }
 
         player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + ChatColor.BLUE + " Vous avez rejoint le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
