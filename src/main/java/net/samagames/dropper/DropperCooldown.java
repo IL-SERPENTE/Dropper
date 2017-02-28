@@ -93,4 +93,8 @@ public class DropperCooldown extends BukkitRunnable {
         return this.next;
     }
 
+    public int getType(){
+        return this.type;
+    }
+
 }

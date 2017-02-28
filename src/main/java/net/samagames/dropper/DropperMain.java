@@ -26,6 +26,9 @@ public class DropperMain extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new PlayerEventsListener(this.game), this);
 		this.getServer().getPluginManager().registerEvents(new LevelActionsListener(this.game), this);
 
+		// Registering command.
+		this.getCommand("skip").setExecutor(new SkipCommand(this));
+
 		// Editing gamerules & setting-up eternal night.
 		getWorlds().get(0).setGameRuleValue("randomTickSpeed", "0");
 		getWorlds().get(0).setGameRuleValue("doDaylightCycle", "false");

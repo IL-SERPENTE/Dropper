@@ -7,6 +7,7 @@ import net.samagames.dropper.events.LevelJoinEvent;
 import net.samagames.dropper.events.LevelQuitEvent;
 import net.samagames.dropper.level.DropperLevel;
 import net.samagames.tools.chat.ActionBarAPI;
+import net.samagames.tools.chat.fanciful.FancyMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -52,6 +53,9 @@ public class LevelActionsListener implements Listener {
             DropperCooldown cooldown = new DropperCooldown(player, new Location(getWorlds().get(0), -653, 330, -638));
             cooldown.runTaskTimer(this.game.getInstance(), 20L, 20L);
             dpPlayer.enableCooldown(cooldown);
+
+            new FancyMessage("Cliquez ").color(ChatColor.WHITE).style(ChatColor.BOLD).then("[ICI]").command("/skip").color(ChatColor.GREEN).style(ChatColor.BOLD).then(" pour passer la phase de mémorisation !").color(ChatColor.WHITE).style(ChatColor.BOLD).send(player);
+
         }
 
         player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + ChatColor.BLUE + " Vous avez rejoint le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
