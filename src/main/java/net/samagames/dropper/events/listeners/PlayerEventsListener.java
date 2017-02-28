@@ -94,7 +94,7 @@ public class PlayerEventsListener implements Listener {
             } else if(inHand.isSimilar(Dropper.ITEM_SELECTGUI)){
                 ActionBarAPI.sendMessage(player.getUniqueId(), this.game.getItemsDescriptions().get(Dropper.ITEM_SELECTGUI));
             } else if(inHand.isSimilar(Dropper.ITEM_QUIT_LEVEL)){
-                ActionBarAPI.sendMessage(player.getUniqueId(), this.game.getItemsDescriptions().get(Dropper.ITEM_MODE_FREE));
+                ActionBarAPI.sendMessage(player.getUniqueId(), this.game.getItemsDescriptions().get(Dropper.ITEM_QUIT_LEVEL));
             } else if(inHand.isSimilar(Dropper.ITEM_QUIT_GAME)) {
                 ActionBarAPI.sendMessage(player.getUniqueId(), this.game.getItemsDescriptions().get(Dropper.ITEM_QUIT_GAME));
             }
