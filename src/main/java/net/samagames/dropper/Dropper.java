@@ -296,7 +296,7 @@ public class Dropper extends Game<DropperPlayer> {
 		}
 
         player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez quitté le mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()));
-		if(dpPlayer.getCurrentLevel() == null){
+		if(dpPlayer.getCurrentLevel() != null){
 			player.teleport(this.getSpawn());
 		}
 
