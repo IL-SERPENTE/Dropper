@@ -1,5 +1,6 @@
 package net.samagames.dropper.events;
 
+import net.samagames.dropper.DropperCooldown;
 import net.samagames.dropper.level.DropperLevel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -17,12 +18,16 @@ public class CooldownDoneEvent extends Event {
      */
 
     private static final HandlerList handlers = new HandlerList();
+    private DropperCooldown cooldown;
     private Player player;
     private DropperLevel level;
+    private int type;
 
-    public CooldownDoneEvent(Player player, DropperLevel level){
+    public CooldownDoneEvent(DropperCooldown cooldown, Player player, int cooldownType, DropperLevel level){
+        this.cooldown = cooldown;
         this.player = player;
         this.level = level;
+        this.type = cooldownType;
     }
 
     @Override
@@ -34,6 +39,10 @@ public class CooldownDoneEvent extends Event {
         return handlers;
     }
 
+    public DropperCooldown getCooldown(){
+        return this.cooldown;
+    }
+
     public Player getPlayer(){
         return this.player;
     }
@@ -41,5 +50,10 @@ public class CooldownDoneEvent extends Event {
     public DropperLevel getLevel(){
         return this.level;
     }
+
+    public int getCooldownType(){
+        return this.type;
+    }
+
 
 }

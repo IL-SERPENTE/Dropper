@@ -23,6 +23,7 @@ public class DropperCooldown extends BukkitRunnable {
     private Location next;
     private int act;
     private int type;
+    private CooldownDoneEvent cooldownDoneEvent;
 
     public DropperCooldown(Dropper game, Player player, DropperLevel level){
 
@@ -32,6 +33,7 @@ public class DropperCooldown extends BukkitRunnable {
         this.level = level;
         this.act = 6;
         this.type = 1;
+        this.cooldownDoneEvent = new CooldownDoneEvent(this, player, this.type, this.level);
 
         // Enabling new cooldown for the player.
         DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
@@ -46,6 +48,7 @@ public class DropperCooldown extends BukkitRunnable {
         this.act = 31;
         this.next = next;
         this.type = 2;
+        this.cooldownDoneEvent = new CooldownDoneEvent(this, player, this.type, this.level);
 
     }
 
@@ -61,9 +64,6 @@ public class DropperCooldown extends BukkitRunnable {
                 this.cancel();
 
                 Titles.sendTitle(this.player, 10, 20, 10, "", "" + ChatColor.DARK_RED + ChatColor.BOLD + "Début du niveau !");
-
-                // Calling the custom CoolDownEvent.
-                CooldownDoneEvent cooldownDoneEvent = new CooldownDoneEvent(player, this.level);
                 this.game.getInstance().getServer().getPluginManager().callEvent(cooldownDoneEvent);
 
             } else {
@@ -78,7 +78,7 @@ public class DropperCooldown extends BukkitRunnable {
             if(act == 0){
 
                 this.cancel();
-                this.player.teleport(this.next);
+                this.game.getInstance().getServer().getPluginManager().callEvent(cooldownDoneEvent);
 
             } else {
                 ActionBarAPI.sendMessage(player.getUniqueId(), "" + ChatColor.DARK_GRAY + ChatColor.BOLD + "Téléportation dans " + ChatColor.GOLD + ChatColor.BOLD + act + ChatColor.DARK_GRAY + ChatColor.BOLD + " " + Dropper.formatSecondsText(act));
@@ -87,6 +87,10 @@ public class DropperCooldown extends BukkitRunnable {
 
         }
 
+    }
+
+    public Location getNext(){
+        return this.next;
     }
 
 }

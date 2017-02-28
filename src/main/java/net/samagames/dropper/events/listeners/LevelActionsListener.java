@@ -13,9 +13,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
 import static org.bukkit.Bukkit.getWorlds;
 
 public class LevelActionsListener implements Listener {
@@ -95,11 +92,16 @@ public class LevelActionsListener implements Listener {
     @EventHandler
     public void onCooldownDone(CooldownDoneEvent event){
 
-        event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 20, 20);
-        DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
-        LevelJoinEvent levelJoinEvent = new LevelJoinEvent(event.getPlayer(), event.getLevel());
-        dpPlayer.resetCooldownData();
-        this.game.getInstance().getServer().getPluginManager().callEvent(levelJoinEvent);
+        if(event.getCooldownType() == 1){
+            event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 20, 20);
+            DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
+            LevelJoinEvent levelJoinEvent = new LevelJoinEvent(event.getPlayer(), event.getLevel());
+            dpPlayer.resetCooldownData();
+            this.game.getInstance().getServer().getPluginManager().callEvent(levelJoinEvent);
+        } else if(event.getCooldownType() == 2){
+            event.getPlayer().teleport(event.getCooldown().getNext());
+        }
+
     }
 
 }
