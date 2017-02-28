@@ -26,24 +26,24 @@ public class EffectManager {
 
     public void addEffectsForLevel(Player player, DropperLevel level){
 
-        if(level.getID() == 8){
+        if(level.getID() == 19){
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 999999, 4));
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 2));
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 1));
-        } else if (level.getID() == 4){
+        } else if (level.getID() == 15){
             player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 999999, 4));
-        }else if (level.getID() == 12){
+        }else if (level.getID() == 23){
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 4));
-        } else if(level.getID() == 13) {
+        } else if(level.getID() == 24) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 999999, 4));
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 4));
-        } else if(level.getID() == 14) {
+        } else if(level.getID() == 25) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 3));
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 7));
             player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 999999, 0));
-        } else if(level.getID() == 15 || level.getID() == 7){
+        } else if(level.getID() == 26 || level.getID() == 7){
                 player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 99999, 4));
-        } else if(level.getID() == 16){
+        } else if(level.getID() == 27){
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 1));
         }
 
