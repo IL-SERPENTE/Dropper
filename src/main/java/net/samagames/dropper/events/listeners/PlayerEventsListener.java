@@ -109,10 +109,7 @@ public class PlayerEventsListener implements Listener {
 
             Player player = (Player) event.getEntity();
             DropperPlayer dpPlayer = this.game.getPlayer(player.getUniqueId());
-
-            if(dpPlayer.getCurrentLevel() == null){
-                event.setCancelled(true);
-            }
+            event.setCancelled(true);
 
             if(dpPlayer.getCurrentLevel() != null && player.getHealth() == 20){
 
