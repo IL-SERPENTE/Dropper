@@ -239,19 +239,16 @@ public class Dropper extends Game<DropperPlayer> {
 	public void usualLevelJoin(Player player, DropperLevel level) {
 
 		// Managing player inventory.
-			player.getInventory().clear();
-			player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
+		player.getInventory().clear();
+		player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
 
-			// Updating current level of player.
-			this.getPlayer(player.getUniqueId()).updateCurrentLevel(level);
+		// Sending title with level's name & his description.
+		Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
 
-			// Sending title with level's name & his description.
-			Titles.sendTitle(player, 30, 70, 30, "" + ChatColor.YELLOW + ChatColor.BOLD + level.getName(), "" + ChatColor.RED + ChatColor.ITALIC + level.getDescription());
-
-			// Starting cooldown if he does not have anyone started before.
-			if (!this.getPlayer(player.getUniqueId()).hasActiveCooldown()) {
-				new DropperCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
-			}
+		// Starting cooldown if he does not have anyone started before.
+		if (!this.getPlayer(player.getUniqueId()).hasActiveCooldown()) {
+			new DropperCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
+		}
 			
     }
 
@@ -265,6 +262,10 @@ public class Dropper extends Game<DropperPlayer> {
 		
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		DropperLevel level = dpPlayer.getCurrentLevel();
+		
+    	if(dpPlayer.getCurrentLevel() != null){
+		    player.teleport(this.getSpawn());
+		}
 
 		// Checking if the level is cancelled.
 		if(cancelled){
@@ -294,8 +295,6 @@ public class Dropper extends Game<DropperPlayer> {
 	public void usualGameLeave(Player player){
 		
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
-		if(dpPlayer.getCurrentLevel() != null)
-		    player.teleport(getSpawn());
 
 		if(dpPlayer.hasActiveCooldown()){
 			dpPlayer.getActiveCooldown().cancel();
@@ -304,10 +303,11 @@ public class Dropper extends Game<DropperPlayer> {
 		}
 
         player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez quitté le mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()));
-		if(dpPlayer.getCurrentLevel() != null){
-			player.teleport(this.getSpawn());
-		}
 
+        if(dpPlayer.getCurrentLevel() != null){
+    		player.teleport(this.getSpawn());
+        }
+        
 		dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
 		dpPlayer.updateCurrentLevel(null);
 		dpPlayer.neutralizePlayer(false);

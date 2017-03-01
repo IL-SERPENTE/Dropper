@@ -75,7 +75,7 @@ public class LevelActionsListener implements Listener {
         dpPlayer.neutralizePlayer(false);
 
         if(dpPlayer.getGameType().equals(GameType.FREE)){
-            player.teleport(this.game.getSpawn());
+        	
             player.getInventory().clear();
             player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
             player.getInventory().setItem(3, Dropper.ITEM_SELECTGUI);
@@ -112,10 +112,15 @@ public class LevelActionsListener implements Listener {
     public void onCooldownDone(CooldownDoneEvent event){
 
         if(event.getCooldownType() == 1){
+        	
+			// Updating current level of player.
+			this.game.getPlayer(event.getPlayer().getUniqueId()).updateCurrentLevel(event.getLevel());
+        	
             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 20, 20);
             DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
             LevelJoinEvent levelJoinEvent = new LevelJoinEvent(event.getPlayer(), event.getLevel());
             dpPlayer.resetCooldownData();
+            
             this.game.getInstance().getServer().getPluginManager().callEvent(levelJoinEvent);
         } else if(event.getCooldownType() == 2){
             event.getPlayer().teleport(event.getCooldown().getNext());
