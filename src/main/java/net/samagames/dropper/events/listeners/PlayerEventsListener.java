@@ -205,8 +205,11 @@ public class PlayerEventsListener implements Listener {
 
     @EventHandler
     public void onPlayerAFK(PlayerAFKEvent event){
-        // Temporary we just send a message, more things here in the future.
-        event.getPlayer().sendMessage("[AFKChecker] You has detected as AFK.");
+    	
+    	if(this.game.getPlayer(event.getPlayer().getUniqueId()).getCurrentLevel() != null){
+    		this.game.usualGameLeave(event.getPlayer());
+    	}
+    	
     }
 
     @EventHandler
