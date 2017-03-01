@@ -218,6 +218,8 @@ public class Dropper extends Game<DropperPlayer> {
 			player.getInventory().setItem(5, this.ITEM_QUIT_GAME);
 
 		} else if(newGameType.equals(GameType.COMPETITION)){
+			player.getInventory().clear();
+			player.getInventory().setItem(4,this.ITEM_QUIT_GAME);
 			SamaGamesAPI.get().getGuiManager().openGui(player, new LevelCategorySelectorGUI(this.getInstance()));
 		}
 
@@ -310,9 +312,7 @@ public class Dropper extends Game<DropperPlayer> {
 
 	public void usualCompetitionStart(Player player, int selectedCategory){
 		this.getPlayer(player.getUniqueId()).setCompetitionCategory(selectedCategory);
-		player.getInventory().clear();
-		player.getInventory().setItem(4,this.ITEM_QUIT_GAME);
-
+		
 		switch (selectedCategory){
 			case 1:
 				this.usualLevelJoin(player, this.getRegisteredLevels().get(0));
