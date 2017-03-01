@@ -20,7 +20,7 @@ public class DropperMain extends JavaPlugin {
 	public void onEnable(){
 
 		// Creating game.
-		this.game = new Dropper("gameCode", "Dropper", "The Dropper", DropperPlayer.class, this);
+		this.game = new Dropper("gameCode", "Dropper", "by Bigre", DropperPlayer.class, this);
 
 		// Registering events.
 		this.getServer().getPluginManager().registerEvents(new PlayerEventsListener(this.game), this);
