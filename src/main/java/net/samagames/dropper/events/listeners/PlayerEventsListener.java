@@ -102,6 +102,7 @@ public class PlayerEventsListener implements Listener {
         }
 
     }
+    
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event){
 
@@ -113,10 +114,9 @@ public class PlayerEventsListener implements Listener {
 
             if(dpPlayer.getCurrentLevel() != null && player.getHealth() == 20){
 
-                dpPlayer.neutralizePlayer(true);
+            	player.teleport(dpPlayer.getCurrentLevel().getPlayLocation());
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 50, 4));
-                player.teleport(this.game.getSpawn());
                 player.getInventory().clear();
                 player.getInventory().setItem(5, Dropper.ITEM_QUIT_LEVEL);
                 player.getInventory().setItem(3, Dropper.ITEM_QUIT_GAME);
@@ -131,11 +131,10 @@ public class PlayerEventsListener implements Listener {
 
                         // Check if player hasn't use the quit button and restart the level.
                         if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
-                            player.teleport(game.getSpawn());
                             player.getInventory().clear();
-                            game.usualLevelLeave(player, false);
+                            //game.usualLevelLeave(player, false);
                             dpPlayer.neutralizePlayer(false);
-                            game.usualLevelJoin(player, game.getDropperLevel(old.getID() -1));
+                            //game.usualLevelJoin(player, game.getDropperLevel(old.getID() -1));
                         }
 
                     }
@@ -181,7 +180,6 @@ public class PlayerEventsListener implements Listener {
                     if(player.getInventory().contains(Dropper.ITEM_QUIT_LEVEL)){
 
                         DropperLevel old = dpPlayer.getCurrentLevel();
-                        player.teleport(game.getSpawn());
                         player.getInventory().clear();
                         game.usualLevelLeave(player, false);
                         dpPlayer.neutralizePlayer(false);
