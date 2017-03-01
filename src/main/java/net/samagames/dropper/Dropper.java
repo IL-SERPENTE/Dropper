@@ -327,7 +327,7 @@ public class Dropper extends Game<DropperPlayer> {
 		this.getPlayer(player.getUniqueId()).setCompetitionCategory(selectedCategory);
 		
 		switch (selectedCategory){
-			case 1:
+			case 1 & 3:
 				this.usualLevelJoin(player, this.getRegisteredLevels().get(0));
 				break;
 			case 2:

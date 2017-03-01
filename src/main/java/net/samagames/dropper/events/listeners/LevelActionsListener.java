@@ -84,12 +84,20 @@ public class LevelActionsListener implements Listener {
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
 
             DropperLevel next = this.game.getNextFromCurrent(level);
-            if(next.getCategory() == dpPlayer.getCompetitionCategory()){
-                player.teleport(this.game.getSpawn());
-                this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
-            } else {
-                // - END OF COMPETITION -
-                this.game.usualGameLeave(player);
+            
+            if(dpPlayer.getCompetitionCategory() == 1 || dpPlayer.getCompetitionCategory() == 2){
+            	
+            	 if(next.getCategory() == dpPlayer.getCompetitionCategory()){
+                     player.teleport(this.game.getSpawn());
+                     this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
+                 } else {
+                     // - END OF COMPETITION -
+                     this.game.usualGameLeave(player);
+                 }
+            	
+            } else if(dpPlayer.getCompetitionCategory() == 3){
+            	player.teleport(this.game.getSpawn());
+            	this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
             }
 
         }
