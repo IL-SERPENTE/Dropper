@@ -160,10 +160,20 @@ public class DropperPlayer extends GamePlayer {
 	public AFKChecker getAfkChecker(){
 		return this.afkChecker;
 	}
+	
+	/**
+	 * Set the competition category.
+	 * @param category The category.
+	 */
 
 	public void setCompetitionCategory(int category){
 		this.competitionCategory = category;
 	}
+	
+	/**
+	 * Get the competition category.
+	 * @return The competiton category.
+	 */
 
 	public int getCompetitionCategory(){
 		return this.competitionCategory;

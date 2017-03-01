@@ -210,17 +210,22 @@ public class Dropper extends Game<DropperPlayer> {
 		player.getInventory().clear();
 
 		if(! newGameType.equals(GameType.UNSELECTED)){
+			
 		    player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous jouez désormais en mode " + this.getGameTypeFormatColor(newGameType));
+		
 		}
 
 		if(newGameType.equals(GameType.FREE)){
+			
 			player.getInventory().setItem(3, this.ITEM_SELECTGUI);
 			player.getInventory().setItem(5, this.ITEM_QUIT_GAME);
 
 		} else if(newGameType.equals(GameType.COMPETITION)){
+			
 			player.getInventory().clear();
 			player.getInventory().setItem(4,this.ITEM_QUIT_GAME);
 			SamaGamesAPI.get().getGuiManager().openGui(player, new LevelCategorySelectorGUI(this.getInstance()));
+		
 		}
 
 	}
@@ -232,9 +237,8 @@ public class Dropper extends Game<DropperPlayer> {
 	 */
 
 	public void usualLevelJoin(Player player, DropperLevel level) {
-        DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 
-			// Managing player inventory.
+		// Managing player inventory.
 			player.getInventory().clear();
 			player.getInventory().setItem(4, this.ITEM_QUIT_GAME);
 
@@ -248,6 +252,7 @@ public class Dropper extends Game<DropperPlayer> {
 			if (!this.getPlayer(player.getUniqueId()).hasActiveCooldown()) {
 				new DropperCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
 			}
+			
     }
 
 	/**
@@ -257,6 +262,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 */
 
 	public void usualLevelLeave(Player player, boolean cancelled){
+		
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		DropperLevel level = dpPlayer.getCurrentLevel();
 
@@ -286,6 +292,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 */
 
 	public void usualGameLeave(Player player){
+		
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		if(dpPlayer.getCurrentLevel() != null)
 		    player.teleport(getSpawn());
@@ -309,6 +316,12 @@ public class Dropper extends Game<DropperPlayer> {
 		player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
 
 	}
+	
+	/**
+	 * This method was called after the category selection on Competiton.
+	 * @param player The player.
+	 * @param selectedCategory The selected category.
+	 */
 
 	public void usualCompetitionStart(Player player, int selectedCategory){
 		this.getPlayer(player.getUniqueId()).setCompetitionCategory(selectedCategory);
@@ -320,6 +333,9 @@ public class Dropper extends Game<DropperPlayer> {
 			case 2:
 				this.usualLevelJoin(player, this.getRegisteredLevels().get(12));
 				break;
+			default:
+				this.usualLevelJoin(player, this.getRegisteredLevels().get(0));
+				
 		}
 
 	}
@@ -341,6 +357,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 */
 
 	public String getGameTypeFormatColor(GameType type){
+		
 		if(type.equals(GameType.UNSELECTED)){
 			return ChatColor.GRAY + "Non sélectionné";
 		} else if(type.equals(GameType.FREE)){
@@ -349,6 +366,7 @@ public class Dropper extends Game<DropperPlayer> {
 			return "" + ChatColor.RED + ChatColor.BOLD + "Compétition";
 		}
 		return "";
+		
 	}
 
 	/**

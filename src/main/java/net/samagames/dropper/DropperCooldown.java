@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class DropperCooldown extends BukkitRunnable {
 
     /**
-     * This is the cooldown started to a player before a level.
+     * Here is managed all Dropper's specials cooldowns.
      * @author Vialonyx
      */
 
@@ -24,6 +24,13 @@ public class DropperCooldown extends BukkitRunnable {
     private int act;
     private int type;
     private CooldownDoneEvent cooldownDoneEvent;
+    
+    /**
+     * Start the level starting cooldown.
+     * @param game The game class.
+     * @param player The player.
+     * @param level The player's current level.
+     */
 
     public DropperCooldown(Dropper game, Player player, DropperLevel level){
 
@@ -40,6 +47,12 @@ public class DropperCooldown extends BukkitRunnable {
         dpPlayer.enableCooldown(this);
 
     }
+    
+    /**
+     * Start a special cooldown of 5 seconds.
+     * @param player The player.
+     * @param next The position where you must teleport the player at the end of cooldown.
+     */
 
     public DropperCooldown(Player player, Location next){
 
@@ -88,10 +101,20 @@ public class DropperCooldown extends BukkitRunnable {
         }
 
     }
+    
+    /**
+     * Get the next location in case of type 2.
+     * @return The location.
+     */
 
     public Location getNext(){
         return this.next;
     }
+    
+    /**
+     * Get the cooldown type.
+     * @return The cooldown type.
+     */
 
     public int getType(){
         return this.type;

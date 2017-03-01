@@ -6,11 +6,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * @author Vialonyx
- */
-
 public class SkipCommand implements CommandExecutor {
+	
+	/**
+	 * This is the SkipCommand.
+	 * Internally called when player is clicking on the message to skip the cooldown in level 15.
+	 */
 
     private DropperMain instance;
     public SkipCommand(DropperMain instance){
