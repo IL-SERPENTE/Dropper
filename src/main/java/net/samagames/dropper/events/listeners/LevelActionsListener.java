@@ -45,6 +45,9 @@ public class LevelActionsListener implements Listener {
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)) {
             player.teleport(level.getPlayLocation());
         }
+        
+        player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + ChatColor.BLUE + " Vous avez rejoint le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
+        dpPlayer.defineNewCalculator(new TimeCalculator());
 
         // Started special cooldown for level 15.
         if(level.getID() == 15){
@@ -57,9 +60,6 @@ public class LevelActionsListener implements Listener {
             new FancyMessage("Cliquez ").color(ChatColor.WHITE).style(ChatColor.BOLD).then("[ICI]").command("/skip").color(ChatColor.GREEN).style(ChatColor.BOLD).then(" pour passer la phase de mémorisation !").color(ChatColor.WHITE).style(ChatColor.BOLD).send(player);
 
         }
-
-        player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + ChatColor.BLUE + " Vous avez rejoint le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
-        dpPlayer.defineNewCalculator(new TimeCalculator());
 
     }
 
