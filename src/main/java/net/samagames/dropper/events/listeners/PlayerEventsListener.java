@@ -170,6 +170,12 @@ public class PlayerEventsListener implements Listener {
             player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
             Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.GREEN + ChatColor.BOLD + "Bien joué !", "Le niveau suivant va démarrer automatiquement...");
 
+            if(dpPlayer.isOnTutorial()){
+            	this.game.usualGameLeave(player);
+            	dpPlayer.setPlayerInTutorial(false);
+            	return;
+            }
+            
             new BukkitRunnable() {
 
 

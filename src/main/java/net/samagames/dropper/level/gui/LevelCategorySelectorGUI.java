@@ -56,6 +56,7 @@ public class LevelCategorySelectorGUI extends AbstractGui {
 
         } else if (action.equals("tuto")){
             player.getInventory().clear();
+            this.instance.get().getPlayer(player.getUniqueId()).setPlayerInTutorial(true);
             this.instance.getServer().getScheduler().runTaskLater(this.instance, () -> this.instance.get().getTutorial().start(player.getUniqueId()), 20L);
             return;
         }

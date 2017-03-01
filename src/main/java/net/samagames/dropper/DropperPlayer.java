@@ -15,8 +15,7 @@ public class DropperPlayer extends GamePlayer {
 	private Player bukkitPlayer;
 	private GameType gameType;
 	private DropperLevel current;
-	private boolean isNeutralized;
-	private boolean hasActiveCooldown;
+	private boolean isNeutralized, hasActiveCooldown, isOnTutorialLevel;
 	private int competitionCategory;
 	private DropperCooldown activeCooldown;
 	private TimeCalculator currentCalculator;
@@ -27,6 +26,7 @@ public class DropperPlayer extends GamePlayer {
 		this.bukkitPlayer = player;
 		this.isNeutralized = false;
 		this.hasActiveCooldown = false;
+		this.isOnTutorialLevel = false;
 		this.competitionCategory = 1;
 	}
 
@@ -34,6 +34,23 @@ public class DropperPlayer extends GamePlayer {
 	public void handleLogin(boolean reconnect){
 		this.bukkitPlayer.setGameMode(GameMode.ADVENTURE);
 		this.gameType = GameType.UNSELECTED;
+	}
+	
+	/**
+	 * @param b True if the player is on the tutorial level.
+	 */
+	
+	public void setPlayerInTutorial(boolean b){
+		this.isOnTutorialLevel = b;
+	}
+	
+	/**
+	 * Set the player in tutorial level.
+	 * @return true if the player is on the tutorial level.
+	 */
+	
+	public boolean isOnTutorial(){
+		return this.isOnTutorialLevel;
 	}
 
 	/**
