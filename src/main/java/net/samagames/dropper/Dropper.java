@@ -29,7 +29,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 * @author Vialonyx
 	 */
 
-	private static DropperMain instance;
+	private DropperMain instance;
 	private EffectManager effectManager;
 	private List<DropperLevel> registeredLevels;
 	private Map<ItemStack, String> itemsDescriptions;
@@ -136,8 +136,8 @@ public class Dropper extends Game<DropperPlayer> {
 	 * @return an instance of dropper game plugin.
 	 */
 
-	public static DropperMain getInstance(){
-		return instance;
+	public DropperMain getInstance(){
+		return this.instance;
 	}
 
 	/**

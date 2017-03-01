@@ -139,7 +139,7 @@ public class PlayerEventsListener implements Listener {
                         }
 
                     }
-                }.runTaskLater(Dropper.getInstance(),100);
+                }.runTaskLater(this.game.getInstance(),100);
 
                 if (dpPlayer.getGameType().equals(GameType.COMPETITION))
                     this.game.usualGameLeave(player);
@@ -195,7 +195,7 @@ public class PlayerEventsListener implements Listener {
                     }
                 }
 
-            }.runTaskLater(Dropper.getInstance(),100);
+            }.runTaskLater(this.game.getInstance(),100);
         }
     }
 
