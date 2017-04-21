@@ -102,7 +102,7 @@ public class PlayerEventsListener implements Listener {
         }
 
     }
-    
+
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event){
 
@@ -114,7 +114,7 @@ public class PlayerEventsListener implements Listener {
 
             if(dpPlayer.getCurrentLevel() != null && player.getHealth() == 20){
 
-            	player.teleport(dpPlayer.getCurrentLevel().getPlayLocation());
+                player.teleport(dpPlayer.getCurrentLevel().getPlayLocation());
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20*5, 4));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 50, 4));
                 player.getInventory().clear();
@@ -171,11 +171,11 @@ public class PlayerEventsListener implements Listener {
             Titles.sendTitle(player, 20, 50, 20, "" + ChatColor.GREEN + ChatColor.BOLD + "Bien joué !", "Le niveau suivant va démarrer automatiquement...");
 
             if(dpPlayer.isOnTutorial()){
-            	this.game.usualGameLeave(player);
-            	dpPlayer.setPlayerInTutorial(false);
-            	return;
+                this.game.usualGameLeave(player);
+                dpPlayer.setPlayerInTutorial(false);
+                return;
             }
-            
+
             new BukkitRunnable() {
 
 
@@ -205,11 +205,11 @@ public class PlayerEventsListener implements Listener {
 
     @EventHandler
     public void onPlayerAFK(PlayerAFKEvent event){
-    	
-    	if(this.game.getPlayer(event.getPlayer().getUniqueId()).getCurrentLevel() != null){
-    		this.game.usualGameLeave(event.getPlayer());
-    	}
-    	
+
+        if(this.game.getPlayer(event.getPlayer().getUniqueId()).getCurrentLevel() != null){
+            this.game.usualGameLeave(event.getPlayer());
+        }
+
     }
 
     @EventHandler

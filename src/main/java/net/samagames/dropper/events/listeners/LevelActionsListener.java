@@ -45,7 +45,7 @@ public class LevelActionsListener implements Listener {
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)) {
             player.teleport(level.getPlayLocation());
         }
-        
+
         player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + ChatColor.BLUE + " Vous avez rejoint le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
         dpPlayer.defineNewCalculator(new TimeCalculator());
 
@@ -75,7 +75,7 @@ public class LevelActionsListener implements Listener {
         dpPlayer.neutralizePlayer(false);
 
         if(dpPlayer.getGameType().equals(GameType.FREE)){
-        	
+
             player.getInventory().clear();
             player.getInventory().setItem(5, Dropper.ITEM_QUIT_GAME);
             player.getInventory().setItem(3, Dropper.ITEM_SELECTGUI);
@@ -84,20 +84,20 @@ public class LevelActionsListener implements Listener {
         } else if (dpPlayer.getGameType().equals(GameType.COMPETITION)){
 
             DropperLevel next = this.game.getNextFromCurrent(level);
-            
+
             if(dpPlayer.getCompetitionCategory() == 1 || dpPlayer.getCompetitionCategory() == 2){
-            	
-            	 if(next.getCategory() == dpPlayer.getCompetitionCategory()){
-                     player.teleport(this.game.getSpawn());
-                     this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
-                 } else {
-                     // - END OF COMPETITION -
-                     this.game.usualGameLeave(player);
-                 }
-            	
+
+                if(next.getCategory() == dpPlayer.getCompetitionCategory()){
+                    player.teleport(this.game.getSpawn());
+                    this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
+                } else {
+                    // - END OF COMPETITION -
+                    this.game.usualGameLeave(player);
+                }
+
             } else if(dpPlayer.getCompetitionCategory() == 3){
-            	player.teleport(this.game.getSpawn());
-            	this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
+                player.teleport(this.game.getSpawn());
+                this.game.usualLevelJoin(player, this.game.getDropperLevel(next.getID()));
             }
 
         }
@@ -112,15 +112,15 @@ public class LevelActionsListener implements Listener {
     public void onCooldownDone(CooldownDoneEvent event){
 
         if(event.getCooldownType() == 1){
-        	
-			// Updating current level of player.
-			this.game.getPlayer(event.getPlayer().getUniqueId()).updateCurrentLevel(event.getLevel());
-        	
+
+            // Updating current level of player.
+            this.game.getPlayer(event.getPlayer().getUniqueId()).updateCurrentLevel(event.getLevel());
+
             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 20, 20);
             DropperPlayer dpPlayer = this.game.getPlayer(event.getPlayer().getUniqueId());
             LevelJoinEvent levelJoinEvent = new LevelJoinEvent(event.getPlayer(), event.getLevel());
             dpPlayer.resetCooldownData();
-            
+
             this.game.getInstance().getServer().getPluginManager().callEvent(levelJoinEvent);
         } else if(event.getCooldownType() == 2){
             event.getPlayer().teleport(event.getCooldown().getNext());

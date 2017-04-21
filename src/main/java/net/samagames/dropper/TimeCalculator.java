@@ -1,11 +1,11 @@
 package net.samagames.dropper;
 
 public class TimeCalculator {
-	
-	/**
-	 * This is a simple system which allows you to calculate the time a player has to complete a level.
-	 * @author Vialonyx
-	 */
+
+    /**
+     * This is a simple system which allows you to calculate the time a player has to complete a level.
+     * @author Vialonyx
+     */
 
     long start, end, result;
 

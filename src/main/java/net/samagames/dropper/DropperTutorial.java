@@ -11,11 +11,11 @@ import java.util.Arrays;
 import static org.bukkit.Bukkit.getWorlds;
 
 public class DropperTutorial extends Tutorial {
-	
-	/**
-	 * This is the Tutorial of the Dropper game.
-	 * @author Vialonyx.
-	 */
+
+    /**
+     * This is the Tutorial of the Dropper game.
+     * @author Vialonyx.
+     */
 
     private Dropper game;
     public DropperTutorial(Dropper game) {

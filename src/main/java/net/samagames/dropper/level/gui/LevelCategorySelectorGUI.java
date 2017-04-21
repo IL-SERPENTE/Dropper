@@ -35,7 +35,7 @@ public class LevelCategorySelectorGUI extends AbstractGui {
         if(this.instance.get().getPlayer(player.getUniqueId()).getGameType().equals(GameType.FREE)){
             this.setSlotData(Dropper.stackBuilder(ChatColor.GOLD + "Tutoriel", Arrays.asList(ChatColor.GREEN + "Découvrez comment jouer à TheDropper !"), Material.ENDER_CHEST, (byte) 0), 4,"tuto");
         } else {
-        	this.setSlotData(Dropper.stackBuilder(ChatColor.BLUE + "Enchaînement", Arrays.asList(ChatColor.GREEN + "Jouez les niveaux de Dropper 1 et Dropper 2 à la suite !"), Material.EYE_OF_ENDER, (byte) 0), 4,"chain");
+            this.setSlotData(Dropper.stackBuilder(ChatColor.BLUE + "Enchaînement", Arrays.asList(ChatColor.GREEN + "Jouez les niveaux de Dropper 1 et Dropper 2 à la suite !"), Material.EYE_OF_ENDER, (byte) 0), 4,"chain");
         }
 
         player.openInventory(this.inventory);
@@ -62,12 +62,12 @@ public class LevelCategorySelectorGUI extends AbstractGui {
             this.instance.getServer().getScheduler().runTaskLater(this.instance, () -> this.instance.get().getTutorial().start(player.getUniqueId()), 20L);
             return;
         } else if (action.equals("chain")){
-        	
-        	if(this.instance.get().getPlayer(player.getUniqueId()).getGameType().equals(GameType.COMPETITION)){
+
+            if(this.instance.get().getPlayer(player.getUniqueId()).getGameType().equals(GameType.COMPETITION)){
                 this.instance.get().usualCompetitionStart(player, 3);
                 return;
             }
-        	
+
         }
 
     }

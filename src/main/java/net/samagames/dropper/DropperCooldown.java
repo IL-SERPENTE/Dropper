@@ -24,7 +24,7 @@ public class DropperCooldown extends BukkitRunnable {
     private int act;
     private int type;
     private CooldownDoneEvent cooldownDoneEvent;
-    
+
     /**
      * Start the level starting cooldown.
      * @param game The game class.
@@ -47,7 +47,7 @@ public class DropperCooldown extends BukkitRunnable {
         dpPlayer.enableCooldown(this);
 
     }
-    
+
     /**
      * Start a special cooldown of 5 seconds.
      * @param player The player.
@@ -101,7 +101,7 @@ public class DropperCooldown extends BukkitRunnable {
         }
 
     }
-    
+
     /**
      * Get the next location in case of type 2.
      * @return The location.
@@ -110,7 +110,7 @@ public class DropperCooldown extends BukkitRunnable {
     public Location getNext(){
         return this.next;
     }
-    
+
     /**
      * Get the cooldown type.
      * @return The cooldown type.

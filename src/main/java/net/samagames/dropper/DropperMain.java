@@ -4,7 +4,6 @@ import net.samagames.dropper.events.listeners.LevelActionsListener;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.samagames.api.SamaGamesAPI;
 import net.samagames.dropper.events.listeners.PlayerEventsListener;
-
 import static org.bukkit.Bukkit.getWorlds;
 
 public class DropperMain extends JavaPlugin {

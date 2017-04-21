@@ -35,20 +35,20 @@ public class DropperPlayer extends GamePlayer {
 		this.bukkitPlayer.setGameMode(GameMode.ADVENTURE);
 		this.gameType = GameType.UNSELECTED;
 	}
-	
+
 	/**
 	 * @param b True if the player is on the tutorial level.
 	 */
-	
+
 	public void setPlayerInTutorial(boolean b){
 		this.isOnTutorialLevel = b;
 	}
-	
+
 	/**
 	 * Set the player in tutorial level.
 	 * @return true if the player is on the tutorial level.
 	 */
-	
+
 	public boolean isOnTutorial(){
 		return this.isOnTutorialLevel;
 	}
@@ -59,7 +59,7 @@ public class DropperPlayer extends GamePlayer {
 
 	public void neutralizePlayer(boolean b){
 		this.isNeutralized = b;
-    }
+	}
 
 	/**
 	 * @return True if player isneutralized else false
@@ -177,7 +177,7 @@ public class DropperPlayer extends GamePlayer {
 	public AFKChecker getAfkChecker(){
 		return this.afkChecker;
 	}
-	
+
 	/**
 	 * Set the competition category.
 	 * @param category The category.
@@ -186,7 +186,7 @@ public class DropperPlayer extends GamePlayer {
 	public void setCompetitionCategory(int category){
 		this.competitionCategory = category;
 	}
-	
+
 	/**
 	 * Get the competition category.
 	 * @return The competiton category.

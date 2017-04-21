@@ -50,27 +50,27 @@ public class Dropper extends Game<DropperPlayer> {
 		getWorlds().get(0).setSpawnLocation(this.getSpawn().getBlockX(), this.getSpawn().getBlockY(), this.getSpawn().getBlockZ());
 
 		// Creating descriptions for items.
-        this.itemsDescriptions = new HashMap<>();
-        this.itemsDescriptions.put(this.ITEM_MODE_FREE, this.ITEM_MODE_FREE.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
-        this.itemsDescriptions.put(this.ITEM_MODE_COMPETITION, this.ITEM_MODE_COMPETITION.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
-        this.itemsDescriptions.put(this.ITEM_QUIT_GAME, this.ITEM_QUIT_GAME.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
-        this.itemsDescriptions.put(this.ITEM_QUIT_LEVEL, this.ITEM_QUIT_LEVEL.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
-        this.itemsDescriptions.put(this.ITEM_SELECTGUI, this.ITEM_SELECTGUI.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
+		this.itemsDescriptions = new HashMap<>();
+		this.itemsDescriptions.put(this.ITEM_MODE_FREE, this.ITEM_MODE_FREE.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
+		this.itemsDescriptions.put(this.ITEM_MODE_COMPETITION, this.ITEM_MODE_COMPETITION.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
+		this.itemsDescriptions.put(this.ITEM_QUIT_GAME, this.ITEM_QUIT_GAME.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
+		this.itemsDescriptions.put(this.ITEM_QUIT_LEVEL, this.ITEM_QUIT_LEVEL.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
+		this.itemsDescriptions.put(this.ITEM_SELECTGUI, this.ITEM_SELECTGUI.getItemMeta().getLore().toString().replace("[", "").replace("]", ""));
 
 		// Registering levels.
 		this.registeredLevels = new ArrayList<>();
 		this.registeredLevels.add(new DropperLevel(1, 1,"Madness", "Un tourbillon de lumière..."));
-        this.registeredLevels.add(new DropperLevel(2, 1,"The Fall", "Le monde s'est renversé"));
-        this.registeredLevels.add(new DropperLevel(3, 1,"In The Middle", "Un accordéon arc-en-ciel !"));
-        this.registeredLevels.add(new DropperLevel(4, 1,"Cars", "Des voitures marines ?"));
-        this.registeredLevels.add(new DropperLevel(5, 1,"Mine", "Faites attention aux wagons !"));
-        this.registeredLevels.add(new DropperLevel(6, 1,"Curtain", "Invitez-vous dans cette douche"));
-        this.registeredLevels.add(new DropperLevel(7, 1,"Some holes are closed", "Pile ou face ?"));
-        this.registeredLevels.add(new DropperLevel(8, 1,"Reflection", "Le trône de fer"));
-        this.registeredLevels.add(new DropperLevel(9, 1,"Step by Step", "Cauchemard en cuisine..."));
-        this.registeredLevels.add(new DropperLevel(10, 1,"Rail", "Le tunnel sous la manche"));
-        this.registeredLevels.add(new DropperLevel(11, 1,"Hell", "Un véritable enfer..."));
-        this.registeredLevels.add(new DropperLevel(12, 1,"The End", "Ce salon ne vous laissera pas sur votre faim !"));
+		this.registeredLevels.add(new DropperLevel(2, 1,"The Fall", "Le monde s'est renversé"));
+		this.registeredLevels.add(new DropperLevel(3, 1,"In The Middle", "Un accordéon arc-en-ciel !"));
+		this.registeredLevels.add(new DropperLevel(4, 1,"Cars", "Des voitures marines ?"));
+		this.registeredLevels.add(new DropperLevel(5, 1,"Mine", "Faites attention aux wagons !"));
+		this.registeredLevels.add(new DropperLevel(6, 1,"Curtain", "Invitez-vous dans cette douche"));
+		this.registeredLevels.add(new DropperLevel(7, 1,"Some holes are closed", "Pile ou face ?"));
+		this.registeredLevels.add(new DropperLevel(8, 1,"Reflection", "Le trône de fer"));
+		this.registeredLevels.add(new DropperLevel(9, 1,"Step by Step", "Cauchemard en cuisine..."));
+		this.registeredLevels.add(new DropperLevel(10, 1,"Rail", "Le tunnel sous la manche"));
+		this.registeredLevels.add(new DropperLevel(11, 1,"Hell", "Un véritable enfer..."));
+		this.registeredLevels.add(new DropperLevel(12, 1,"The End", "Ce salon ne vous laissera pas sur votre faim !"));
 		this.registeredLevels.add(new DropperLevel(13,2, "Isengard", "En pleine terre du milieu ..."));
 		this.registeredLevels.add(new DropperLevel(14,2, "Neo", "Un nouvel univers informatique"));
 		this.registeredLevels.add(new DropperLevel(15,2, "Symbols", "Arriverez vous à déchiffrer les symboles ?"));
@@ -122,14 +122,14 @@ public class Dropper extends Game<DropperPlayer> {
 		player.setCollidable(false);
 		player.setBedSpawnLocation(this.getSpawn(), true);
 		this.effectManager.restoreDefaultEffects(player);
-        this.getPlayer(player.getUniqueId()).defineNewAFKChecker(new AFKChecker(this.instance, player));
-        player.sendMessage(ChatColor.AQUA + "Bienvenue sur " + ChatColor.RED + ChatColor.BOLD + "TheDropper !" + ChatColor.AQUA + " Prenez votre élan, jetez-vous dans le vide, appréciez le voyage et tentez de rester en vie !");
+		this.getPlayer(player.getUniqueId()).defineNewAFKChecker(new AFKChecker(this.instance, player));
+		player.sendMessage(ChatColor.AQUA + "Bienvenue sur " + ChatColor.RED + ChatColor.BOLD + "TheDropper !" + ChatColor.AQUA + " Prenez votre élan, jetez-vous dans le vide, appréciez le voyage et tentez de rester en vie !");
 	}
 
 	@Override
-    public void handleLogout(Player player){
-	    this.getPlayer(player.getUniqueId()).getAfkChecker().cancel();
-    }
+	public void handleLogout(Player player){
+		this.getPlayer(player.getUniqueId()).getAfkChecker().cancel();
+	}
 
 	/**
 	 * Get the main instance of Dropper game.
@@ -170,14 +170,14 @@ public class Dropper extends Game<DropperPlayer> {
 		return loc.add(loc.getX() > 0 ? 0.5 : -0.5, 0.0, loc.getZ() > 0 ? 0.5 : -0.5);
 	}
 
-    /**
-     * Get description for items.
-     * @return a map of items & descriptions as String.
-     */
+	/**
+	 * Get description for items.
+	 * @return a map of items & descriptions as String.
+	 */
 
 	public Map<ItemStack, String> getItemsDescriptions(){
-	    return this.itemsDescriptions;
-    }
+		return this.itemsDescriptions;
+	}
 
 	/**
 	 * Get a dropper level by his ID.
@@ -189,14 +189,14 @@ public class Dropper extends Game<DropperPlayer> {
 		return this.registeredLevels.get(ref);
 	}
 
-    /**
-     * Get the Dropper tutorial.
-     * @return the dropper tutorial.
-     */
+	/**
+	 * Get the Dropper tutorial.
+	 * @return the dropper tutorial.
+	 */
 
 	public Tutorial getTutorial(){
-	    return this.tutorial;
-    }
+		return this.tutorial;
+	}
 
 	/**
 	 * Update the gametype of the player.
@@ -210,22 +210,22 @@ public class Dropper extends Game<DropperPlayer> {
 		player.getInventory().clear();
 
 		if(! newGameType.equals(GameType.UNSELECTED)){
-			
-		    player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous jouez désormais en mode " + this.getGameTypeFormatColor(newGameType));
-		
+
+			player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous jouez désormais en mode " + this.getGameTypeFormatColor(newGameType));
+
 		}
 
 		if(newGameType.equals(GameType.FREE)){
-			
+
 			player.getInventory().setItem(3, this.ITEM_SELECTGUI);
 			player.getInventory().setItem(5, this.ITEM_QUIT_GAME);
 
 		} else if(newGameType.equals(GameType.COMPETITION)){
-			
+
 			player.getInventory().clear();
 			player.getInventory().setItem(4,this.ITEM_QUIT_GAME);
 			SamaGamesAPI.get().getGuiManager().openGui(player, new LevelCategorySelectorGUI(this.getInstance()));
-		
+
 		}
 
 	}
@@ -233,7 +233,7 @@ public class Dropper extends Game<DropperPlayer> {
 	/**
 	 * This is the entry point of the level-joining process.
 	 * @param player the player.
-     * @param level the level.
+	 * @param level the level.
 	 */
 
 	public void usualLevelJoin(Player player, DropperLevel level) {
@@ -249,8 +249,8 @@ public class Dropper extends Game<DropperPlayer> {
 		if (!this.getPlayer(player.getUniqueId()).hasActiveCooldown()) {
 			new DropperCooldown(this, player, level).runTaskTimer(this.instance, 0L, 20L);
 		}
-			
-    }
+
+	}
 
 	/**
 	 * This is the entry point of the level-leaving process.
@@ -259,12 +259,12 @@ public class Dropper extends Game<DropperPlayer> {
 	 */
 
 	public void usualLevelLeave(Player player, boolean cancelled){
-		
+
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 		DropperLevel level = dpPlayer.getCurrentLevel();
-		
-    	if(dpPlayer.getCurrentLevel() != null){
-		    player.teleport(this.getSpawn());
+
+		if(dpPlayer.getCurrentLevel() != null){
+			player.teleport(this.getSpawn());
 		}
 
 		// Checking if the level is cancelled.
@@ -276,9 +276,9 @@ public class Dropper extends Game<DropperPlayer> {
 			ActionBarAPI.sendMessage(player.getUniqueId(), ChatColor.DARK_RED + "Démarrage du niveau annulé !");
 
 			// Sending message to the player.
-            player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez quitté le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
+			player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez quitté le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
 		} else {
-            player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez terminé le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
+			player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez terminé le niveau " + ChatColor.GOLD + level.getID() + ChatColor.AQUA + " (" + level.getName() + ChatColor.AQUA + ")");
 		}
 
 		// Calling the custom LevelQuitEvent.
@@ -293,7 +293,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 */
 
 	public void usualGameLeave(Player player){
-		
+
 		DropperPlayer dpPlayer = this.getPlayer(player.getUniqueId());
 
 		if(dpPlayer.hasActiveCooldown()){
@@ -302,12 +302,12 @@ public class Dropper extends Game<DropperPlayer> {
 			ActionBarAPI.sendMessage(player.getUniqueId(), ChatColor.RED + "Démarrage du niveau annulé !");
 		}
 
-        player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez quitté le mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()));
+		player.sendMessage(SamaGamesAPI.get().getGameManager().getCoherenceMachine().getGameTag() + ChatColor.BLUE + " Vous avez quitté le mode " + this.getGameTypeFormatColor(dpPlayer.getGameType()));
 
-        if(dpPlayer.getCurrentLevel() != null){
-    		player.teleport(this.getSpawn());
-        }
-        
+		if(dpPlayer.getCurrentLevel() != null){
+			player.teleport(this.getSpawn());
+		}
+
 		dpPlayer.updatePlayerGameType(GameType.UNSELECTED);
 		dpPlayer.updateCurrentLevel(null);
 		dpPlayer.neutralizePlayer(false);
@@ -316,7 +316,7 @@ public class Dropper extends Game<DropperPlayer> {
 		player.getInventory().setItem(5, this.ITEM_MODE_COMPETITION);
 
 	}
-	
+
 	/**
 	 * This method was called after the category selection on Competiton.
 	 * @param player The player.
@@ -325,7 +325,7 @@ public class Dropper extends Game<DropperPlayer> {
 
 	public void usualCompetitionStart(Player player, int selectedCategory){
 		this.getPlayer(player.getUniqueId()).setCompetitionCategory(selectedCategory);
-		
+
 		switch (selectedCategory){
 			case 1 & 3:
 				this.usualLevelJoin(player, this.getRegisteredLevels().get(0));
@@ -335,7 +335,7 @@ public class Dropper extends Game<DropperPlayer> {
 				break;
 			default:
 				this.usualLevelJoin(player, this.getRegisteredLevels().get(0));
-				
+
 		}
 
 	}
@@ -357,7 +357,7 @@ public class Dropper extends Game<DropperPlayer> {
 	 */
 
 	public String getGameTypeFormatColor(GameType type){
-		
+
 		if(type.equals(GameType.UNSELECTED)){
 			return ChatColor.GRAY + "Non sélectionné";
 		} else if(type.equals(GameType.FREE)){
@@ -366,7 +366,7 @@ public class Dropper extends Game<DropperPlayer> {
 			return "" + ChatColor.RED + ChatColor.BOLD + "Compétition";
 		}
 		return "";
-		
+
 	}
 
 	/**
